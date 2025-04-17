@@ -55,6 +55,7 @@ const int tOffsetY = 32;
 
 const std::string gSpritesPath = "sprites/";
 const std::string backgroundsPath = "backgrounds/";
+const std::string gFontsPath = "fonts/";
 
 int cCount = 0;
 
@@ -75,16 +76,13 @@ SDL_Renderer* gRenderer = NULL;
 // enter = add a new character to the scree
 
 std::string exampleCommandLine[50] = { 
-	"*enter peter pt.png",
-    //"*enter rin rin.png",
-
-	"*text ...",
-	"*text ......",
-	"*text ...what",
-	"*text text no animationnnnnn",
-	"*text bwwwwwwwwwwwwwwwwwwwwwwwwwaaaaaaan hfufuhhaa",
+	"*enter saber saber.png CENTRE",
+	"*text ",
+	"*text So, what am I doing here exactly?",
+	"*text Hurry up and say something!",
+	"*setsprite saber saber4.png",
 	"*text @",
-	//"*exit anon"
+	"*exit saber"
 };
 	
 
@@ -180,6 +178,7 @@ void setBackground(std::string filename) {
 void setSprite(std::string spriteName, std::string spritePath) {
 	// check if spritepath is vali
 	std::string newSprite = spritePath;
+	std::cout << spriteName;
 	SpriteVec[0]->loadFromFile(gSpritesPath + newSprite);
 	cCount++;
 }
@@ -239,7 +238,7 @@ void updateGame(SDL_Event e) {
 
 		//FIX THIS SHIT DO NOT LEAVE LIKE THIS
 		if (commandArgs[0] == "*setsprite") {
-			setSprite("anon",commandArgs[1]);
+			setSprite(commandArgs[1], commandArgs[2]);
 			cCount;
 		}
 		
@@ -295,7 +294,8 @@ int main(int argc, char* args[]) {
 
 
 	gBlackBox = { 0,0, SCREEN_WIDTH, SCREEN_HEIGHT }; 
-	gFont = TTF_OpenFont("sazanami-gothic.ttf", 28);
+	std::string gFontpath = gFontsPath + "sazanami-gothic.ttf";
+	gFont = TTF_OpenFont(gFontpath.c_str(), 28);
 
 	while (!quit) {
 		SDL_PollEvent(&e);
