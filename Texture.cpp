@@ -1,8 +1,3 @@
-#include <iostream>
-#include <SDL.h>
-#include <SDL_image.h>
-#include <SDL_ttf.h>
-
 // SPLIT THIS INTO TEXT.CPP AND SPRITE.CPP THAT INHERIT FROM THIS
 #include "Texture.h"
 
@@ -34,6 +29,8 @@ void Texture::setAlpha(Uint8 a) {
 	SDL_SetTextureAlphaMod(mTexture, a);
 }
 
+// dont need this many variations of the render?
+
 void Texture::render() {
 	SDL_Rect renderQuad = { mX,mY, mWidth, mHeight };
 	SDL_RenderCopy(renderer, mTexture, NULL, &renderQuad);
@@ -64,17 +61,24 @@ void Texture::setHeight(int h) { mHeight = h; }
 // refactor these to the sprite class 
 bool Texture::loadFromFile(std::string path) {
 	free();
-	SDL_Texture* newTexture = NULL;
+	SDL_Texture* newTexture;
 
 	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
 	if (loadedSurface == NULL) {
 		std::cout << "Unable to load image: " << IMG_GetError() << std::endl;
+		// can change, but at the moment lets make the sprite keep the last texture it had
+		newTexture = mTexture;
 	}
 	else {
+		newTexture = NULL;
+
 		SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0, 0xFF, 0xFF));
 		newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
 		if (newTexture == NULL) {
 			std::cout << "Unable to create texture: " << SDL_GetError() << std::endl;
+			// keep it as current texture as a failsafe
+			newTexture = mTexture;
+
 		}
 		else {
 			mWidth = loadedSurface->w;
