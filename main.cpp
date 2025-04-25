@@ -9,7 +9,9 @@
 
 // this gives an erro im assuming because sprite defines texture or something?
 //#include "Texture.h"
-#include "Sprite.h"
+#include "SpriteManager.h"
+// sprite manager (includes) sprite (includes) texture
+// daisy chaining is a little weird
 		
 /// <summary>
 /// MY CUSTOM VN ENGINE
@@ -43,7 +45,7 @@
 /// 
 /// SECOND MILESTONE
 /// - Have two characters appear on screen and talk - DONE
-/// - They have fade in and out animations, and fade transition sprites
+/// - Have a choice that changes the dialouge
 /// </summary>
 
 const int SCREEN_WIDTH = 1280;
@@ -73,6 +75,9 @@ SDL_Window* gWindow = NULL;
 // window renderer
 SDL_Renderer* gRenderer = NULL;
 
+// manging of game sprites
+SpriteManager spriteManager(gSpritesPath);
+
 // this will become text read from a file, so array size will not matter, it will
 // be fed to the vector as a string
 
@@ -85,9 +90,15 @@ SDL_Renderer* gRenderer = NULL;
 // something to do with the text vector when text is empty?
 
 // TODO:
-// MOVE SPRITE MANAGEMENT TO ITS OWN FILE
+// fix sprite positioning, different sprites go off center
+// (i swear im positioning based on sprtie width, so the origin should not change?)
 // really need to fix how the game moves forward
 // this will solve text 
+
+
+//
+// Tenporary globals to be replaced
+//
 
 std::string exampleCommandLine[50] = { 
 	"*enter saber saber.png CENTRE",
@@ -98,16 +109,22 @@ std::string exampleCommandLine[50] = {
 	"*enter rin rin.png CENTRE",
 	"*exit saber",
 	"*text hiiiii saber",
-	"*text ok bye",
-	"*exit rin",
-	"*text @"
+	"*text ok rude",
+	"*setsprite rin rin2.png",
+	"*text She didn't even say hi back...",
+	"*setsprite rin rin3.png",
+	"*text Did I do something to make her mad?",
+	"*text @",
+	"exit rin"
 };
 	
-
 Texture gBackground;
 SDL_Rect gBlackBox;
 std::vector<Texture*> TextVec;
-std::vector<Sprite*> SpriteVec;
+
+///
+/// End temp globals
+///
 
 bool init() {
 	bool success = true;
@@ -203,65 +220,6 @@ void setBackground(std::string filename) {
 	gBackground.loadFromFile(backgroundsPath + filename);
 }
 
-std::vector<Sprite*>::iterator findSpriteByName(std::string spriteName) {
-	auto vecSpriteElement = std::find_if(SpriteVec.begin(), SpriteVec.end(),
-		[spriteName](Sprite* s) {
-			return s->GetSpriteName() == spriteName;
-		});
-
-	if (vecSpriteElement != SpriteVec.end()) {
-		// not sure why it needed the brackets
-		return vecSpriteElement;
-	}
-	else {
-		std::cout << "Unable to find sprite obj. " << spriteName << " not found!" << std::endl;;
-		return SpriteVec.end();
-	}
-}
-
-void setSprite(std::string spriteObjName, std::string spriteName) {
-	// check if spritepath is valid
-	// check if sprite name matches any in spritelist
-		
-	// wtd is this vro
-	auto spriteToChange = findSpriteByName(spriteObjName);
-	if (spriteToChange == SpriteVec.end()) {
-		std::cout << "Unable to change sprite object, " << spriteObjName << " not found!" << std::endl;
-		return;
-	}
-	(*spriteToChange)->loadFromFile(gSpritesPath + spriteName);
-}
-void addSprite(std::string spriteName, std::string spriteTexName, std::string pos) {
-
-	// pos will point to a dict with key pair values for x and y
-	// int x = get x value from pos
-	// int y = get y value from pos
-
-	Sprite* sprite = new Sprite;
-	
-	// this could all be in a constructor?
-	sprite->setRenderer(gRenderer);
-
-	sprite->SetSpriteName(spriteName);
-	std::string spritePath = gSpritesPath + spriteTexName;
-	sprite->loadFromFile(spritePath);
-	sprite->setX(S_MID_X);
-	sprite->setY(S_MID_Y);
-
-	SpriteVec.push_back(sprite);
-}
-void removeSprite(std::string spriteObjName) {
-	// chanfe to using a sprite name
-	auto spriteToErase = findSpriteByName(spriteObjName);
-	if (spriteToErase == SpriteVec.end()) { 
-		std::cout << "Unable to remove sprite object, " << spriteObjName << " not found!" << std::endl;
-		return; 
-	}
-
-	delete *spriteToErase;
-	SpriteVec.erase(spriteToErase);
-}
-
 void updateGame(SDL_Event e) {
 	// this should just contain the background
 	char commandCheck = exampleCommandLine[cCount][0];
@@ -270,18 +228,18 @@ void updateGame(SDL_Event e) {
 		std::vector<std::string> commandArgs = splitString(exampleCommandLine[cCount]);
 
 		if (commandArgs[0] == "*enter") {
-			addSprite(commandArgs[1], commandArgs[2], "CENTRE");
+			spriteManager.addSprite(commandArgs[1], commandArgs[2], "CENTRE");
 			cCount++;
 		}
 
 		if (commandArgs[0] == "*exit") {
-			removeSprite(commandArgs[1]);
+			spriteManager.removeSprite(commandArgs[1]);
 			cCount++;
 		}
 
 		//FIX THIS SHIT DO NOT LEAVE LIKE THIS
 		if (commandArgs[0] == "*setsprite") {
-			setSprite(commandArgs[1], commandArgs[2]);
+			spriteManager.setSprite(commandArgs[1], commandArgs[2]);
 			cCount++;
 		}
 		
@@ -307,7 +265,7 @@ void renderGame() {
 	
 	gBackground.render(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	for (Sprite* s : SpriteVec) {
+	for (Sprite* s : spriteManager.getSpriteVector()) {
 		s->render(s->getX(), s->getY(), s->getWidth() / 1.6, s->getHeight() / 1.6);
 	}
 	
@@ -330,7 +288,8 @@ int main(int argc, char* args[]) {
 		return -1;
 	}
 
-	// LOAD GLOBALS
+	// LOAD GLOBALS (there has to be a better way to do this?
+	spriteManager.setRenderer(gRenderer);
 
 	gBackground.setRenderer(gRenderer);
 	gBackground.loadFromFile(backgroundsPath + "entrance.png");

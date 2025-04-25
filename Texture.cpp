@@ -61,13 +61,11 @@ void Texture::setHeight(int h) { mHeight = h; }
 // refactor these to the sprite class 
 bool Texture::loadFromFile(std::string path) {
 	free();
-	SDL_Texture* newTexture;
+	SDL_Texture* newTexture = NULL;
 
 	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
 	if (loadedSurface == NULL) {
 		std::cout << "Unable to load image: " << IMG_GetError() << std::endl;
-		// can change, but at the moment lets make the sprite keep the last texture it had
-		newTexture = mTexture;
 	}
 	else {
 		newTexture = NULL;
@@ -77,7 +75,6 @@ bool Texture::loadFromFile(std::string path) {
 		if (newTexture == NULL) {
 			std::cout << "Unable to create texture: " << SDL_GetError() << std::endl;
 			// keep it as current texture as a failsafe
-			newTexture = mTexture;
 
 		}
 		else {
