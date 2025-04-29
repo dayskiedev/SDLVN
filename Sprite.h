@@ -4,6 +4,9 @@
 
 #include "Texture.h"
 
+#ifndef SPRITE_H
+#define SPRITE_H
+
 class Sprite : public Texture {
 public:
 	//Sprite();
@@ -15,3 +18,5 @@ public:
 private:
 	std::string _spriteName;
 };
+
+#endif

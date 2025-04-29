@@ -8,10 +8,11 @@
 
 class SpriteManager {
 public:
-	SpriteManager(std::string spritesTexPath);
+	SpriteManager();
 	~SpriteManager();
 
 	void setRenderer(SDL_Renderer* renderer);
+	void setSpriteTexPath(std::string spritesTexPath);
 
 	std::vector<Sprite*> getSpriteVector();
 
@@ -20,7 +21,6 @@ public:
 	void removeSprite(std::string spriteObjName);
 
 	std::vector<Sprite*>::iterator findSpriteByName(std::string spriteName);
-
 
 private:
 	std::vector<Sprite*> _sprites;

@@ -3,6 +3,9 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 
+#ifndef TEXTURE_H
+#define TEXTURE_H
+
 class Texture {
 public:
 	Texture();
@@ -47,3 +50,5 @@ private:
 	int mX;
 	int mY;
 };
+
+#endif

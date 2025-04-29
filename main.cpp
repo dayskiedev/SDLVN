@@ -7,12 +7,9 @@
 #include <sstream>
 #include <iostream>
 
-// this gives an erro im assuming because sprite defines texture or something?
-//#include "Texture.h"
 #include "SpriteManager.h"
-// sprite manager (includes) sprite (includes) texture
-// daisy chaining is a little weird
-		
+#include "TextManager.h"
+
 /// <summary>
 /// MY CUSTOM VN ENGINE
 /// GOALS:
@@ -31,7 +28,6 @@
  //b: fuckoff
 /// 
 /// TODO (ALOT
-///	SPRITE CLASS TO STORE INFO ABOUT SPRITE
 /// A universal sprite box so i dont have to manuelly set the scale every time???
 /// The png's should stretch to fit the box, not the other way around....
 /// SOUND
@@ -76,7 +72,8 @@ SDL_Window* gWindow = NULL;
 SDL_Renderer* gRenderer = NULL;
 
 // manging of game sprites
-SpriteManager spriteManager(gSpritesPath);
+SpriteManager spriteManager;
+TextManager textManager;
 
 // this will become text read from a file, so array size will not matter, it will
 // be fed to the vector as a string
@@ -105,7 +102,6 @@ std::string exampleCommandLine[50] = {
 	"*text So, what am I doing here exactly?",
 	"*text Hurry up and say something!",
 	"*setsprite saber saber4.png",
-	"*text @",
 	"*enter rin rin.png CENTRE",
 	"*exit saber",
 	"*text hiiiii saber",
@@ -115,12 +111,11 @@ std::string exampleCommandLine[50] = {
 	"*setsprite rin rin3.png",
 	"*text Did I do something to make her mad?",
 	"*text @",
-	"exit rin"
+	"*exit rin"
 };
 	
 Texture gBackground;
 SDL_Rect gBlackBox;
-std::vector<Texture*> TextVec;
 
 ///
 /// End temp globals
@@ -185,36 +180,6 @@ std::vector<std::string> splitString(std::string s) {
 	return words;
 }
 
-// some sort of interpreter class to read the file
-
-void addText(SDL_Event e) {
-	// maybe add a wait for input? next time idk
-	if (e.type == SDL_KEYDOWN) {
-		switch (e.key.keysym.sym) {
-		case SDLK_SPACE:
-			Texture* text = new Texture;
-			text->setRenderer(gRenderer);
-			text->setFont(gFont);
-
-			std::string rmpText = exampleCommandLine[cCount].erase(0,6);
-			text->loadFromRenderedText(rmpText, gWhite);
-			TextVec.push_back(text);
-			cCount++;
-		}
-	}
-}
-void clearText(SDL_Event e) {
-	if (e.type == SDL_KEYDOWN) {
-		switch (e.key.keysym.sym) {
-		case SDLK_SPACE:
-			for (Texture* t : TextVec) {
-				delete t;
-			}
-			TextVec.clear();
-			cCount++;
-		}
-	}
-}
 
 void setBackground(std::string filename) {
 	gBackground.loadFromFile(backgroundsPath + filename);
@@ -237,19 +202,32 @@ void updateGame(SDL_Event e) {
 			cCount++;
 		}
 
-		//FIX THIS SHIT DO NOT LEAVE LIKE THIS
 		if (commandArgs[0] == "*setsprite") {
 			spriteManager.setSprite(commandArgs[1], commandArgs[2]);
 			cCount++;
 		}
 		
+		// this can be formatted nice i think, we dont need a switch case for 1 keypress..
 		if (commandArgs[0] == "*text") {
 			if (commandArgs[1] == "@") {
-				clearText(e);
+				if (e.type == SDL_KEYDOWN) {
+					switch (e.key.keysym.sym) {
+					case SDLK_SPACE:
+						textManager.clearText();
+						cCount++;
+					}
+				}
 			}
 			else {
-				addText(e);
+				if (e.type == SDL_KEYDOWN) {
+					switch (e.key.keysym.sym) {
+					case SDLK_SPACE:
+						textManager.addText(exampleCommandLine[cCount].erase(0, 6));
+						cCount++;
+					}
+				}
 			}
+
 		}
 
 		if (commandArgs[0] == "*setbackground") {
@@ -271,8 +249,9 @@ void renderGame() {
 	
 	SDL_SetRenderDrawColor(gRenderer, 0, 0, 0, 100);
 	SDL_RenderFillRect(gRenderer, &gBlackBox);
+
 	int index = 0;
-	for (Texture* t : TextVec) {
+	for (Texture* t : textManager.getTextVector()) {
 		t->render(tOffsetX,(tOffsetY * index) + tOffsetX);
 		index++;
 	}
@@ -290,13 +269,15 @@ int main(int argc, char* args[]) {
 
 	// LOAD GLOBALS (there has to be a better way to do this?
 	spriteManager.setRenderer(gRenderer);
+	spriteManager.setSpriteTexPath(gSpritesPath);
+
+	textManager.setRender(gRenderer);
+	textManager.setFont(gFontsPath + "sazanami-gothic.ttf");
 
 	gBackground.setRenderer(gRenderer);
 	gBackground.loadFromFile(backgroundsPath + "entrance.png");
 
 	gBlackBox = { 0,0, SCREEN_WIDTH, SCREEN_HEIGHT }; 
-	std::string gFontpath = gFontsPath + "sazanami-gothic.ttf";
-	gFont = TTF_OpenFont(gFontpath.c_str(), 28);
 
 	while (!quit) {
 		SDL_PollEvent(&e);

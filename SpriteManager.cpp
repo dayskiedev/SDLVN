@@ -1,10 +1,6 @@
 #include "SpriteManager.h"
 
-SpriteManager::SpriteManager(std::string spritesTexPath) {
-	// only one sprite manager in the program, so we mught as well 
-	// initialise the renderer during its construction?
-	_spritesTexPath = spritesTexPath;
-}
+SpriteManager::SpriteManager() {}
 
 SpriteManager::~SpriteManager() {
 	for (auto sprite : _sprites) {
@@ -15,6 +11,10 @@ SpriteManager::~SpriteManager() {
 
 void SpriteManager::setRenderer(SDL_Renderer* renderer) {
 	_renderer = renderer;
+}
+
+void SpriteManager::setSpriteTexPath(std::string spritesTexPath) {
+	_spritesTexPath = spritesTexPath;
 }
 
 std::vector<Sprite*> SpriteManager::getSpriteVector() {
