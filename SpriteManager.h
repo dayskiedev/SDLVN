@@ -6,6 +6,10 @@
 
 #include "Sprite.h"
 
+
+#ifndef SPRITE_MANAGER_H
+#define SPRITE_MANAGER_H
+
 class SpriteManager {
 public:
 	SpriteManager();
@@ -27,3 +31,5 @@ private:
 	SDL_Renderer* _renderer = NULL;
 	std::string _spritesTexPath = "";
 };
+
+#endif

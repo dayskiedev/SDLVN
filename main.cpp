@@ -1,6 +1,9 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
+#include <SDL_timer.h>
+
+// ifndef these?
 
 #include <stdio.h>
 #include <vector>
@@ -9,6 +12,8 @@
 
 #include "SpriteManager.h"
 #include "TextManager.h"
+
+#include "Interpreter.h"
 
 /// <summary>
 /// MY CUSTOM VN ENGINE
@@ -74,6 +79,7 @@ SDL_Renderer* gRenderer = NULL;
 // manging of game sprites
 SpriteManager spriteManager;
 TextManager textManager;
+Interpreter interpreter;
 
 // this will become text read from a file, so array size will not matter, it will
 // be fed to the vector as a string
@@ -93,27 +99,15 @@ TextManager textManager;
 // this will solve text 
 
 
+// decisions:
+// *choice A B
+// *A
+
 //
 // Tenporary globals to be replaced
 //
 
-std::string exampleCommandLine[50] = { 
-	"*enter saber saber.png CENTRE",
-	"*text So, what am I doing here exactly?",
-	"*text Hurry up and say something!",
-	"*setsprite saber saber4.png",
-	"*enter rin rin.png CENTRE",
-	"*exit saber",
-	"*text hiiiii saber",
-	"*text ok rude",
-	"*setsprite rin rin2.png",
-	"*text She didn't even say hi back...",
-	"*setsprite rin rin3.png",
-	"*text Did I do something to make her mad?",
-	"*text @",
-	"*exit rin"
-};
-	
+
 Texture gBackground;
 SDL_Rect gBlackBox;
 
@@ -186,55 +180,8 @@ void setBackground(std::string filename) {
 }
 
 void updateGame(SDL_Event e) {
-	// this should just contain the background
-	char commandCheck = exampleCommandLine[cCount][0];
-
-	if (commandCheck == '*') {
-		std::vector<std::string> commandArgs = splitString(exampleCommandLine[cCount]);
-
-		if (commandArgs[0] == "*enter") {
-			spriteManager.addSprite(commandArgs[1], commandArgs[2], "CENTRE");
-			cCount++;
-		}
-
-		if (commandArgs[0] == "*exit") {
-			spriteManager.removeSprite(commandArgs[1]);
-			cCount++;
-		}
-
-		if (commandArgs[0] == "*setsprite") {
-			spriteManager.setSprite(commandArgs[1], commandArgs[2]);
-			cCount++;
-		}
-		
-		// this can be formatted nice i think, we dont need a switch case for 1 keypress..
-		if (commandArgs[0] == "*text") {
-			if (commandArgs[1] == "@") {
-				if (e.type == SDL_KEYDOWN) {
-					switch (e.key.keysym.sym) {
-					case SDLK_SPACE:
-						textManager.clearText();
-						cCount++;
-					}
-				}
-			}
-			else {
-				if (e.type == SDL_KEYDOWN) {
-					switch (e.key.keysym.sym) {
-					case SDLK_SPACE:
-						textManager.addText(exampleCommandLine[cCount].erase(0, 6));
-						cCount++;
-					}
-				}
-			}
-
-		}
-
-		if (commandArgs[0] == "*setbackground") {
-			setBackground(commandArgs[1]);
-			cCount++;
-		}
-	}
+	interpreter.Run(e, spriteManager, textManager);
+	// allows room for other stuff, like menu checking? if we want to pause?
 }
 
 void renderGame() {

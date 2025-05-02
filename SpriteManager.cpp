@@ -63,6 +63,8 @@ void SpriteManager::removeSprite(std::string spriteObjName) {
 		return;
 	}
 
+	// dangling pointer
+	(*spriteToErase) = NULL;
 	delete (*spriteToErase);
 	_sprites.erase(spriteToErase);
 }
