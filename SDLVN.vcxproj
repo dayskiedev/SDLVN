@@ -133,23 +133,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Interpreter.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="SpriteManager.cpp" />
-    <ClCompile Include="TextManager.cpp" />
-    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="src\Interpreter.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Sprite.cpp" />
+    <ClCompile Include="src\SpriteManager.cpp" />
+    <ClCompile Include="src\TextManager.cpp" />
+    <ClCompile Include="src\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Interpreter.h" />
-    <ClInclude Include="main.h" />
-    <ClInclude Include="Sprite.h" />
-    <ClInclude Include="SpriteManager.h" />
-    <ClInclude Include="TextManager.h" />
-    <ClInclude Include="Texture.h" />
+    <ClInclude Include="src\Interpreter.h" />
+    <ClInclude Include="src\Sprite.h" />
+    <ClInclude Include="src\SpriteManager.h" />
+    <ClInclude Include="src\TextManager.h" />
+    <ClInclude Include="src\Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="scripts\example_script.vns" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="src\sprites.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -47,6 +47,8 @@ void Interpreter::PrintError(std::string Error) {
 }
 
 void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _textManager) {
+	// currently no way to check if we reach the end of the file, so it just crashes
+	// what do the do in vn engines? idrk
 
 	_commandArgs = splitString(_scriptFile[_lineCount]);	
 
