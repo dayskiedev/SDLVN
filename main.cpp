@@ -1,9 +1,6 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
-#include <SDL_timer.h>
-
-// ifndef these?
 
 #include <stdio.h>
 #include <vector>
@@ -14,40 +11,6 @@
 #include "TextManager.h"
 
 #include "Interpreter.h"
-
-/// <summary>
-/// MY CUSTOM VN ENGINE
-/// GOALS:
-/// - bE ABLE TO PLAY MY OWN VISUAL NOVEL
-/// - CUSTOM SCRIPTING LANGUAGE TO CREATE THIS NOVEL
-/// example script:
-/// 
- //*scene rain_01_02
- //*music sad	.mp3
- //sakura: Its really quiet out here
- //*sprite sakura sakura_front_face.png
- //*music stop
- //sakura: You'll walk home with me, right?
- //*choice a b
- //a: Of course
- //b: fuckoff
-/// 
-/// TODO (ALOT
-/// A universal sprite box so i dont have to manuelly set the scale every time???
-/// The png's should stretch to fit the box, not the other way around....
-/// SOUND
-///  - Basic ass music idea
-///  - make it myself?? xd
-/// MENU
-
-/// FIRST MILESTONE
-/// - Have a sprite appear on screen, with a text box, say some stuff, change sprites and end
-/// - DONE
-/// 
-/// SECOND MILESTONE
-/// - Have two characters appear on screen and talk - DONE
-/// - Have a choice that changes the dialouge
-/// </summary>
 
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
@@ -81,39 +44,8 @@ SpriteManager spriteManager;
 TextManager textManager;
 Interpreter interpreter;
 
-// this will become text read from a file, so array size will not matter, it will
-// be fed to the vector as a string
-
-// enter = add a new character to the scree
-
-// fix iteration over the script so i dont have these goofy empty text spaces
-// 	"*enter rin rin.png CENTRE",
-//"*exit saber",
-// doing these two back to back causes a vector subscript out range
-// something to do with the text vector when text is empty?
-
-// TODO:
-// fix sprite positioning, different sprites go off center
-// (i swear im positioning based on sprtie width, so the origin should not change?)
-// really need to fix how the game moves forward
-// this will solve text 
-
-
-// decisions:
-// *choice A B
-// *A
-
-//
-// Tenporary globals to be replaced
-//
-
-
 Texture gBackground;
 SDL_Rect gBlackBox;
-
-///
-/// End temp globals
-///
 
 bool init() {
 	bool success = true;
@@ -162,18 +94,6 @@ void close() {
 	gWindow = NULL;
 	SDL_Quit();
 }
-
-std::vector<std::string> splitString(std::string s) {
-	std::stringstream ss(s);
-	std::string word;
-	std::vector<std::string> words;
-
-	while (ss >> word) {
-		words.push_back(word);
-	}
-	return words;
-}
-
 
 void setBackground(std::string filename) {
 	gBackground.loadFromFile(backgroundsPath + filename);
@@ -226,6 +146,11 @@ int main(int argc, char* args[]) {
 
 	gBlackBox = { 0,0, SCREEN_WIDTH, SCREEN_HEIGHT }; 
 
+	if (!interpreter.OpenScript("scripts/example_script.vns")) {
+		std::cout << "Failed to load script!" << std::endl;
+		return -1;
+	}
+
 	while (!quit) {
 		SDL_PollEvent(&e);
 		if (e.type == SDL_QUIT) {
@@ -233,7 +158,6 @@ int main(int argc, char* args[]) {
 		}
 
 		updateGame(e);
-		SDL_RenderClear(gRenderer);
 		renderGame();
 		SDL_RenderPresent(gRenderer);
 	}
