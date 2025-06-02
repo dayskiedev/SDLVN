@@ -12,6 +12,7 @@
 
 #include "Interpreter.h"
 
+// make variable
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
 
@@ -46,6 +47,17 @@ Interpreter interpreter;
 
 Texture gBackground;
 SDL_Rect gBlackBox;
+
+int b_size = 50;
+SDL_Rect button = { 0, 0,0, 0 };
+
+
+// to do: selection:
+// step 1: render rectangle 
+// step 2: add text inside it
+// step 3: size rectangle to text
+// step 4: make rectangle clickable
+// step 5: do something after clicking said textbox
 
 bool init() {
 	bool success = true;
@@ -123,6 +135,42 @@ void renderGame() {
 		index++;
 	}
 
+	int b_x_mid = (SCREEN_WIDTH / 2) - (button.w / 2);
+	int b_y_mid = (SCREEN_HEIGHT / 2) - (button.h / 2);
+	int x, y;
+
+	SDL_GetMouseState(&x, &y);
+
+	// custom overlap?
+
+	//std::cout << "start " << button.y << " end " << button.y+button.h << "\n";
+
+	// scuffed overlap checking
+	bool olap = false;
+	if (x >= button.x && x <= button.x + button.w) {
+		if (y >= button.y && y <= button.y + button.h) {
+			olap = true;
+		}
+	}
+
+	if (olap) {
+		std::cout << "Overlaping\n";
+		olap = false;
+	}
+	else {
+		std::cout << "not overlapping\n";
+	}
+
+	//std::cout << "Mouse X: " << x << " Mouse Y: " << y << "\n";
+	b_size = 100;
+	button.x = b_x_mid;
+	button.y = b_y_mid;
+	button.w = b_size;
+	button.h = b_size;
+	SDL_SetRenderDrawColor(gRenderer, 255, 0, 0, 100);
+	SDL_RenderFillRect(gRenderer, &button);
+	SDL_SetRenderDrawColor(gRenderer, 0, 0, 0, 100);
+
 }
 
 int main(int argc, char* args[]) {
@@ -141,10 +189,13 @@ int main(int argc, char* args[]) {
 	textManager.setRender(gRenderer);
 	textManager.setFont(gFontsPath + "sazanami-gothic.ttf");
 
+	//interfaceManager()?
+
 	gBackground.setRenderer(gRenderer);
 	gBackground.loadFromFile(backgroundsPath + "entrance.png");
 
 	gBlackBox = { 0,0, SCREEN_WIDTH, SCREEN_HEIGHT }; 
+	
 
 	if (!interpreter.OpenScript("scripts/example_script.vns")) {
 		std::cout << "Failed to load script!" << std::endl;

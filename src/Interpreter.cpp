@@ -96,7 +96,7 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 	else {
 		if (increment) {
 			//print to screen
-			_textManager.addText(exampleCommandLine[_lineCount]);
+			_textManager.addText(_scriptFile[_lineCount]);
 			increment = false;
 		}
 

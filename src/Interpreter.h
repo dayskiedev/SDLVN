@@ -41,22 +41,4 @@ private:
 	std::vector<std::string> _scriptFile;
 
 	std::vector<std::string> _commandArgs;
-	std::string exampleCommandLine[50] = {
-	"*enter saber saber.png CENTRE",
-	"So, what am I doing here exactly?",
-	"*setsprite saber saber4.png",
-	"Hurry up and say something!",
-	"*enter rin rin.png CENTRE",
-	"hiiiii saber",
-	"*cleartext",
-	"*wait 1",
-	"*exit saber",
-	"*wait 1",
-	"ok rude",
-	"*setsprite rin rin2.png",
-	"She didn't even say hi back...",
-	"*setsprite rin rin3.png",
-	"Did I do something to make her mad?",
-	"*exit rin"
-	};
 };
