@@ -37,12 +37,16 @@ void Texture::render() {
 }
 
 void Texture::render(int x, int y) {
+	mX = x;
+	mY = y;
 	SDL_Rect renderQuad = { x,y, mWidth, mHeight };
 	SDL_RenderCopy(renderer, mTexture, NULL, &renderQuad);
 }
 
 
 void Texture::render(int x, int y, int w, int h) {
+	mX = x;
+	mY = y;
 	SDL_Rect renderQuad = { x,y, w, h };
 	SDL_RenderCopy(renderer, mTexture, NULL, &renderQuad);
 }

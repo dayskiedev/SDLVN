@@ -11,6 +11,9 @@ backgrounds/*
 fonts/*
 !fonts/fonts.txt
 
+music/*
+!music/music.txt
+
 # User-specific files
 *.suo
 *.user

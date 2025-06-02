@@ -1,6 +1,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
+#include <SDL_mixer.h>
 
 #include <stdio.h>
 #include <vector>
@@ -11,6 +12,8 @@
 #include "TextManager.h"
 
 #include "Interpreter.h"
+
+#include "Button.h"
 
 // make variable
 const int SCREEN_WIDTH = 1280;
@@ -28,6 +31,8 @@ const std::string backgroundsPath = "backgrounds/";
 const std::string gFontsPath = "fonts/";
 
 int cCount = 0;
+
+Mix_Music* gPush = NULL;
 
 // global font
 TTF_Font* gFont = NULL;
@@ -48,6 +53,8 @@ Interpreter interpreter;
 Texture gBackground;
 SDL_Rect gBlackBox;
 
+Button test_button;
+
 int b_size = 50;
 SDL_Rect button = { 0, 0,0, 0 };
 
@@ -63,7 +70,7 @@ bool init() {
 	bool success = true;
 
 	//initialze sdl
-	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
 		std::cout << "SDL could not be initialized!" << std::endl;
 	}
 	else {
@@ -84,16 +91,22 @@ bool init() {
 				SDL_SetRenderDrawColor(gRenderer, 255, 175, 222, 0xFF);
 				SDL_SetRenderDrawBlendMode(gRenderer, SDL_BLENDMODE_BLEND);
 
+				// imgs
 				int imgFlags = IMG_INIT_PNG;
 				if (!(IMG_Init(imgFlags) & imgFlags)) {
 					std::cout << "SDL_Image could not be initialised! " << IMG_GetError() << std::endl;
 					success = false;
 				}
 
+				// fonts
 				if (TTF_Init() == -1) {
 					std::cout << "SDL_TTF could not be initialised! " << TTF_GetError() << std::endl;
 					success = false;
 				}
+
+				// audio
+
+
 			}
 		}
 	}
@@ -113,7 +126,18 @@ void setBackground(std::string filename) {
 
 void updateGame(SDL_Event e) {
 	interpreter.Run(e, spriteManager, textManager);
+
 	// allows room for other stuff, like menu checking? if we want to pause?
+	//test_button.OverlappingCheck();
+	// note this is for left and right...
+	if (test_button.OverlappingCheck()) {
+		if (e.type == SDL_MOUSEBUTTONDOWN) {
+			test_button.OnClick();
+		}
+	}
+
+
+
 }
 
 void renderGame() {
@@ -135,42 +159,12 @@ void renderGame() {
 		index++;
 	}
 
-	int b_x_mid = (SCREEN_WIDTH / 2) - (button.w / 2);
-	int b_y_mid = (SCREEN_HEIGHT / 2) - (button.h / 2);
-	int x, y;
 
-	SDL_GetMouseState(&x, &y);
 
-	// custom overlap?
-
-	//std::cout << "start " << button.y << " end " << button.y+button.h << "\n";
-
-	// scuffed overlap checking
-	bool olap = false;
-	if (x >= button.x && x <= button.x + button.w) {
-		if (y >= button.y && y <= button.y + button.h) {
-			olap = true;
-		}
-	}
-
-	if (olap) {
-		std::cout << "Overlaping\n";
-		olap = false;
-	}
-	else {
-		std::cout << "not overlapping\n";
-	}
-
-	//std::cout << "Mouse X: " << x << " Mouse Y: " << y << "\n";
-	b_size = 100;
-	button.x = b_x_mid;
-	button.y = b_y_mid;
-	button.w = b_size;
-	button.h = b_size;
-	SDL_SetRenderDrawColor(gRenderer, 255, 0, 0, 100);
-	SDL_RenderFillRect(gRenderer, &button);
-	SDL_SetRenderDrawColor(gRenderer, 0, 0, 0, 100);
-
+	int b_x_mid = (SCREEN_WIDTH / 2) - (test_button.getWidth() / 2);
+	int b_y_mid = (SCREEN_HEIGHT / 2) - (test_button.getHeight() / 2);
+	
+	test_button.render(b_x_mid, b_y_mid);
 }
 
 int main(int argc, char* args[]) {
@@ -195,7 +189,11 @@ int main(int argc, char* args[]) {
 	gBackground.loadFromFile(backgroundsPath + "entrance.png");
 
 	gBlackBox = { 0,0, SCREEN_WIDTH, SCREEN_HEIGHT }; 
-	
+
+	test_button.setRenderer(gRenderer);
+	test_button.loadFromFile(gSpritesPath + "anon.png");
+	test_button.setWidth(250);
+	test_button.setHeight(250);
 
 	if (!interpreter.OpenScript("scripts/example_script.vns")) {
 		std::cout << "Failed to load script!" << std::endl;
