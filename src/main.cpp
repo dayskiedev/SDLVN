@@ -105,7 +105,10 @@ bool init() {
 				}
 
 				// audio
-
+				if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+					std::cout << "SDL_mixer could not be initalised! " << Mix_GetError() << std::endl;
+					success = false;
+				}
 
 			}
 		}
@@ -133,6 +136,8 @@ void updateGame(SDL_Event e) {
 	if (test_button.OverlappingCheck()) {
 		if (e.type == SDL_MOUSEBUTTONDOWN) {
 			test_button.OnClick();
+			Mix_VolumeMusic(25);
+			Mix_PlayMusic(gPush, 0);
 		}
 	}
 
@@ -188,12 +193,21 @@ int main(int argc, char* args[]) {
 	gBackground.setRenderer(gRenderer);
 	gBackground.loadFromFile(backgroundsPath + "entrance.png");
 
+
+	/// REMOVE LATER
 	gBlackBox = { 0,0, SCREEN_WIDTH, SCREEN_HEIGHT }; 
 
 	test_button.setRenderer(gRenderer);
 	test_button.loadFromFile(gSpritesPath + "anon.png");
 	test_button.setWidth(250);
 	test_button.setHeight(250);
+
+	gPush = Mix_LoadMUS("music/push.mp3");
+	if (gPush == NULL) {
+		std::cout << "Unable to push push " << Mix_GetError() << std::endl;
+	}
+
+	///
 
 	if (!interpreter.OpenScript("scripts/example_script.vns")) {
 		std::cout << "Failed to load script!" << std::endl;
