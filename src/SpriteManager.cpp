@@ -42,11 +42,19 @@ void SpriteManager::addSprite(std::string spriteObjName, std::string spriteTexNa
 
 	// works but is theree
 
-	int x_pos = _spritePositions.find(screenPos)->second.first;
-	x_pos -= (sprite->getWidth() / 2);
+	if (_spritePositions.find(screenPos) == _spritePositions.end()) { 
+		std::cout << "Unable to find position " << screenPos << " in map, using default value!" << std::endl; 
+		screenPos = "CENTRE";
+	}
 
+
+	int x_pos = _spritePositions.find(screenPos)->second.first;
 	int y_pos = _spritePositions.find(screenPos)->second.second;
-	y_pos -= (sprite->getWidth() / 2);
+
+	std::cout << sprite->getWidth() << std::endl;
+
+	x_pos = x_pos -  (sprite->getWidth() / 3.5);
+	y_pos = y_pos -  (sprite->getHeight() / 3.5);
 
 	sprite->setX(x_pos);
 	sprite->setY(y_pos);
