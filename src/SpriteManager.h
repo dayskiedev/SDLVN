@@ -1,10 +1,12 @@
 #include <iostream>
+#include <unordered_map>
 #include <vector>
 
 #include <SDL.h>
 #include <SDL_image.h>
 
 #include "Sprite.h"
+#include "Config.h"
 
 
 #ifndef SPRITE_MANAGER_H
@@ -26,10 +28,17 @@ public:
 
 	std::vector<Sprite*>::iterator findSpriteByName(std::string spriteName);
 
+
 private:
 	std::vector<Sprite*> _sprites;
 	SDL_Renderer* _renderer = NULL;
 	std::string _spritesTexPath = "";
+
+	std::unordered_map<std::string, std::pair<int,int>> _spritePositions = {
+		{"CENTRE", {SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2}},
+		{"LEFT", {SCREEN_HEIGHT / 3, SCREEN_HEIGHT / 2}},
+		{"RIGHT", {SCREEN_WIDTH, SCREEN_HEIGHT / 2}}
+	};
 };
 
 #endif

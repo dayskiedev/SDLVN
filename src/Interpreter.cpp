@@ -56,7 +56,9 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 		// some sort of arg checker 
 		spriteObjName	= _commandArgs[1];
 		spriteTexName	= _commandArgs[2];
-		spritePosition	= _commandArgs[3];
+		if (_commandArgs.size() > 3) {
+			spritePosition = _commandArgs[3];
+		}
 		_spriteManager.addSprite(spriteObjName, spriteTexName, spritePosition);
 	}
 	

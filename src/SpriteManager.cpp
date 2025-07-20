@@ -37,8 +37,19 @@ void SpriteManager::addSprite(std::string spriteObjName, std::string spriteTexNa
 	// NEED TO TAKE INTO ACCOUNT SCREEN WIDTH/HEIGHT
 	// AS WELL AS SPRITE WIDTH/HEIGHT!!!!! THE PROBELM IS THAT THE
 	// SPRTIES ARE SCALED DOWN AT RENDER, THEY SHOULD BE SCALED DOWN HERE!!!!
-	sprite->setX(440);
-	sprite->setY(110);
+
+	// take into account sprite position from string>
+
+	// works but is theree
+
+	int x_pos = _spritePositions.find(screenPos)->second.first;
+	x_pos -= (sprite->getWidth() / 2);
+
+	int y_pos = _spritePositions.find(screenPos)->second.second;
+	y_pos -= (sprite->getWidth() / 2);
+
+	sprite->setX(x_pos);
+	sprite->setY(y_pos);
 
 	_sprites.push_back(sprite);
 }

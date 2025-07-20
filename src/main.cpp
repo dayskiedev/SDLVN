@@ -8,6 +8,8 @@
 #include <sstream>
 #include <iostream>
 
+#include "Config.h"
+
 #include "SpriteManager.h"
 #include "TextManager.h"
 
@@ -16,10 +18,9 @@
 #include "Button.h"
 
 // make variable
-const int SCREEN_WIDTH = 1280;
-const int SCREEN_HEIGHT = 720;
-
 // should change these to be only division, pixel count will change dpending on the screen
+
+
 const int S_MID_X = SCREEN_WIDTH / 2 - 200;
 const int S_MID_Y = SCREEN_HEIGHT / 2 - 250;
 
@@ -29,6 +30,8 @@ const int tOffsetY = 32;
 const std::string gSpritesPath = "sprites/";
 const std::string backgroundsPath = "backgrounds/";
 const std::string gFontsPath = "fonts/";
+
+// enum for positons
 
 int cCount = 0;
 
@@ -136,13 +139,10 @@ void updateGame(SDL_Event e) {
 	if (test_button.OverlappingCheck()) {
 		if (e.type == SDL_MOUSEBUTTONDOWN) {
 			test_button.OnClick();
-			Mix_VolumeMusic(25);
-			Mix_PlayMusic(gPush, 0);
+			//Mix_VolumeMusic(25);
+			//Mix_PlayMusic(gPush, 0);
 		}
 	}
-
-
-
 }
 
 void renderGame() {
@@ -151,8 +151,9 @@ void renderGame() {
 	
 	gBackground.render(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
+	// eventually have some sort of master z layer for every sprite?
 	for (Sprite* s : spriteManager.getSpriteVector()) {
-		s->render(s->getX(), s->getY(), s->getWidth() / 1.6, s->getHeight() / 1.6);
+		s->render(s->getX(), s->getY(), s->getWidth() / 1.5, s->getHeight() / 1.5);
 	}
 	
 	SDL_SetRenderDrawColor(gRenderer, 0, 0, 0, 100);
@@ -164,6 +165,7 @@ void renderGame() {
 		index++;
 	}
 
+	// ui
 
 
 	int b_x_mid = (SCREEN_WIDTH / 2) - (test_button.getWidth() / 2);

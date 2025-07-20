@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Button.cpp" />
+    <ClCompile Include="src\Config.cpp" />
     <ClCompile Include="src\Interpreter.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Sprite.cpp" />
@@ -142,6 +143,7 @@
     <ClCompile Include="src\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Config.h" />
     <ClInclude Include="src\Button.h" />
     <ClInclude Include="src\Interpreter.h" />
     <ClInclude Include="src\Sprite.h" />
