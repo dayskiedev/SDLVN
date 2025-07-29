@@ -53,10 +53,10 @@ SpriteManager spriteManager;
 TextManager textManager;
 Interpreter interpreter;
 
+std::vector<Button*> _buttons;
+
 Texture gBackground;
 SDL_Rect gBlackBox;
-
-Button test_button;
 
 int b_size = 50;
 SDL_Rect button = { 0, 0,0, 0 };
@@ -130,17 +130,21 @@ void setBackground(std::string filename) {
 	gBackground.loadFromFile(backgroundsPath + filename);
 }
 
-void updateGame(SDL_Event e) {
+void Update(SDL_Event e) {
+
+	// main game logic, handle input
+
+	// here we execute the current line in the interpreter before checking for any input
 	interpreter.Run(e, spriteManager, textManager);
 
-	// allows room for other stuff, like menu checking? if we want to pause?
-	//test_button.OverlappingCheck();
-	// note this is for left and right...
-	if (test_button.OverlappingCheck()) {
-		if (e.type == SDL_MOUSEBUTTONDOWN) {
-			test_button.OnClick();
-			//Mix_VolumeMusic(25);
-			//Mix_PlayMusic(gPush, 0);
+	// we want to do ui input as well
+
+
+	// loop through each button
+
+	for (Button* b : _buttons) {
+		if (b->OverlappingCheck() && e.type == SDL_MOUSEBUTTONDOWN) {
+			b->OnClick();
 		}
 	}
 }
@@ -167,11 +171,9 @@ void renderGame() {
 
 	// ui
 
-
-	int b_x_mid = (SCREEN_WIDTH / 2) - (test_button.getWidth() / 2);
-	int b_y_mid = (SCREEN_HEIGHT / 2) - (test_button.getHeight() / 2);
-	
-	test_button.render(b_x_mid, b_y_mid);
+	for (Button* b : _buttons) {
+		b->render(b->getX(), b->getY());
+	}
 }
 
 int main(int argc, char* args[]) {
@@ -197,19 +199,22 @@ int main(int argc, char* args[]) {
 
 
 	/// REMOVE LATER
-	gBlackBox = { 0,0, SCREEN_WIDTH, SCREEN_HEIGHT }; 
+	gBlackBox = { 0,0, SCREEN_WIDTH, SCREEN_HEIGHT };
 
-	test_button.setRenderer(gRenderer);
-	test_button.loadFromFile(gSpritesPath + "anon.png");
-	test_button.setWidth(250);
-	test_button.setHeight(250);
+	Button* test_button = new Button;
+	test_button->setRenderer(gRenderer);
+	test_button->loadFromFile(gSpritesPath + "anon.png");
+	test_button->setWidth(250);
+	test_button->setHeight(250);
+	test_button->setX(100);
+	test_button->setY(100);
+
+	_buttons.push_back(test_button);
 
 	gPush = Mix_LoadMUS("music/push.mp3");
 	if (gPush == NULL) {
 		std::cout << "Unable to push push " << Mix_GetError() << std::endl;
 	}
-
-	///
 
 	if (!interpreter.OpenScript("scripts/example_script.vns")) {
 		std::cout << "Failed to load script!" << std::endl;
@@ -222,7 +227,7 @@ int main(int argc, char* args[]) {
 			quit = true;
 		}
 
-		updateGame(e);
+		Update(e);
 		renderGame();
 		SDL_RenderPresent(gRenderer);
 	}

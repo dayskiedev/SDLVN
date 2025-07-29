@@ -50,6 +50,10 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 	// currently no way to check if we reach the end of the file, so it just crashes
 	// what do the do in vn engines? idrk
 
+	if (_lineCount >= _scriptFile.size()) {
+		return; // dunno what to do now that we've reached the end of file... just sit there?
+	}
+
 	_commandArgs = splitString(_scriptFile[_lineCount]);	
 
 	if (_commandArgs[0] == "*enter") {
@@ -81,9 +85,9 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 	}
 
 	else if (_commandArgs[0] == "*wait") {
-		int delayTime = 0;
+		double delayTime = 0;
 		try {
-			delayTime = std::stoi(_commandArgs[1]);
+			delayTime = std::stod(_commandArgs[1]);
 		}
 		catch(std::invalid_argument ia) {
 			PrintError(ia.what());

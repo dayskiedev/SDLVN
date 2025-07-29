@@ -10,7 +10,6 @@
 
 class Button : public Texture {
 public:
-
 	void OnClick();
 	void OnHover();
 	void ExitHover();

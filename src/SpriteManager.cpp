@@ -51,8 +51,6 @@ void SpriteManager::addSprite(std::string spriteObjName, std::string spriteTexNa
 	int x_pos = _spritePositions.find(screenPos)->second.first;
 	int y_pos = _spritePositions.find(screenPos)->second.second;
 
-	std::cout << sprite->getWidth() << std::endl;
-
 	x_pos = x_pos -  (sprite->getWidth() / 3.5);
 	y_pos = y_pos -  (sprite->getHeight() / 3.5);
 

@@ -37,9 +37,8 @@ private:
 	std::unordered_map<std::string, std::pair<int,int>> _spritePositions = {
 		{"CENTRE",		{SCREEN_WIDTH / 2,	SCREEN_HEIGHT / 2}},
 		{"CENTRE_DOWN", {SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2) + 200}},
-		{"LEFT",		{SCREEN_WIDTH / 3,	SCREEN_HEIGHT / 2}},
+		{"LEFT",		{SCREEN_WIDTH / 4,	SCREEN_HEIGHT / 2}},
 		{"RIGHT",		{SCREEN_WIDTH,		SCREEN_HEIGHT / 2}}
-
 	};
 };
 

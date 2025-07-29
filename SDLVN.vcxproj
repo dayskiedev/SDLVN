@@ -143,7 +143,6 @@
     <ClCompile Include="src\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Config.h" />
     <ClInclude Include="src\Button.h" />
     <ClInclude Include="src\Interpreter.h" />
     <ClInclude Include="src\Sprite.h" />

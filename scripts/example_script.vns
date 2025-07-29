@@ -1,15 +1,17 @@
-*enter saber saber.png CENTRE_DOWN
+*enter saber saber.png CENTRE
 So, what am I doing here exactly?
 *setsprite saber saber4.png
 Hurry up and say something!
-*enter rin rin.png CENTRE
+*enter rin rin.png LEFT
 hiiiii saber
 *cleartext
+*setsprite saber saber.png
 *wait 1
 *exit saber
+*wait 0.5
+*setsprite rin rin2.png
 *wait 1
 ok rude
-*setsprite rin rin2.png
 She didn't even say hi back...
 *setsprite rin rin3.png
 Did I do something to make her mad?
