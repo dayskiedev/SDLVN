@@ -22,8 +22,6 @@ void UIManager::AddButton(std::string btnName, std::string btnContents, int x, i
 	// pushback adds element at the end of vector, so we add button and then text
 	// so the button is rendered then the text'
 
-	std::cout << "Button added!\n";
-
 	_buttons.push_back(button);
 }
 

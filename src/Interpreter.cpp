@@ -56,7 +56,11 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 
 	_commandArgs = splitString(_scriptFile[_lineCount]);	
 
-	if (_commandArgs[0] == "*enter") {
+	if (_commandArgs[0] == "#") {
+		increment = true;
+	}
+
+	else if (_commandArgs[0] == "*enter") {
 		// some sort of arg checker 
 		spriteObjName	= _commandArgs[1];
 		spriteTexName	= _commandArgs[2];
@@ -107,6 +111,8 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 		std::string btnName1;
 		std::string btnName2;
 
+		int x, y, w, h; // will be defined later so we dont pirate software
+
 		btnName1 = _commandArgs[1];
 		btnName2 = _commandArgs[2];
 
@@ -120,8 +126,12 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 		//	return;
 		//}
 
-		_uiManager.AddButton(btnName1, "empty", 200, 200, 200, 200);
-		_uiManager.AddButton(btnName2, "empty", 500, 200, 200, 200);
+		// needs to be more defined from vns file
+		// also a lot of these need default values..
+
+		
+		_uiManager.AddButton(btnName1, "empty", 300, 200, 200, 200);
+		_uiManager.AddButton(btnName2, "empty", 700, 200, 200, 200);
 
 	}
 

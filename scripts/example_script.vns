@@ -6,11 +6,11 @@ Hurry up and say something!
 hiiiii saber
 *cleartext
 *setsprite saber saber.png
-*wait 1
+# *wait 1
 *exit saber
-*wait 0.5
+# *wait 0.5
 *setsprite rin rin2.png
-*wait 1
+# *wait 1
 ok rude
 She didn't even say hi back...
 *setsprite rin rin3.png
