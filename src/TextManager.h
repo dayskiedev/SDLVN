@@ -15,7 +15,7 @@ public:
 	TextManager();
 	~TextManager();
 
-	void setRender(SDL_Renderer* renderer);
+	void setRenderer(SDL_Renderer* renderer);
 	void setFont(std::string fontPath);
 
 	void addText(std::string text);

@@ -46,7 +46,7 @@ void Interpreter::PrintError(std::string Error) {
 	// do i need this function? Not so sure to be honest....
 }
 
-void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _textManager) {
+void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _textManager, UIManager& _uiManager) {
 	// currently no way to check if we reach the end of the file, so it just crashes
 	// what do the do in vn engines? idrk
 
@@ -101,6 +101,30 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 	}
 	// JUST PRINT IT TO THE SCREEN IDK
 	// add support for stuff like \n 
+
+	else if (_commandArgs[0] == "*choice") {
+		// choice buttons will have predefined locations
+		std::string btnName1;
+		std::string btnName2;
+
+		btnName1 = _commandArgs[1];
+		btnName2 = _commandArgs[2];
+
+		// future support for a lot of buttons
+		//int numButtons = 0;
+		//try {
+		//	numButtons = std::stod(_commandArgs[1]);
+		//}
+		//catch (std::invalid_argument ia) {
+		//	PrintError(ia.what());
+		//	return;
+		//}
+
+		_uiManager.AddButton(btnName1, "empty", 200, 200, 200, 200);
+		_uiManager.AddButton(btnName2, "empty", 500, 200, 200, 200);
+
+	}
+
 	else {
 		if (increment) {
 			//print to screen

@@ -51,6 +51,7 @@ SDL_Renderer* gRenderer = NULL;
 // manging of game sprites
 SpriteManager spriteManager;
 TextManager textManager;
+UIManager uiManager;
 Interpreter interpreter;
 
 std::vector<Button*> _buttons;
@@ -135,14 +136,14 @@ void Update(SDL_Event e) {
 	// main game logic, handle input
 
 	// here we execute the current line in the interpreter before checking for any input
-	interpreter.Run(e, spriteManager, textManager);
+	interpreter.Run(e, spriteManager, textManager, uiManager);
 
 	// we want to do ui input as well
 
 
 	// loop through each button
 
-	for (Button* b : _buttons) {
+	for (Button* b : uiManager.GetUiVector()) {
 		if (b->OverlappingCheck() && e.type == SDL_MOUSEBUTTONDOWN) {
 			b->OnClick();
 		}
@@ -171,7 +172,7 @@ void renderGame() {
 
 	// ui
 
-	for (Button* b : _buttons) {
+	for (Button* b : uiManager.GetUiVector()) {
 		b->render(b->getX(), b->getY());
 	}
 }
@@ -189,8 +190,10 @@ int main(int argc, char* args[]) {
 	spriteManager.setRenderer(gRenderer);
 	spriteManager.setSpriteTexPath(gSpritesPath);
 
-	textManager.setRender(gRenderer);
+	textManager.setRenderer(gRenderer);
 	textManager.setFont(gFontsPath + "sazanami-gothic.ttf");
+
+	uiManager.setRenderer(gRenderer);
 
 	//interfaceManager()?
 
@@ -200,16 +203,6 @@ int main(int argc, char* args[]) {
 
 	/// REMOVE LATER
 	gBlackBox = { 0,0, SCREEN_WIDTH, SCREEN_HEIGHT };
-
-	Button* test_button = new Button;
-	test_button->setRenderer(gRenderer);
-	test_button->loadFromFile(gSpritesPath + "anon.png");
-	test_button->setWidth(250);
-	test_button->setHeight(250);
-	test_button->setX(100);
-	test_button->setY(100);
-
-	_buttons.push_back(test_button);
 
 	gPush = Mix_LoadMUS("music/push.mp3");
 	if (gPush == NULL) {

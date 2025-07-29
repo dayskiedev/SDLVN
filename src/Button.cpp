@@ -2,13 +2,14 @@
 
 
 void Button::OnClick() {
-	std::cout << "click\n";
+	std::cout << "hi my name is " << _btnName << "\n";
 	// needs to be a broadcast event so we know what button was clicked?
 	// otherwse we only have this hardcoded click, making it a signal to listen out for
 	// lets us define custom behaviour per button?
 
 	// create a button selection type
- 
+		
+	// rather than having each button be a defined class, they can send out an event signal?
 }
 
 void Button::OnHover() {
@@ -36,3 +37,9 @@ bool Button::OverlappingCheck() {
 	return false;
 
 }
+
+void Button::SetButtonName(std::string btnName) {
+	_btnName = btnName;
+}
+
+std::string Button::GetButtonName() { return _btnName; }

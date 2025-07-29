@@ -15,8 +15,11 @@ public:
 	void ExitHover();
 	bool OverlappingCheck();
 
+	void SetButtonName(std::string btnName);
+	std::string GetButtonName();
+
 private:
-	std::string _name;
+	std::string _btnName;
 	bool _overlapping;
 	bool _clicked;
 };

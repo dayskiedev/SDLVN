@@ -15,4 +15,6 @@ ok rude
 She didn't even say hi back...
 *setsprite rin rin3.png
 Did I do something to make her mad?
+*choice button1 button2
+holy crap
 *exit rin

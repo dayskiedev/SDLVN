@@ -7,7 +7,7 @@ TextManager::~TextManager() {
 	clearText();
 }
 
-void TextManager::setRender(SDL_Renderer* renderer) {
+void TextManager::setRenderer(SDL_Renderer* renderer) {
 	_renderer = renderer;
 }
 

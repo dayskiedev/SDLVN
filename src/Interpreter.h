@@ -12,6 +12,7 @@
 
 #include "SpriteManager.h"
 #include "TextManager.h"
+#include "UIManager.h"
 
 class Interpreter {
 public:
@@ -24,7 +25,7 @@ public:
 	void PrintError(std::string Error);
 
 	// pass by referecne because we want to modify the sprites/text in these vectors
-	void Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _textManager);
+	void Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _textManager, UIManager& _uiManager);
 
 
 private:
@@ -39,6 +40,5 @@ private:
 	// type: MAIN -- entry point for file
 	// data: path/to/data vn title, dialouge selections
 	std::vector<std::string> _scriptFile;
-
 	std::vector<std::string> _commandArgs;
 };
