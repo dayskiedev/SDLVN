@@ -4,4 +4,5 @@
 extern int SCREEN_WIDTH;
 extern int SCREEN_HEIGHT;
 
+extern std::string GLOBAL_FONT_PATH;
 #endif

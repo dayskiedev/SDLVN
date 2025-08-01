@@ -56,9 +56,7 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 
 	_commandArgs = splitString(_scriptFile[_lineCount]);	
 
-	if (_commandArgs[0] == "#") {
-		increment = true;
-	}
+	if (_commandArgs[0] == "#") { increment = true; }
 
 	else if (_commandArgs[0] == "*enter") {
 		// some sort of arg checker 
@@ -103,36 +101,33 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 		SDL_Delay(delayTime);
 		std::cout << "wating finished!" << std::endl;
 	}
-	// JUST PRINT IT TO THE SCREEN IDK
-	// add support for stuff like \n 
 
 	else if (_commandArgs[0] == "*choice") {
 		// choice buttons will have predefined locations
-		std::string btnName1;
-		std::string btnName2;
+		std::string btnName;
+		std::string btnContents;
 
 		int x, y, w, h; // will be defined later so we dont pirate software
 
-		btnName1 = _commandArgs[1];
-		btnName2 = _commandArgs[2];
+		int numButtons = 0;
+		int startX = 100;
 
-		// future support for a lot of buttons
-		//int numButtons = 0;
-		//try {
-		//	numButtons = std::stod(_commandArgs[1]);
-		//}
-		//catch (std::invalid_argument ia) {
-		//	PrintError(ia.what());
-		//	return;
-		//}
+		try {
+			numButtons = std::stod(_commandArgs[1]);
+		}
+		catch (std::invalid_argument ia) {
+			PrintError(ia.what());
+			return;
+		}
+
+		for (int i = 0; i < numButtons; ++i) {
+			btnName = _commandArgs[i + 2];
+			_uiManager.AddButton(btnName, "empty", startX, 200, 200, 200);
+			startX += 300;
+		}
 
 		// needs to be more defined from vns file
-		// also a lot of these need default values..
-
-		
-		_uiManager.AddButton(btnName1, "empty", 300, 200, 200, 200);
-		_uiManager.AddButton(btnName2, "empty", 700, 200, 200, 200);
-
+		// also a lot of these need default values..c
 	}
 
 	else {

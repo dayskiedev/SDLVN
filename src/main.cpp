@@ -12,14 +12,19 @@
 
 #include "SpriteManager.h"
 #include "TextManager.h"
-
 #include "Interpreter.h"
 
-#include "Button.h"
+// TODO:
+// BUTTON THAT CAN BE CLICKED TO MAKE CHOICES
+// BUTTON HAS TEXT ON IT SO YOU KNOW WHAT CHOICE
+// CHOICES THAT ARE SAVED TO SOME FILE SO THEY CAN BE READ AND USED?
 
-// make variable
-// should change these to be only division, pixel count will change dpending on the screen
-
+// figure out ui?
+// HAVE GAME STATES, MAIN IS TOOOOO DIRTY
+// MAIN
+// GAME
+// SETTINGS
+// ETC...
 
 const int S_MID_X = SCREEN_WIDTH / 2 - 200;
 const int S_MID_Y = SCREEN_HEIGHT / 2 - 250;
@@ -138,15 +143,9 @@ void Update(SDL_Event e) {
 	// here we execute the current line in the interpreter before checking for any input
 	interpreter.Run(e, spriteManager, textManager, uiManager);
 
-	// we want to do ui input as well
-
-
-	// loop through each button
 
 	for (Button* b : uiManager.GetUiVector()) {
-		if (b->OverlappingCheck() && e.type == SDL_MOUSEBUTTONDOWN) {
-			b->OnClick();
-		}
+		b->Update(e);
 	}
 }
 
@@ -156,7 +155,7 @@ void renderGame() {
 	
 	gBackground.render(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	// eventually have some sort of master z layer for every sprite?
+	// render sprites
 	for (Sprite* s : spriteManager.getSpriteVector()) {
 		s->render(s->getX(), s->getY(), s->getWidth() / 1.5, s->getHeight() / 1.5);
 	}
@@ -164,20 +163,27 @@ void renderGame() {
 	SDL_SetRenderDrawColor(gRenderer, 0, 0, 0, 100);
 	SDL_RenderFillRect(gRenderer, &gBlackBox);
 
+	// render text, offset based on index
 	int index = 0;
 	for (Texture* t : textManager.getTextVector()) {
 		t->render(tOffsetX,(tOffsetY * index) + tOffsetX);
 		index++;
 	}
 
-	// ui
 
+	// render ui
 	for (Button* b : uiManager.GetUiVector()) {
 		b->render(b->getX(), b->getY());
+		b->showText();
 	}
 }
 
 int main(int argc, char* args[]) {
+
+	// THIS SHOULD JUST BE GAME GAME.RUN 
+
+	
+
 	SDL_Event e;
 	bool quit = false;
 
@@ -198,7 +204,7 @@ int main(int argc, char* args[]) {
 	//interfaceManager()?
 
 	gBackground.setRenderer(gRenderer);
-	gBackground.loadFromFile(backgroundsPath + "entrance.png");
+	gBackground.loadFromFile(backgroundsPath + "bridge.png");
 
 
 	/// REMOVE LATER

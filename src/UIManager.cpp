@@ -18,6 +18,9 @@ void UIManager::AddButton(std::string btnName, std::string btnContents, int x, i
 
 	button->setWidth(w);
 	button->setHeight(h);
+
+	button->setText("its anon not anne", 25, _renderer);
+
 	// buttons we want to render text, and then the button
 	// pushback adds element at the end of vector, so we add button and then text
 	// so the button is rendered then the text'

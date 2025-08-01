@@ -71,6 +71,9 @@
     <ClInclude Include="src\CustomEvents.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="scripts\example_script.vns" />
