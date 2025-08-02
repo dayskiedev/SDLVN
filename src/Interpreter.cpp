@@ -46,7 +46,7 @@ void Interpreter::PrintError(std::string Error) {
 	// do i need this function? Not so sure to be honest....
 }
 
-void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _textManager, UIManager& _uiManager) {
+void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _textManager, UIManager& _uiManager, Texture& background) {
 	// currently no way to check if we reach the end of the file, so it just crashes
 	// what do the do in vn engines? idrk
 
@@ -128,6 +128,11 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 
 		// needs to be more defined from vns file
 		// also a lot of these need default values..c
+	}
+
+	else if (_commandArgs[0] == "*setbackground") {
+		background.loadFromFile(GLOBAL_BACKGROUNDS_PATH + _commandArgs[1]);
+
 	}
 
 	else {

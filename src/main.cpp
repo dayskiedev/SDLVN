@@ -15,6 +15,14 @@
 #include "Interpreter.h"
 
 // TODO:
+// 
+//	CLEAN UP THIS GOD AWFUL CODE BASE
+//  SSORT OUT WHAT IS A GLOBAL VARIABLE FIRST
+//  SPLIT TEXTURE INTO TEXTURE AND SPRITE?
+//  
+// 
+// THEN ADD A BACKGROUND COMMAND
+// 
 // BUTTON THAT CAN BE CLICKED TO MAKE CHOICES
 // BUTTON HAS TEXT ON IT SO YOU KNOW WHAT CHOICE
 // CHOICES THAT ARE SAVED TO SOME FILE SO THEY CAN BE READ AND USED?
@@ -31,14 +39,6 @@ const int S_MID_Y = SCREEN_HEIGHT / 2 - 250;
 
 const int tOffsetX = 20;
 const int tOffsetY = 32;
-
-const std::string gSpritesPath = "sprites/";
-const std::string backgroundsPath = "backgrounds/";
-const std::string gFontsPath = "fonts/";
-
-// enum for positons
-
-int cCount = 0;
 
 Mix_Music* gPush = NULL;
 
@@ -64,10 +64,6 @@ std::vector<Button*> _buttons;
 Texture gBackground;
 SDL_Rect gBlackBox;
 
-int b_size = 50;
-SDL_Rect button = { 0, 0,0, 0 };
-
-
 // to do: selection:
 // step 1: render rectangle 
 // step 2: add text inside it
@@ -81,6 +77,7 @@ bool init() {
 	//initialze sdl
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
 		std::cout << "SDL could not be initialized!" << std::endl;
+		success = false;
 	}
 	else {
 		// Create window
@@ -132,17 +129,12 @@ void close() {
 	SDL_Quit();
 }
 
-void setBackground(std::string filename) {
-	gBackground.loadFromFile(backgroundsPath + filename);
-}
-
 void Update(SDL_Event e) {
 
 	// main game logic, handle input
 
 	// here we execute the current line in the interpreter before checking for any input
-	interpreter.Run(e, spriteManager, textManager, uiManager);
-
+	interpreter.Run(e, spriteManager, textManager, uiManager, gBackground);
 
 	for (Button* b : uiManager.GetUiVector()) {
 		b->Update(e);
@@ -153,9 +145,10 @@ void renderGame() {
 	SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	SDL_RenderClear(gRenderer);
 	
+	// layer -1 background
 	gBackground.render(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	// render sprites
+	// layer 1 character sprites
 	for (Sprite* s : spriteManager.getSpriteVector()) {
 		s->render(s->getX(), s->getY(), s->getWidth() / 1.5, s->getHeight() / 1.5);
 	}
@@ -163,15 +156,14 @@ void renderGame() {
 	SDL_SetRenderDrawColor(gRenderer, 0, 0, 0, 100);
 	SDL_RenderFillRect(gRenderer, &gBlackBox);
 
-	// render text, offset based on index
+	// layer 2 text
 	int index = 0;
 	for (Texture* t : textManager.getTextVector()) {
 		t->render(tOffsetX,(tOffsetY * index) + tOffsetX);
 		index++;
 	}
 
-
-	// render ui
+	// layer 3 buttons/ui?
 	for (Button* b : uiManager.GetUiVector()) {
 		b->render(b->getX(), b->getY());
 		b->showText();
@@ -179,11 +171,6 @@ void renderGame() {
 }
 
 int main(int argc, char* args[]) {
-
-	// THIS SHOULD JUST BE GAME GAME.RUN 
-
-	
-
 	SDL_Event e;
 	bool quit = false;
 
@@ -194,31 +181,26 @@ int main(int argc, char* args[]) {
 
 	// LOAD GLOBALS (there has to be a better way to do this?
 	spriteManager.setRenderer(gRenderer);
-	spriteManager.setSpriteTexPath(gSpritesPath);
+	spriteManager.setSpriteTexPath(GLOBAL_SPRITES_PATH);
 
 	textManager.setRenderer(gRenderer);
-	textManager.setFont(gFontsPath + "sazanami-gothic.ttf");
+	textManager.setFont(GLOBAL_FONT_PATH);
 
 	uiManager.setRenderer(gRenderer);
 
 	//interfaceManager()?
 
 	gBackground.setRenderer(gRenderer);
-	gBackground.loadFromFile(backgroundsPath + "bridge.png");
-
 
 	/// REMOVE LATER
 	gBlackBox = { 0,0, SCREEN_WIDTH, SCREEN_HEIGHT };
 
-	gPush = Mix_LoadMUS("music/push.mp3");
-	if (gPush == NULL) {
-		std::cout << "Unable to push push " << Mix_GetError() << std::endl;
-	}
+	//gPush = Mix_LoadMUS("music/push.mp3");
+	//if (gPush == NULL) {
+	//	std::cout << "Unable to push push " << Mix_GetError() << std::endl;
+	//}
 
-	if (!interpreter.OpenScript("scripts/example_script.vns")) {
-		std::cout << "Failed to load script!" << std::endl;
-		return -1;
-	}
+	if (!interpreter.OpenScript(GLOBAL_SCRIPTS_PATH + "example_script.vns")) { return -1; }
 
 	while (!quit) {
 		SDL_PollEvent(&e);

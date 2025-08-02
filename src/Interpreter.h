@@ -25,7 +25,7 @@ public:
 	void PrintError(std::string Error);
 
 	// pass by referecne because we want to modify the sprites/text in these vectors
-	void Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _textManager, UIManager& _uiManager);
+	void Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _textManager, UIManager& _uiManager, Texture& background);
 
 
 private:

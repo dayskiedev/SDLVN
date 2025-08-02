@@ -1,22 +1,23 @@
-# *enter saber saber.png CENTRE
-# So, what am I doing here exactly?
-# *setsprite saber saber4.png
-# Hurry up and say something!
-# *enter rin rin.png LEFT
-# hiiiii saber
-# *cleartext
-# *setsprite saber saber.png
+*setbackground bridge.png
+*enter saber saber.png CENTRE
+So, what am I doing here exactly?
+*setsprite saber saber4.png
+Hurry up and say something!
+*enter rin rin.png LEFT
+hiiiii saber
+*cleartext
+*setsprite saber saber.png
 # *wait 1
-# *exit saber
+*exit saber
 # *wait 0.5
-# setsprite rin rin2.png
+setsprite rin rin2.png
 # *wait 1
-# ok rude
-# She didn't even say hi back...
-# *setsprite rin rin3.png
-# Did I do something to make her mad?
+ok rude
+She didn't even say hi back...
+*setsprite rin rin3.png
+Did I do something to make her mad?
 *choice 4 button1 button2 yipee helpme...
-# holy crap
-# *cleartext
-# *setsprite rin rin2.png
-# where the heck did you four come from?
+# *choice 2 button1 "yes" button2 "no"
+*cleartext
+*setsprite rin rin2.png
+where the heck did you four come from?

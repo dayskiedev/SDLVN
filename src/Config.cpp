@@ -6,3 +6,6 @@ int SCREEN_WIDTH = 1280;
 int SCREEN_HEIGHT = 720;
 
 std::string GLOBAL_FONT_PATH = "fonts/sazanami-gothic.ttf";
+std::string GLOBAL_BACKGROUNDS_PATH = "backgrounds/";
+std::string GLOBAL_SPRITES_PATH = "sprites/";
+std::string GLOBAL_SCRIPTS_PATH = "scripts/";
