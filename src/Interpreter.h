@@ -9,6 +9,7 @@
 #include <filesystem>
 #include <fstream>
 #include <vector>
+#include <regex>
 
 #include "SpriteManager.h"
 #include "TextManager.h"

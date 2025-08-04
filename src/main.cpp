@@ -14,18 +14,21 @@
 #include "TextManager.h"
 #include "Interpreter.h"
 
+
+
 // TODO:
-// 
-//	CLEAN UP THIS GOD AWFUL CODE BASE
-//  SSORT OUT WHAT IS A GLOBAL VARIABLE FIRST
-//  SPLIT TEXTURE INTO TEXTURE AND SPRITE?
-//  
-// 
-// THEN ADD A BACKGROUND COMMAND
 // 
 // BUTTON THAT CAN BE CLICKED TO MAKE CHOICES
 // BUTTON HAS TEXT ON IT SO YOU KNOW WHAT CHOICE
 // CHOICES THAT ARE SAVED TO SOME FILE SO THEY CAN BE READ AND USED?
+
+
+// indexed choiced
+// [index]
+// yes 44
+// no 34
+
+// makes it easy to jump to specifc choices in dialougeif
 
 // figure out ui?
 // HAVE GAME STATES, MAIN IS TOOOOO DIRTY

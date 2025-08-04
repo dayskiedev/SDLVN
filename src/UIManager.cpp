@@ -11,7 +11,7 @@ void UIManager::AddButton(std::string btnName, std::string btnContents, int x, i
 	Button* button = new Button;
 	button->setRenderer(_renderer);
 	button->SetButtonName(btnName);
-	button->loadFromFile("sprites/anon.png");
+	button->loadFromFile("sprites/sans.png");
 
 	button->setX(x);
 	button->setY(y);
@@ -19,7 +19,7 @@ void UIManager::AddButton(std::string btnName, std::string btnContents, int x, i
 	button->setWidth(w);
 	button->setHeight(h);
 
-	button->setText("its anon not anne", 25, _renderer);
+	button->setText(btnContents, 30, _renderer);
 
 	// buttons we want to render text, and then the button
 	// pushback adds element at the end of vector, so we add button and then text
@@ -31,3 +31,5 @@ void UIManager::AddButton(std::string btnName, std::string btnContents, int x, i
 void UIManager::RemoveButton(std::string btnName) {
 	_buttons.clear();
 }
+
+int UIManager::GetButtonOffset() { return _btnOffset; }

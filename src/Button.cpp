@@ -35,7 +35,7 @@ void Button::setText(std::string text, int fontSize, SDL_Renderer* renderer) {
 	textTexture->setRenderer(renderer);
 	textTexture->setFont(TTF_OpenFont(GLOBAL_FONT_PATH.c_str(), fontSize));
 
-	textTexture->loadFromRenderedText(text, { 255,0,0 });
+	textTexture->loadFromRenderedText(text, { 255,255,255 });
 }
 
 void Button::OnHover() {
@@ -67,7 +67,7 @@ bool Button::OverlappingCheck() {
 
 // RENDERING THE TEXT FOR THE BUTTON
 void Button::showText() {
-	textTexture->render(getX(), getY() + (getHeight() / 2));
+	textTexture->render(getX() + 20, getY() + (getHeight() / 2) - 20);
 }
 
 void Button::SetButtonName(std::string btnName) {

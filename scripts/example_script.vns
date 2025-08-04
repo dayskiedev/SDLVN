@@ -1,4 +1,4 @@
-*setbackground bridge.png
+*setbackground dojo.png
 *enter saber saber.png CENTRE
 So, what am I doing here exactly?
 *setsprite saber saber4.png
@@ -10,14 +10,17 @@ hiiiii saber
 # *wait 1
 *exit saber
 # *wait 0.5
-setsprite rin rin2.png
+*setsprite rin rin2.png
 # *wait 1
 ok rude
 She didn't even say hi back...
 *setsprite rin rin3.png
 Did I do something to make her mad?
-*choice 4 button1 button2 yipee helpme...
-# *choice 2 button1 "yes" button2 "no"
+*choice 2 button1 "yes you idiot you did" button2 "no idk idc lol"
 *cleartext
-*setsprite rin rin2.png
-where the heck did you four come from?
+:yes
+wow rude bitch
+:no
+then why is she like that?
+
+*end

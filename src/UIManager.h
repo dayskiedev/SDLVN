@@ -19,9 +19,12 @@ public:
 	void AddButton(std::string btnName, std::string btnContents, int x, int y, int w, int h);
 	void RemoveButton(std::string btnName);
 
+	int GetButtonOffset();
+
 private:
 	SDL_Renderer* _renderer = NULL;
 	std::vector <Button*> _buttons;
+	int _btnOffset = 250;
 };
 
 

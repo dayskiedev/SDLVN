@@ -54,7 +54,18 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 		return; // dunno what to do now that we've reached the end of file... just sit there?
 	}
 
-	_commandArgs = splitString(_scriptFile[_lineCount]);	
+	_commandArgs.clear();
+
+	std::regex splitRegex(R"(".*?\"|\S+)");
+	std::string cTokens = _scriptFile[_lineCount];
+	auto tokens_begin = std::sregex_iterator(cTokens.begin(), cTokens.end(), splitRegex);
+	auto tokens_end = std::sregex_iterator();
+
+	for (std::sregex_iterator i = tokens_begin; i != tokens_end; ++i) {
+		std::smatch mToken = *i;
+		_commandArgs.push_back(mToken.str());
+	}
+	//_commandArgs = splitString(_scriptFile[_lineCount]);
 
 	if (_commandArgs[0] == "#") { increment = true; }
 
@@ -104,13 +115,17 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 
 	else if (_commandArgs[0] == "*choice") {
 		// choice buttons will have predefined locations
+
+		if (!increment) { return; }
+
 		std::string btnName;
 		std::string btnContents;
 
 		int x, y, w, h; // will be defined later so we dont pirate software
 
 		int numButtons = 0;
-		int startX = 100;
+
+		// remove magic numbers...
 
 		try {
 			numButtons = std::stod(_commandArgs[1]);
@@ -120,14 +135,33 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 			return;
 		}
 
-		for (int i = 0; i < numButtons; ++i) {
-			btnName = _commandArgs[i + 2];
-			_uiManager.AddButton(btnName, "empty", startX, 200, 200, 200);
-			startX += 300;
+		int startY = SCREEN_HEIGHT / numButtons;
+
+		for (int i = 2; i <= numButtons + 2; i++) {
+			btnName = _commandArgs[i];
+			btnContents = _commandArgs[i + 1];
+
+			btnContents = btnContents.substr(1, (btnContents.length() - 2) );
+
+			int btnW = 500;
+			int btnH = 150;
+
+			_uiManager.AddButton(btnName, btnContents, (SCREEN_WIDTH / 2) - (btnW/2) , startY - (btnH), btnW, btnH);
+			startY += btnH + (btnH/2);
+
+			i++;
+			// i = 2 
+			// c[i] = button1
+			// c[2] = "yes"
+			
+			// i = 3
 		}
 
-		// needs to be more defined from vns file
-		// also a lot of these need default values..c
+		// register an event for each button click?
+
+		increment = false;
+
+		// need to pause input for choice selection, then resume once its made
 	}
 
 	else if (_commandArgs[0] == "*setbackground") {
@@ -151,6 +185,13 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 			}
 		}
 	}
+
+
+	// think of input
+	// we read a line and check the command
+	// for pretty much everything we want to execute it and move onto the next command
+	// however for special cases like choices and text we want to print them to the screen
+	// and then wait for user input before continuing...
 
 	// once we have our command, read next line
 	if (increment) {

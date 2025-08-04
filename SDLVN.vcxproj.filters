@@ -77,5 +77,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="scripts\example_script.vns" />
+    <None Include="scripts\index_example_script.vns" />
   </ItemGroup>
 </Project>
