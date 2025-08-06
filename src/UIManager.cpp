@@ -7,6 +7,7 @@ void UIManager::setRenderer(SDL_Renderer* renderer) {
 
 std::vector<Button*> UIManager::GetUiVector() { return _buttons; }
 
+
 void UIManager::AddButton(std::string btnName, std::string btnContents, int x, int y, int w, int h) {
 	Button* button = new Button;
 	button->setRenderer(_renderer);
@@ -20,7 +21,6 @@ void UIManager::AddButton(std::string btnName, std::string btnContents, int x, i
 	button->setHeight(h);
 
 	button->setText(btnContents, 30, _renderer);
-
 	// buttons we want to render text, and then the button
 	// pushback adds element at the end of vector, so we add button and then text
 	// so the button is rendered then the text'

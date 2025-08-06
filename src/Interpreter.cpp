@@ -116,6 +116,9 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 	else if (_commandArgs[0] == "*choice") {
 		// choice buttons will have predefined locations
 
+
+		// a lot of this should be further moved into the add button function?
+
 		if (!increment) { return; }
 
 		std::string btnName;
@@ -134,10 +137,10 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 			PrintError(ia.what());
 			return;
 		}
-
+		std::cout << numButtons;
 		int startY = SCREEN_HEIGHT / numButtons;
 
-		for (int i = 2; i <= numButtons + 2; i++) {
+		for (int i = 2; i <= numButtons * 2; i++) {
 			btnName = _commandArgs[i];
 			btnContents = _commandArgs[i + 1];
 
@@ -146,10 +149,16 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 			int btnW = 500;
 			int btnH = 150;
 
-			_uiManager.AddButton(btnName, btnContents, (SCREEN_WIDTH / 2) - (btnW/2) , startY - (btnH), btnW, btnH);
+			_uiManager.AddButton(btnName, btnContents, (SCREEN_WIDTH / 2) - (btnW/2) , startY - btnH, btnW, btnH);
 			startY += btnH + (btnH/2);
 
+			// need access to the script to jump too.
+			// because of this function should be defined in the interpreter
+			// once buttons are added we enter a loop, loop is exited once the functions are called
+
 			i++;
+
+			std::cout << "utton maad\n";
 			// i = 2 
 			// c[i] = button1
 			// c[2] = "yes"

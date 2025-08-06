@@ -2,7 +2,9 @@
 
 
 void Button::OnClick() {
-	std::cout << "hi my name is " << _btnName << "\n";
+	//std::cout << "hi my name is " << _btnName << "\n";
+	// 
+	OnClickPtr();
 	// needs to be a broadcast event so we know what button was clicked?
 	// otherwse we only have this hardcoded click, making it a signal to listen out for
 	// lets us define custom behaviour per button?

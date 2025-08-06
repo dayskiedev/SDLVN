@@ -1,6 +1,7 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include <iostream>
+#include <functional>
 
 #include "Texture.h"
 #include "Config.h"
@@ -12,13 +13,15 @@
 
 class Button : public Texture {
 public:
-	void OnClick();
+	 void OnClick();
+	std::function<void()> OnClickPtr;
 	void OnHover();
 	void ExitHover();
 	bool OverlappingCheck();
 
 	void setText(std::string text, int fontSize, SDL_Renderer* renderer);
 	void showText();
+
 
 	void Update(SDL_Event e);
 

@@ -3,6 +3,7 @@
 So, what am I doing here exactly?
 *setsprite saber saber4.png
 Hurry up and say something!
+# *choice 3 btn1 "shur rhe fuck up broski!" brj "hey" btnf3 "who tf is you?" 
 *enter rin rin.png LEFT
 hiiiii saber
 *cleartext
@@ -16,11 +17,12 @@ ok rude
 She didn't even say hi back...
 *setsprite rin rin3.png
 Did I do something to make her mad?
-*choice 2 button1 "yes you idiot you did" button2 "no idk idc lol"
+*choice 2 button1 "Umm.. I think so.." button2 "Not at all!"
 *cleartext
 :yes
 wow rude bitch
 :no
 then why is she like that?
+
 
 *end
