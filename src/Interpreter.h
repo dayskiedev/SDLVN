@@ -28,6 +28,7 @@ public:
 	void Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _textManager, UIManager& _uiManager, Texture& background);
 
 	void JumpToChoice(std::string choice);
+	void ButtonClicked();
 
 	void TokenizeLine();
 

@@ -12,7 +12,7 @@ void UIManager::AddButton(std::string btnName, std::string btnContents, int x, i
 	Button* button = new Button;
 	button->setRenderer(_renderer);
 	button->SetButtonName(btnName);
-	button->loadFromFile("sprites/sans.png");
+	button->loadFromFile(DEFAULT_BUTTON_TEXTURE);
 
 	button->setX(x);
 	button->setY(y);

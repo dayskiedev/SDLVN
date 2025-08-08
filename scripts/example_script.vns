@@ -1,28 +1,46 @@
-*setbackground dojo.png
+*setbackground entrance.png
 *enter saber saber.png CENTRE
-So, what am I doing here exactly?
-*setsprite saber saber4.png
-Hurry up and say something!
-# *choice 3 yes "shur rhe fuck up broski!" brj "hey" btnf3 "who tf is you?" 
-*enter rin rin.png LEFT
-hiiiii saber
+Good afternoon, Shirou.
+*reply "Good afternoon!"
 *cleartext
+It's a nice day today isn't it?
+*setsprite saber saber3.png
+So...
+What did you want to do today?
+*choice 2 bridge "Lets go for a walk!" dojo "Lets spar!"
+
+:bridge
 *setsprite saber saber.png
-# *wait 1
+A walk huh..
+Well i suppose it can't hurt
+*cleartext
+# background transition?
+*setbackground bridge.png
 *exit saber
-# *wait 0.5
-*setsprite rin rin2.png
-# *wait 1
-ok rude
-She didn't even say hi back...
-Did I do something to make her mad?
-*choice 2 yes "Umm.. I think so.." no "Not at all!"
-:yes
-*setsprite rin rin3.png
+As im jogging along I realise something
+Saber hasn't been next to me for a while...
+I quickly come to a stop before turning to see a golden ahoge charging at me
 *cleartext
-wow 
-what a bitch!
-:no
+Huff... Puff...
+*enter saber saber2.png
+Huff... Puff...
+*setsprite saber saber4.png
+Did we really have to run here?
+*reply "Of course we did!"
+...
+*setsprite saber saber.png
+Well exercise is always nice.
+Lets head to the dojo for a round then!.
+
+:dojo
+*setsprite saber saber4.png
+A sparring match huh?
+*setsprite saber saber3.png
+Just be warned.
+I won't hold back!
 *cleartext
-then why is she like that?
-*end
+# transition again..
+*setbackground dojo.png
+I hope your ready.
+*setsprite saber saber3.png
+I won't go easy!!!!

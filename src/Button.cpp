@@ -1,6 +1,5 @@
 #include "Button.h"
 
-
 void Button::Update(SDL_Event e) {
 	_overlapping = OverlappingCheck();
 
@@ -9,9 +8,7 @@ void Button::Update(SDL_Event e) {
 
 		if (e.type == SDL_MOUSEBUTTONDOWN) {
 
-			if (OnClick) {
-				OnClick();
-			}
+			if (OnClick) { OnClick(); }
 			else {
 				std::cout << "ERROR: OnClick Function has not been assigned!\n";
 			}

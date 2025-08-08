@@ -41,13 +41,13 @@ void Interpreter::JumpToChoice(std::string choice) {
 	// set the current line to that.
 	// if we cant find it, print an error?
 
+	int _lineCountInitial = _lineCount;
+
 	// VERY LITTLE THOUGHT PUT IN!!!
 	while (_lineCount < _scriptFile.size()) {
 		if (_scriptFile[_lineCount] == ":" + choice) {
-			std::cout << "Reached choice, resuming...\n";
-			_lineCount++; // rollover so we dont print the choice
-			increment = true;
-			_uiManager->RemoveButtons();
+			std::cout << "Reached choice '" << choice << "' on line: " << _lineCount + 1 << "\n";
+			ButtonClicked();
 			return;
 		}
 		else {
@@ -56,7 +56,14 @@ void Interpreter::JumpToChoice(std::string choice) {
 	}
 
 	PrintError("ERROR: Choice " + choice + " not found!");
+	_lineCount = _lineCountInitial;
 	return;
+}
+
+void Interpreter::ButtonClicked() {
+	_lineCount++; // rollover so we dont print the choice
+	increment = true;
+	_uiManager->RemoveButtons();
 }
 
 void Interpreter::TokenizeLine() {
@@ -74,14 +81,17 @@ void Interpreter::TokenizeLine() {
 }
 
 void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _textManager, UIManager& _ui, Texture& background) {
-	// currently no way to check if we reach the end of the file, so it just crashes
-	// what do the do in vn engines? idrk
+	_uiManager = &_ui;
 
 	if (_lineCount >= _scriptFile.size()) {
 		return; // dunno what to do now that we've reached the end of file... just sit there?
 	}
 
-	_uiManager = &_ui;
+	if (_scriptFile[_lineCount].empty()) {
+		_lineCount++;
+		return;
+	}
+
 
 	TokenizeLine();
 	//_commandArgs = splitString(_scriptFile[_lineCount]);
@@ -198,6 +208,24 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 		// need to pause input for choice selection, then resume once its made
 	}
 
+	else if (_commandArgs[0] == "*reply") {
+		if (!increment) { return; }
+		std::string replyName = "reply";
+		std::string replyContents = _commandArgs[1];
+		replyContents = replyContents.substr(1, (replyContents.length() - 2));
+		_uiManager->AddButton(replyName, replyContents, (SCREEN_WIDTH / 2) - (CHOICE_BUTTON_WIDTH / 2),
+			(SCREEN_HEIGHT / 2) - (CHOICE_BUTTON_HEIGHT / 2), CHOICE_BUTTON_WIDTH, CHOICE_BUTTON_HEIGHT);
+
+		// wait for input
+		increment = false;
+
+		// we are asumming this is the only button...
+		auto rplyBtn = _uiManager->GetUiVector()[0];
+		std::cout << increment;
+		rplyBtn->OnClick = [this]() { ButtonClicked(); };
+
+	}
+
 	else if (_commandArgs[0] == "*setbackground") {
 		background.loadFromFile(GLOBAL_BACKGROUNDS_PATH + _commandArgs[1]);
 
@@ -210,7 +238,7 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 			increment = false;
 		}
 
-		// print text to screen, THEN INCREMENT TO NEXT LINE AFTER
+		// print text to screen, gTHEN INCREMENT TO NEXT LINE AFTER
 		// SPACE PRESS!
 		if (e.type == SDL_KEYDOWN) {
 			switch (e.key.keysym.sym) {

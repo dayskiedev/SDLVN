@@ -14,28 +14,9 @@
 #include "TextManager.h"
 #include "Interpreter.h"
 
-
-
-// TODO:
-// 
-// BUTTON THAT CAN BE CLICKED TO MAKE CHOICES
-// BUTTON HAS TEXT ON IT SO YOU KNOW WHAT CHOICE
-// CHOICES THAT ARE SAVED TO SOME FILE SO THEY CAN BE READ AND USED?
-
-
-// indexed choiced
-// [index]
-// yes 44
-// no 34
-
-// makes it easy to jump to specifc choices in dialougeif
-
-// figure out ui?
-// HAVE GAME STATES, MAIN IS TOOOOO DIRTY
-// MAIN
-// GAME
-// SETTINGS
-// ETC...
+// TODO: 
+// CLEAN UP CODE
+// do wee need pointers for everything?
 
 const int S_MID_X = SCREEN_WIDTH / 2 - 200;
 const int S_MID_Y = SCREEN_HEIGHT / 2 - 250;
@@ -67,17 +48,6 @@ std::vector<Button*> _buttons;
 Texture gBackground;
 SDL_Rect gBlackBox;
 
-enum state {
-	MENU,
-	GAME
-};
-
-// to do: selection:
-// step 1: render rectangle 
-// step 2: add text inside it
-// step 3: size rectangle to text
-// step 4: make rectangle clickable
-// step 5: do something after clicking said textbox
 
 bool init() {
 	bool success = true;
@@ -89,7 +59,7 @@ bool init() {
 	}
 	else {
 		// Create window
-		gWindow = SDL_CreateWindow("SDL_Window", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+		gWindow = SDL_CreateWindow("SDLVN", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 		if (gWindow == NULL) {
 			std::cout << "Window could not be created!" << std::endl;
 			success = false;

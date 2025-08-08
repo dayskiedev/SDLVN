@@ -12,4 +12,14 @@ extern std::string GLOBAL_FONT_PATH;
 extern std::string GLOBAL_BACKGROUNDS_PATH;
 extern std::string GLOBAL_SPRITES_PATH;
 extern std::string GLOBAL_SCRIPTS_PATH;
+
+extern std::string DEFAULT_BUTTON_TEXTURE;
+
+// text position
+// choice button position
+// sprite scale
+// sprite positioning
+// default font
+// button background
+
 #endif
