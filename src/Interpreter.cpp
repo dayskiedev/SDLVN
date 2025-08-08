@@ -1,17 +1,5 @@
 #include "Interpreter.h"
 
-std::vector<std::string> Interpreter::splitString(std::string s) {
-	std::stringstream ss(s);
-	std::string arg;
-	std::vector<std::string> args;
-
-	while (ss >> arg) {
-		args.push_back(arg);
-	}
-
-	return args;
-}
-
 bool Interpreter::OpenScript(std::string filePath) {
 	_scriptFile.empty();
 
@@ -44,6 +32,10 @@ void Interpreter::PrintError(std::string Error) {
 	std::cout << Error << std::endl;
 
 	// do i need this function? Not so sure to be honest....
+}
+
+void Interpreter::JumpToChoice(std::string choice) {
+	std::cout << "clicked " << choice << "\n";
 }
 
 void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _textManager, UIManager& _uiManager, Texture& background) {
@@ -114,17 +106,11 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 	}
 
 	else if (_commandArgs[0] == "*choice") {
-		// choice buttons will have predefined locations
-
-
-		// a lot of this should be further moved into the add button function?
-
+		// clean all this shit up bro...
 		if (!increment) { return; }
 
 		std::string btnName;
 		std::string btnContents;
-
-		int x, y, w, h; // will be defined later so we dont pirate software
 
 		int numButtons = 0;
 
@@ -137,36 +123,44 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 			PrintError(ia.what());
 			return;
 		}
-		std::cout << numButtons;
-		int startY = SCREEN_HEIGHT / numButtons;
+
+		int startY = (numButtons > 1 ? SCREEN_HEIGHT / numButtons : SCREEN_HEIGHT / 2);
 
 		for (int i = 2; i <= numButtons * 2; i++) {
 			btnName = _commandArgs[i];
 			btnContents = _commandArgs[i + 1];
-
 			btnContents = btnContents.substr(1, (btnContents.length() - 2) );
 
-			int btnW = 500;
-			int btnH = 150;
-
-			_uiManager.AddButton(btnName, btnContents, (SCREEN_WIDTH / 2) - (btnW/2) , startY - btnH, btnW, btnH);
-			startY += btnH + (btnH/2);
-
-			// need access to the script to jump too.
-			// because of this function should be defined in the interpreter
-			// once buttons are added we enter a loop, loop is exited once the functions are called
-
-			i++;
-
-			std::cout << "utton maad\n";
-			// i = 2 
-			// c[i] = button1
-			// c[2] = "yes"
-			
-			// i = 3
+			_uiManager.AddButton(btnName, btnContents, 
+				(SCREEN_WIDTH / 2) - (CHOICE_BUTTON_WIDTH/2) , startY - CHOICE_BUTTON_HEIGHT, 
+				CHOICE_BUTTON_WIDTH, CHOICE_BUTTON_HEIGHT);
+			startY += CHOICE_BUTTON_HEIGHT + (CHOICE_BUTTON_HEIGHT/2);
+			i++; // NEED TO MAKE SURE WE SKIP OVER THE BUTTON TXT FOR THE CURRENT BUTTON
 		}
 
-		// register an event for each button click?
+		// what are we doing here?
+		// In button.h we have defined an std::function OnClick()
+		// this is because we want to be able to copy different functions to it.
+		// why?
+		// So we can have multiple buttons that do different things...
+		// example fast forward button to skip text, pause button, choice button
+		// so when a button is created, it needs a function assigned.
+		// to do that we use a lambda, this allows us to pass the function not as
+		// a result but to say "use this function when OnClick for this button is called"
+		// this means we can also let any potentiol arguments go through for each button
+
+		for (auto btn : _uiManager.GetUiVector()) {
+			// Could use [=] for lambda capture, but all lambda might capture the 
+			// last pointer value of the button, so we just want the string on its own.
+			std::string btnName = btn->GetButtonName(); 
+			btn->OnClick = [this, btnName]() { JumpToChoice(btnName); };
+		}
+
+		// when button is clicked:
+		//	interpreter fires function JUMPTOEVENT(STRING btnName)
+		//  uses the button name 
+		//	store this function into the onclick function? so it gets fired by the button?
+		// using callbacks?
 
 		increment = false;
 

@@ -10,17 +10,16 @@
 #include <fstream>
 #include <vector>
 #include <regex>
+#include <functional>
 
 #include "SpriteManager.h"
 #include "TextManager.h"
 #include "UIManager.h"
 
+#include "Config.h"
+
 class Interpreter {
 public:
-
-	// will be moved to a seperate helper functions file possibly
-	std::vector<std::string> splitString(std::string s);
-
 	bool OpenScript(std::string scriptPath);
 
 	void PrintError(std::string Error);
@@ -28,6 +27,7 @@ public:
 	// pass by referecne because we want to modify the sprites/text in these vectors
 	void Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _textManager, UIManager& _uiManager, Texture& background);
 
+	void JumpToChoice(std::string choice);
 
 private:
 	std::string spriteObjName;

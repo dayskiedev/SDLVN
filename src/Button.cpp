@@ -1,19 +1,6 @@
 #include "Button.h"
 
 
-void Button::OnClick() {
-	//std::cout << "hi my name is " << _btnName << "\n";
-	// 
-	OnClickPtr();
-	// needs to be a broadcast event so we know what button was clicked?
-	// otherwse we only have this hardcoded click, making it a signal to listen out for
-	// lets us define custom behaviour per button?
-
-	// create a button selection type
-		
-	// rather than having each button be a defined class, they can send out an event signal?
-}
-
 void Button::Update(SDL_Event e) {
 	_overlapping = OverlappingCheck();
 
@@ -21,7 +8,14 @@ void Button::Update(SDL_Event e) {
 		OnHover();
 
 		if (e.type == SDL_MOUSEBUTTONDOWN) {
-			OnClick();
+
+			if (OnClick) {
+				OnClick();
+			}
+			else {
+				std::cout << "ERROR: OnClick Function has not been assigned!\n";
+			}
+
 		}
 
 	} else { ExitHover(); }

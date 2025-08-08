@@ -13,8 +13,8 @@
 
 class Button : public Texture {
 public:
-	 void OnClick();
-	std::function<void()> OnClickPtr;
+	//void OnClick();
+	std::function<void()> OnClick;
 	void OnHover();
 	void ExitHover();
 	bool OverlappingCheck();

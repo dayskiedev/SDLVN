@@ -67,6 +67,11 @@ std::vector<Button*> _buttons;
 Texture gBackground;
 SDL_Rect gBlackBox;
 
+enum state {
+	MENU,
+	GAME
+};
+
 // to do: selection:
 // step 1: render rectangle 
 // step 2: add text inside it
