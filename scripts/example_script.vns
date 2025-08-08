@@ -15,15 +15,14 @@ hiiiii saber
 # *wait 1
 ok rude
 She didn't even say hi back...
-*setbackground bridge.png
-*setsprite rin rin3.png
 Did I do something to make her mad?
 *choice 2 yes "Umm.. I think so.." no "Not at all!"
-*cleartext
 :yes
-wow rude bitch
+*setsprite rin rin3.png
+*cleartext
+wow 
+what a bitch!
 :no
+*cleartext
 then why is she like that?
-
-
 *end

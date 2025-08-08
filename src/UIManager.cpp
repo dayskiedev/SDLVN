@@ -32,4 +32,9 @@ void UIManager::RemoveButton(std::string btnName) {
 	_buttons.clear();
 }
 
+void UIManager::RemoveButtons() {
+	// NEEDS TO BE MORE SPECIFIC TO CHOICE BUTTONS LATER (SOME SORT OF TAG SYSTEM?)
+	_buttons.clear();
+}
+
 int UIManager::GetButtonOffset() { return _btnOffset; }

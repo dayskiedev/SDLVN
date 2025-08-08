@@ -18,6 +18,7 @@ public:
 
 	void AddButton(std::string btnName, std::string btnContents, int x, int y, int w, int h);
 	void RemoveButton(std::string btnName);
+	void RemoveButtons();
 
 	int GetButtonOffset();
 

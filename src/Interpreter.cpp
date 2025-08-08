@@ -35,17 +35,31 @@ void Interpreter::PrintError(std::string Error) {
 }
 
 void Interpreter::JumpToChoice(std::string choice) {
-	std::cout << "clicked " << choice << "\n";
-}
 
-void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _textManager, UIManager& _uiManager, Texture& background) {
-	// currently no way to check if we reach the end of the file, so it just crashes
-	// what do the do in vn engines? idrk
+	// get starting line for script
+	// loop from there to choice and then
+	// set the current line to that.
+	// if we cant find it, print an error?
 
-	if (_lineCount >= _scriptFile.size()) {
-		return; // dunno what to do now that we've reached the end of file... just sit there?
+	// VERY LITTLE THOUGHT PUT IN!!!
+	while (_lineCount < _scriptFile.size()) {
+		if (_scriptFile[_lineCount] == ":" + choice) {
+			std::cout << "Reached choice, resuming...\n";
+			_lineCount++; // rollover so we dont print the choice
+			increment = true;
+			_uiManager->RemoveButtons();
+			return;
+		}
+		else {
+			_lineCount++;
+		}
 	}
 
+	PrintError("ERROR: Choice " + choice + " not found!");
+	return;
+}
+
+void Interpreter::TokenizeLine() {
 	_commandArgs.clear();
 
 	std::regex splitRegex(R"(".*?\"|\S+)");
@@ -57,6 +71,19 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 		std::smatch mToken = *i;
 		_commandArgs.push_back(mToken.str());
 	}
+}
+
+void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _textManager, UIManager& _ui, Texture& background) {
+	// currently no way to check if we reach the end of the file, so it just crashes
+	// what do the do in vn engines? idrk
+
+	if (_lineCount >= _scriptFile.size()) {
+		return; // dunno what to do now that we've reached the end of file... just sit there?
+	}
+
+	_uiManager = &_ui;
+
+	TokenizeLine();
 	//_commandArgs = splitString(_scriptFile[_lineCount]);
 
 	if (_commandArgs[0] == "#") { increment = true; }
@@ -131,7 +158,7 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 			btnContents = _commandArgs[i + 1];
 			btnContents = btnContents.substr(1, (btnContents.length() - 2) );
 
-			_uiManager.AddButton(btnName, btnContents, 
+			_uiManager->AddButton(btnName, btnContents, 
 				(SCREEN_WIDTH / 2) - (CHOICE_BUTTON_WIDTH/2) , startY - CHOICE_BUTTON_HEIGHT, 
 				CHOICE_BUTTON_WIDTH, CHOICE_BUTTON_HEIGHT);
 			startY += CHOICE_BUTTON_HEIGHT + (CHOICE_BUTTON_HEIGHT/2);
@@ -149,10 +176,14 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 		// a result but to say "use this function when OnClick for this button is called"
 		// this means we can also let any potentiol arguments go through for each button
 
-		for (auto btn : _uiManager.GetUiVector()) {
+		for (auto btn : _uiManager->GetUiVector()) {
 			// Could use [=] for lambda capture, but all lambda might capture the 
 			// last pointer value of the button, so we just want the string on its own.
 			std::string btnName = btn->GetButtonName(); 
+
+			// capture group [] what the lambda can pass in and access
+			// () not sure
+			// {} has the function but not sure
 			btn->OnClick = [this, btnName]() { JumpToChoice(btnName); };
 		}
 

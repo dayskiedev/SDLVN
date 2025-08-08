@@ -29,6 +29,8 @@ public:
 
 	void JumpToChoice(std::string choice);
 
+	void TokenizeLine();
+
 private:
 	std::string spriteObjName;
 	std::string spriteTexName;
@@ -42,4 +44,6 @@ private:
 	// data: path/to/data vn title, dialouge selections
 	std::vector<std::string> _scriptFile;
 	std::vector<std::string> _commandArgs;
+
+	UIManager* _uiManager;
 };
