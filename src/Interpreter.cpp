@@ -60,6 +60,14 @@ void Interpreter::JumpToChoice(std::string choice) {
 	return;
 }
 
+bool Interpreter::ArgCheckSize(int expected, int actual) {
+	if (actual < expected) {
+		std::cout << "Error: Invalid Arg size! Expected: " << expected << ") Actual: (" << actual << ")" << std::endl;
+		return false;
+	}
+	return true;
+}
+
 void Interpreter::ButtonClicked() {
 	_lineCount++; // rollover so we dont print the choice
 	increment = true;
@@ -68,7 +76,7 @@ void Interpreter::ButtonClicked() {
 
 void Interpreter::TokenizeLine() {
 	_commandArgs.clear();
-
+	// regex to select
 	std::regex splitRegex(R"(".*?\"|\S+)");
 	std::string cTokens = _scriptFile[_lineCount];
 	auto tokens_begin = std::sregex_iterator(cTokens.begin(), cTokens.end(), splitRegex);
@@ -99,6 +107,9 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 	if (_commandArgs[0] == "#") { increment = true; }
 
 	else if (_commandArgs[0] == "*enter") {
+		// *enter [objName] [sprName] [position]
+		//if (!ArgCheckSize(4, _commandArgs.size())) { return; }
+
 		// some sort of arg checker 
 		spriteObjName	= _commandArgs[1];
 		spriteTexName	= _commandArgs[2];
@@ -116,6 +127,8 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 	}
 
 	else if (_commandArgs[0] == "*setsprite") {
+		// *setsprite [objName] [sprName] [position]
+		//if (!ArgCheckSize(4, _commandArgs.size())) { return; }
 		spriteObjName = _commandArgs[1];
 		spriteTexName = _commandArgs[2];
 
@@ -127,6 +140,8 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 	}
 
 	else if (_commandArgs[0] == "*wait") {
+		// *wait [time_to_wait]
+		if (!ArgCheckSize(2, _commandArgs.size())) { return; }
 		double delayTime = 0;
 		try {
 			delayTime = std::stod(_commandArgs[1]);
@@ -143,7 +158,6 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 	}
 
 	else if (_commandArgs[0] == "*choice") {
-		// clean all this shit up bro...
 		if (!increment) { return; }
 
 		std::string btnName;
@@ -160,6 +174,9 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 			PrintError(ia.what());
 			return;
 		}
+
+		// *choice [num_choices] [btnName] [btnContents] ,,, can extend further
+		if (!ArgCheckSize(2 + (2 * numButtons), _commandArgs.size())) { return; }
 
 		int startY = (numButtons > 1 ? SCREEN_HEIGHT / numButtons : SCREEN_HEIGHT / 2);
 
@@ -221,12 +238,13 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 
 		// we are asumming this is the only button...
 		auto rplyBtn = _uiManager->GetUiVector()[0];
-		std::cout << increment;
 		rplyBtn->OnClick = [this]() { ButtonClicked(); };
 
 	}
 
 	else if (_commandArgs[0] == "*setbackground") {
+		// *setbackackground [background_path]
+		if (!ArgCheckSize(2, _commandArgs.size())) { return; }
 		background.loadFromFile(GLOBAL_BACKGROUNDS_PATH + _commandArgs[1]);
 
 	}

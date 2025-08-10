@@ -32,6 +32,7 @@ public:
 
 	void TokenizeLine();
 
+	bool ArgCheckSize(int expected, int actual);
 private:
 	std::string spriteObjName;
 	std::string spriteTexName;
