@@ -128,6 +128,7 @@ void renderGame() {
 
 	// layer 1 character sprites
 	for (Sprite* s : spriteManager.getSpriteVector()) {
+		// change render to be scaled based from settings
 		s->render(s->getX(), s->getY(), s->getWidth() / 1.5, s->getHeight() / 1.5);
 	}
 	
@@ -136,8 +137,9 @@ void renderGame() {
 
 	// layer 2 text
 	int index = 0;
-	for (Texture* t : textManager.getTextVector()) {
-		t->render(tOffsetX,(tOffsetY * index) + tOffsetX);
+	for (Text* t : textManager.getTextVector()) {
+		t->textTexture->loadFromRenderedText(t->text.substr(0, t->curTextLen), t->textColor);
+		t->textTexture->render(tOffsetX,(tOffsetY * index) + tOffsetX);
 		index++;
 	}
 

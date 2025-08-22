@@ -165,8 +165,6 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 
 		int numButtons = 0;
 
-		// remove magic numbers...
-
 		try {
 			numButtons = std::stod(_commandArgs[1]);
 		}
@@ -186,7 +184,7 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 			btnContents = btnContents.substr(1, (btnContents.length() - 2) );
 
 			_uiManager->AddButton(btnName, btnContents, 
-				(SCREEN_WIDTH / 2) - (CHOICE_BUTTON_WIDTH/2) , startY - CHOICE_BUTTON_HEIGHT, 
+				(SCREEN_WIDTH / 2) - (CHOICE_BUTTON_WIDTH/2) , startY - CHOICE_BUTTON_HEIGHT,
 				CHOICE_BUTTON_WIDTH, CHOICE_BUTTON_HEIGHT);
 			startY += CHOICE_BUTTON_HEIGHT + (CHOICE_BUTTON_HEIGHT/2);
 			i++; // NEED TO MAKE SURE WE SKIP OVER THE BUTTON TXT FOR THE CURRENT BUTTON
@@ -252,7 +250,11 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 	else {
 		if (increment) {
 			//print to screen
-			_textManager.addText(_scriptFile[_lineCount]);
+			// get text struct here to mess with increment lolololololol
+			Text* curDialogueLine;
+			curDialogueLine = _textManager.addText(_scriptFile[_lineCount]); 
+			curDialogueLine->curTextLen = curDialogueLine->text.length() / 2;
+
 			increment = false;
 		}
 
