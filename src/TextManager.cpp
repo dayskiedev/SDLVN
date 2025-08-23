@@ -30,7 +30,7 @@ Text* TextManager::addText(std::string text) {
 	_text->textTexture->setRenderer(_renderer);
 	_text->textTexture->setFont(_currentFont);
 	_text->textColor = _white;
-	_text->curTextLen = text.length();
+	_text->curTextLen = 0;
 	//std::string rmpText = exampleCommandLine[cCount].erase(0, 6);
 	//textTexture->loadFromRenderedText(text, _white);
 

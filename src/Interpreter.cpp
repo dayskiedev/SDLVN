@@ -1,5 +1,8 @@
 #include "Interpreter.h"
 
+// switch to more of a state machine system
+// tighten memory safety (look into smrt pointers)
+
 bool Interpreter::OpenScript(std::string filePath) {
 	_scriptFile.empty();
 
@@ -35,24 +38,15 @@ void Interpreter::PrintError(std::string Error) {
 }
 
 void Interpreter::JumpToChoice(std::string choice) {
-
-	// get starting line for script
-	// loop from there to choice and then
-	// set the current line to that.
-	// if we cant find it, print an error?
-
 	int _lineCountInitial = _lineCount;
 
-	// VERY LITTLE THOUGHT PUT IN!!!
 	while (_lineCount < _scriptFile.size()) {
 		if (_scriptFile[_lineCount] == ":" + choice) {
 			std::cout << "Reached choice '" << choice << "' on line: " << _lineCount + 1 << "\n";
 			ButtonClicked();
 			return;
 		}
-		else {
-			_lineCount++;
-		}
+		else { _lineCount++; }
 	}
 
 	PrintError("ERROR: Choice " + choice + " not found!");
@@ -100,15 +94,13 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 		return;
 	}
 
-
+	// THIS IS RUN EVERY FRAME, WE SHOULD ONLY BE CALLING THIS ONCE EACH TIME WE MOVE ONTO THE NEXT LINE
 	TokenizeLine();
-	//_commandArgs = splitString(_scriptFile[_lineCount]);
 
 	if (_commandArgs[0] == "#") { increment = true; }
 
 	else if (_commandArgs[0] == "*enter") {
 		// *enter [objName] [sprName] [position]
-		//if (!ArgCheckSize(4, _commandArgs.size())) { return; }
 
 		// some sort of arg checker 
 		spriteObjName	= _commandArgs[1];
@@ -128,7 +120,6 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 
 	else if (_commandArgs[0] == "*setsprite") {
 		// *setsprite [objName] [sprName] [position]
-		//if (!ArgCheckSize(4, _commandArgs.size())) { return; }
 		spriteObjName = _commandArgs[1];
 		spriteTexName = _commandArgs[2];
 
@@ -141,7 +132,6 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 
 	else if (_commandArgs[0] == "*wait") {
 		// *wait [time_to_wait]
-		if (!ArgCheckSize(2, _commandArgs.size())) { return; }
 		double delayTime = 0;
 		try {
 			delayTime = std::stod(_commandArgs[1]);
@@ -158,6 +148,7 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 	}
 
 	else if (_commandArgs[0] == "*choice") {
+		// *choice [num_choices] [btnName] [btnContents] ,,, can extend further
 		if (!increment) { return; }
 
 		std::string btnName;
@@ -172,9 +163,6 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 			PrintError(ia.what());
 			return;
 		}
-
-		// *choice [num_choices] [btnName] [btnContents] ,,, can extend further
-		if (!ArgCheckSize(2 + (2 * numButtons), _commandArgs.size())) { return; }
 
 		int startY = (numButtons > 1 ? SCREEN_HEIGHT / numButtons : SCREEN_HEIGHT / 2);
 
@@ -224,17 +212,19 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 	}
 
 	else if (_commandArgs[0] == "*reply") {
+		// reply [reply text]
 		if (!increment) { return; }
 		std::string replyName = "reply";
 		std::string replyContents = _commandArgs[1];
 		replyContents = replyContents.substr(1, (replyContents.length() - 2));
+		
 		_uiManager->AddButton(replyName, replyContents, (SCREEN_WIDTH / 2) - (CHOICE_BUTTON_WIDTH / 2),
 			(SCREEN_HEIGHT / 2) - (CHOICE_BUTTON_HEIGHT / 2), CHOICE_BUTTON_WIDTH, CHOICE_BUTTON_HEIGHT);
 
 		// wait for input
 		increment = false;
 
-		// we are asumming this is the only button...
+		// we are asumming this is the only button... THIS IS BAD!!!!!
 		auto rplyBtn = _uiManager->GetUiVector()[0];
 		rplyBtn->OnClick = [this]() { ButtonClicked(); };
 
@@ -249,13 +239,23 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 
 	else {
 		if (increment) {
-			//print to screen
-			// get text struct here to mess with increment lolololololol
-			Text* curDialogueLine;
-			curDialogueLine = _textManager.addText(_scriptFile[_lineCount]); 
-			curDialogueLine->curTextLen = curDialogueLine->text.length() / 2;
+			curDialogueLine = _textManager.addText(_scriptFile[_lineCount]);
 
+			incrementText = true;
 			increment = false;
+
+		}
+		if (incrementText) {
+			if (curDialogueLine->curTextLen >= curDialogueLine->text.length()) {
+				incrementText = false;
+				return;
+			}
+			curDialogueLine->curTextLen++;
+
+			// this freezzes the whole system, we don't want that instead we have a counter update each frame
+			// once that counter goes over then we increase to the next character!
+			SDL_Delay(20);
+
 		}
 
 		// print text to screen, gTHEN INCREMENT TO NEXT LINE AFTER
@@ -263,19 +263,23 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 		if (e.type == SDL_KEYDOWN) {
 			switch (e.key.keysym.sym) {
 			case SDLK_SPACE:
-				increment = true;
+
+				if (curDialogueLine->curTextLen < curDialogueLine->text.length() - 1) {
+					curDialogueLine->curTextLen = curDialogueLine->text.length();
+					incrementText = false;
+
+					// if we don't return we will instantly skip to the next line in the
+					// interpretor which we dont want
+					return;
+				}
+				else {
+					increment = true;
+				}
+
 			}
 		}
 	}
 
-
-	// think of input
-	// we read a line and check the command
-	// for pretty much everything we want to execute it and move onto the next command
-	// however for special cases like choices and text we want to print them to the screen
-	// and then wait for user input before continuing...
-
-	// once we have our command, read next line
 	if (increment) {
 		_lineCount++;
 	}

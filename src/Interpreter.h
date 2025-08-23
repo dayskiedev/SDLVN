@@ -40,7 +40,9 @@ private:
 
 	int _lineCount = 0; //temp value, will be replaced with script loading
 	bool increment = true;
+	bool incrementText = false;
 
+	Text* curDialogueLine;
 	// vns file:
 	// type: MAIN -- entry point for file
 	// data: path/to/data vn title, dialouge selections
