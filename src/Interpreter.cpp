@@ -82,7 +82,7 @@ void Interpreter::TokenizeLine() {
 	}
 }
 
-void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _textManager, UIManager& _ui, Texture& background) {
+void Interpreter::Run(SDL_Event e, double deltaTime, SpriteManager& _spriteManager, TextManager& _textManager, UIManager& _ui, Texture& background) {
 	_uiManager = &_ui;
 
 	if (_lineCount >= _scriptFile.size()) {
@@ -237,10 +237,17 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 
 	}
 
+	// jumptoline command
+	// playmusic command
+	// pause music command
+	// stop music command
+
+	// textspeed command
+	// *textspeed [double]
+
 	else {
 		if (increment) {
 			curDialogueLine = _textManager.addText(_scriptFile[_lineCount]);
-
 			incrementText = true;
 			increment = false;
 
@@ -250,11 +257,19 @@ void Interpreter::Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _
 				incrementText = false;
 				return;
 			}
-			curDialogueLine->curTextLen++;
+			
+			// smooth text update per frame without interuptting other actions
+			if (textCounter >= threshold) {
+				// if we have passed or reached the text threshold, render the next character
+				curDialogueLine->curTextLen++;
+				textCounter = 0;
+			}
+			// otherwise increase the textcounter, deltatime keeps the text incremementing at the same 
+			// speed every update by increasing the increment by the amount of times between frames
+			// if there is a long gap between frames, deltatime is large, meaning the increment increases quicker 
+			// reaching the threshold quicker allowing for smooth text updates
+			else { textCounter += deltaTime; }
 
-			// this freezzes the whole system, we don't want that instead we have a counter update each frame
-			// once that counter goes over then we increase to the next character!
-			SDL_Delay(20);
 
 		}
 

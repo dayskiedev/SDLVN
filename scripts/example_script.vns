@@ -1,9 +1,7 @@
 *setbackground entrance.png
 *enter saber saber.png CENTRE
 Good afternoon, Shirou.
-THIS IS REALLY LONG TEXT TO TEST OUT HOW THE TEXT BUFFER HOPEFULLY ONE DAY IT WILL WRAP SO YOU CAN SEE THIS PART!
-WORKS LOLOL IT GOES ON FOR UITE A WHILE!
-*reply "Good afternoon!"
+*reply "Good Afternoon!"
 *cleartext
 It's a nice day today isn't it?
 *setsprite saber saber3.png
@@ -12,6 +10,7 @@ What did you want to do today?
 *choice 2 bridge "Lets go for a walk!" dojo "Lets spar!"
 
 :bridge
+*cleartext
 *setsprite saber saber.png
 A walk huh..
 Well i suppose it can't hurt

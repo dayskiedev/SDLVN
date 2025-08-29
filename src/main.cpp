@@ -3,6 +3,10 @@
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
 
+// if you get the error 'The code execution cannot proceed because xxx.dll was not found.'
+// check if its linked in your path variables
+
+
 #include <stdio.h>
 #include <vector>
 #include <sstream>
@@ -23,6 +27,9 @@ const int S_MID_Y = SCREEN_HEIGHT / 2 - 250;
 
 const int tOffsetX = 20;
 const int tOffsetY = 32;
+
+Uint64 NOW = 0;
+Uint64 LAST = 0; 
 
 Mix_Music* gPush = NULL;
 
@@ -107,12 +114,12 @@ void close() {
 	SDL_Quit();
 }
 
-void Update(SDL_Event e) {
+void Update(SDL_Event e, double deltaTime) {
 
 	// main game logic, handle input
 
 	// here we execute the current line in the interpreter before checking for any input
-	interpreter.Run(e, spriteManager, textManager, uiManager, gBackground);
+	interpreter.Run(e, deltaTime, spriteManager, textManager, uiManager, gBackground);
 
 	for (Button* b : uiManager.GetUiVector()) {
 		b->Update(e);
@@ -182,13 +189,22 @@ int main(int argc, char* args[]) {
 
 	if (!interpreter.OpenScript(GLOBAL_SCRIPTS_PATH + "example_script.vns")) { return -1; }
 
+	// deltatime is the difference between the last update of the executable
+	// we use deltatime because it unifies the timeing between systems/
+	// right now the text is slow, but if i had a really good computer it would appear faster...
+
+
 	while (!quit) {
 		SDL_PollEvent(&e);
 		if (e.type == SDL_QUIT) {
 			quit = true;
 		}
 
-		Update(e);
+		NOW = SDL_GetPerformanceCounter();
+		double deltaTime = (double)((NOW - LAST) * 1000 / (double)SDL_GetPerformanceFrequency());
+		LAST = NOW;
+	
+		Update(e, deltaTime);
 		renderGame();
 		SDL_RenderPresent(gRenderer);
 	}

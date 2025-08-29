@@ -25,7 +25,7 @@ public:
 	void PrintError(std::string Error);
 
 	// pass by referecne because we want to modify the sprites/text in these vectors
-	void Run(SDL_Event e, SpriteManager& _spriteManager, TextManager& _textManager, UIManager& _uiManager, Texture& background);
+	void Run(SDL_Event e, double deltaTime, SpriteManager& _spriteManager, TextManager& _textManager, UIManager& _uiManager, Texture& background);
 
 	void JumpToChoice(std::string choice);
 	void ButtonClicked();
@@ -48,6 +48,10 @@ private:
 	// data: path/to/data vn title, dialouge selections
 	std::vector<std::string> _scriptFile;
 	std::vector<std::string> _commandArgs;
+
+	double textSpeed	= 2.5;
+	double textCounter	= 0;
+	double threshold	= 50 / textSpeed;
 
 	UIManager* _uiManager;
 };

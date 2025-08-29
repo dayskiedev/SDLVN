@@ -37,6 +37,6 @@ Did I do something to make her mad?
 - ~~Delay between commands~~
 - ~~Proper command advancement~~
 - ~~Actual choices like a proper visual novel~~
-- ~~Animated text~~
+- ~~Animated text~~``
 - Animations (sprite and background)
 - Menus (Main, Pause, Settings etc.)
