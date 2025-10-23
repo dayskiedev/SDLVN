@@ -2,6 +2,7 @@
 
 // switch to more of a state machine system
 // tighten memory safety (look into smrt pointers)
+// should the interprertor be doing so much, or just calling the functions?
 
 bool Interpreter::OpenScript(std::string filePath) {
 	_scriptFile.empty();
@@ -85,7 +86,7 @@ void Interpreter::TokenizeLine() {
 void Interpreter::Run(SDL_Event e, double deltaTime, SpriteManager& _spriteManager, TextManager& _textManager, UIManager& _ui, Texture& background) {
 	_uiManager = &_ui;
 
-	if (_lineCount >= _scriptFile.size()) {
+	if (_lineCount >= _scriptFile.size()) { 
 		return; // dunno what to do now that we've reached the end of file... just sit there?
 	}
 
@@ -94,8 +95,9 @@ void Interpreter::Run(SDL_Event e, double deltaTime, SpriteManager& _spriteManag
 		return;
 	}
 
-	// THIS IS RUN EVERY FRAME, WE SHOULD ONLY BE CALLING THIS ONCE EACH TIME WE MOVE ONTO THE NEXT LINE
-	TokenizeLine();
+	if (increment) { TokenizeLine(); }
+
+	// this whole command file needs to be updated
 
 	if (_commandArgs[0] == "#") { increment = true; }
 
@@ -148,6 +150,7 @@ void Interpreter::Run(SDL_Event e, double deltaTime, SpriteManager& _spriteManag
 	}
 
 	else if (_commandArgs[0] == "*choice") {
+		// this should all be movied to ui manager i think....
 		// *choice [num_choices] [btnName] [btnContents] ,,, can extend further
 		if (!increment) { return; }
 
@@ -235,6 +238,11 @@ void Interpreter::Run(SDL_Event e, double deltaTime, SpriteManager& _spriteManag
 		if (!ArgCheckSize(2, _commandArgs.size())) { return; }
 		background.loadFromFile(GLOBAL_BACKGROUNDS_PATH + _commandArgs[1]);
 
+	}
+
+	else if (_commandArgs[0] == "*jumpto") {
+		std::string choice = _commandArgs[1];
+		JumpToChoice(choice);
 	}
 
 	// jumptoline command

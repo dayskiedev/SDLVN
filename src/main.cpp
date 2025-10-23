@@ -19,8 +19,11 @@
 #include "Interpreter.h"
 
 // TODO: 
-// CLEAN UP CODE
-// do wee need pointers for everything?
+// 1. change main to have game states: menu and game
+// 2. proper file saving and loading, save script file used, cur background, sprites, and text line
+// 3. music
+// 3. basic music commands: start, stop, pause, volume
+// 3. sound effects
 
 const int S_MID_X = SCREEN_WIDTH / 2 - 200;
 const int S_MID_Y = SCREEN_HEIGHT / 2 - 250;
@@ -54,6 +57,11 @@ std::vector<Button*> _buttons;
 
 Texture gBackground;
 SDL_Rect gBlackBox;
+
+enum GAME_STATE {
+	GAME,
+	MENU
+};
 
 
 bool init() {
@@ -145,6 +153,7 @@ void renderGame() {
 	// layer 2 text
 	int index = 0;
 	for (Text* t : textManager.getTextVector()) {
+		if (t->curTextLen == 0) { continue; }
 		t->textTexture->loadFromRenderedText(t->text.substr(0, t->curTextLen), t->textColor);
 		t->textTexture->render(tOffsetX,(tOffsetY * index) + tOffsetX);
 		index++;
@@ -194,7 +203,19 @@ int main(int argc, char* args[]) {
 	// right now the text is slow, but if i had a really good computer it would appear faster...
 
 
+	// game switches depending on the state
+	GAME_STATE game_state = MENU;
+
 	while (!quit) {
+		//switch (game_state)
+		//{
+		//	case GAME:
+		//		std::cout << "game state!!!!\n";
+		//		break;
+		//	case MENU:
+		//		std::cout << "Menu state!!\n";
+		//		break;
+		//}
 		SDL_PollEvent(&e);
 		if (e.type == SDL_QUIT) {
 			quit = true;

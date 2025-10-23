@@ -1,47 +1,41 @@
 *setbackground entrance.png
-*enter saber saber.png CENTRE
-Good afternoon, Shirou.
-*reply "Good Afternoon!"
+*enter rin rin.png LEFT
+Yo, whats up loser?
+# *jumpto bad
+*reply "Oh. it's you."
 *cleartext
-It's a nice day today isn't it?
-*setsprite saber saber3.png
-So...
-What did you want to do today?
-*choice 2 bridge "Lets go for a walk!" dojo "Lets spar!"
+*setsprite rin rin2.png
+Wha.
+*setsprite rin rin3.png
+Whats that supposed to mean???
+*choice 3 good "Uhh im just happy to see you!" bad "Why are you here?" chill "Whats sup dude!"
 
-:bridge
+:good
 *cleartext
-*setsprite saber saber.png
-A walk huh..
-Well i suppose it can't hurt
-*cleartext
-# background transition?
-*setbackground bridge.png
-*exit saber
-As im jogging along I realise something
-Saber hasn't been next to me for a while...
-I quickly come to a stop before turning to see a golden ahoge charging at me
-*cleartext
-Huff... Puff...
-*enter saber saber2.png RIGHT
-Huff... Puff...
-*setsprite saber saber4.png
-Did we really have to run here?
-*reply "Of course we did!"
-...
-*setsprite saber saber.png
-Well exercise is always nice.
-Lets head to the dojo for a round then!.
+*setsprite rin rin3.png
+Oh... I see
+Well, its good to see you too I guess.
+What're you up to?
 
-:dojo
-*setsprite saber saber4.png
-A sparring match huh?
-*setsprite saber saber3.png
-Just be warned.
-I won't hold back!
+:bad
 *cleartext
-# transition again..
-*setbackground dojo.png
-I hope your ready.
-*setsprite saber saber3.png
-I won't go easy!!!!
+Well I was just dropping by to say hello.
+But I guess im not needed here! 
+Hmpg!
+*exit rin
+*reply "Geez, she's grumpy today..."
+
+:chill
+*cleartext
+umm....
+*setsprite rin rin2.png
+what?
+*reply "...?"
+*cleartext
+its just...
+---I didn't think you where so chill...
+It...
+*setsprite rin rin.png
+Makes me kind of happy...
+*reply "...!"
+uGHHH you idiot!

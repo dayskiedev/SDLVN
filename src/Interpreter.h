@@ -49,7 +49,7 @@ private:
 	std::vector<std::string> _scriptFile;
 	std::vector<std::string> _commandArgs;
 
-	double textSpeed	= 2.5;
+	double textSpeed	= DEFAULT_TEXT_SPEED;
 	double textCounter	= 0;
 	double threshold	= 50 / textSpeed;
 

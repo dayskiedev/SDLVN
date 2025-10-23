@@ -7,11 +7,13 @@ extern int SCREEN_HEIGHT;
 extern int CHOICE_BUTTON_WIDTH;
 extern int CHOICE_BUTTON_HEIGHT;
 
-// should not be const as they can be changed in a seperate config.txt ?
+// should not be const as they can be changed in a seperate config.ini ?
 extern std::string GLOBAL_FONT_PATH;
 extern std::string GLOBAL_BACKGROUNDS_PATH;
 extern std::string GLOBAL_SPRITES_PATH;
 extern std::string GLOBAL_SCRIPTS_PATH;
+
+extern double DEFAULT_TEXT_SPEED;
 
 extern std::string DEFAULT_BUTTON_TEXTURE;
 
