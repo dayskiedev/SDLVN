@@ -16,3 +16,5 @@ std::string GLOBAL_SPRITES_PATH = "sprites/";
 std::string GLOBAL_SCRIPTS_PATH = "scripts/";
 
 std::string DEFAULT_BUTTON_TEXTURE = "sprites/sans.png";
+
+std::string DEFAULT_SAVE_LOCATION = "saves/";

@@ -17,6 +17,8 @@ extern double DEFAULT_TEXT_SPEED;
 
 extern std::string DEFAULT_BUTTON_TEXTURE;
 
+extern std::string DEFAULT_SAVE_LOCATION;
+
 // text position
 // choice button position
 // sprite scale
