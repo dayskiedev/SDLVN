@@ -1,23 +1,23 @@
 #include <iostream>
 #include "Game.h"
-
-#include "SaveManager.h"
+#include "GameManager.h"
 
 int main(int argc, char* args[]) {
 	Game game;
-	if (!game.Init()) {
+	GameManager gameManager;
+	
+	if (!gameManager.Init()) {
 		std::cout << "Failed to launch project! Exiting..." << std::endl;
 		return -1;
 	}
 
-	SaveManager s;
-	s.Save();
+	std::cout << "Initiated startup, attempting to run" << std::endl;
 
-	while (game.running) {
-		game.Run();
+	while (gameManager.running) {
+		gameManager.Run();
 	}
 
-	game.Quit();
+	gameManager.Quit();
 
 	return 0;
 }

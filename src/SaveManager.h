@@ -40,6 +40,9 @@ public:
 private:
 	int saveNum = 0;
 	std::ofstream saveFile;
+
+	std::string scriptName;
+	int scriptLineNumber;
 		
 	struct spriteSaveFlags {
 		std::string spriteObjname;
@@ -49,5 +52,5 @@ private:
 	};
 
 	std::string background;
-	int scriptLineNumber;
+
 };

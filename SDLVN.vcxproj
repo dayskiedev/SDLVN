@@ -136,6 +136,7 @@
     <ClCompile Include="src\Button.cpp" />
     <ClCompile Include="src\Config.cpp" />
     <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\GameManager.cpp" />
     <ClCompile Include="src\Interpreter.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Menu.cpp" />
@@ -151,6 +152,7 @@
     <ClInclude Include="src\Config.h" />
     <ClInclude Include="src\DialogueLine.h" />
     <ClInclude Include="src\Game.h" />
+    <ClInclude Include="src\GameManager.h" />
     <ClInclude Include="src\Interpreter.h" />
     <ClInclude Include="src\SaveManager.h" />
     <ClInclude Include="src\Sprite.h" />

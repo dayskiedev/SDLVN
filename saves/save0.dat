@@ -1,0 +1,5 @@
+lineNumber 0
+background background.png[SPRITES]
+rin sprites/rin3.png 12 23 400 400 100
+choices:
+bad chill ok

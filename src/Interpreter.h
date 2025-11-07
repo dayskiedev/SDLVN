@@ -18,6 +18,10 @@
 
 #include "Config.h"
 
+
+#ifndef INTERPRETER_H
+#define INTERPRETER_H
+
 class Interpreter {
 public:
 	bool OpenScript(std::string scriptPath);
@@ -55,3 +59,5 @@ private:
 
 	UIManager* _uiManager;
 };
+
+#endif

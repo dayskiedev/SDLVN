@@ -1,5 +1,7 @@
 #include "Button.h"
 
+// Default Constructor 
+
 void Button::Update(SDL_Event e) {
 	_overlapping = OverlappingCheck();
 

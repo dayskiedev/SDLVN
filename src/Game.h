@@ -12,6 +12,8 @@
 #include "TextManager.h"
 #include "Interpreter.h"
 
+#include "Button.h"
+
 #include "Config.h"
 
 #ifndef GAME_H
@@ -19,24 +21,17 @@
 
 class Game {
 public:
-	bool Init();
-	void Run(); 
+	bool Init(SDL_Renderer* renderer);
+	void Run(SDL_Event e, double deltaTime);
 	void Update(SDL_Event e, double deltaTime);
 	void Render();
-	void Quit();
-
-	bool running = true;
 private:
+	bool initalised = false;
 	// Script to load
 	std::string script_name = "example_script.vns";
 
-	SDL_Event e;
-
-	// the window we render to
-	SDL_Window* gWindow = NULL;
-
 	// window renderer
-	SDL_Renderer* gRenderer = NULL;
+	SDL_Renderer* gameRenderer = NULL;
 
 	// Nabafers
 	SpriteManager spriteManager;
@@ -47,11 +42,6 @@ private:
 	Interpreter interpreter;
 
 	std::vector<Button*> _buttons;
-
-	Uint64 NOW = 0;
-	Uint64 LAST = 0;
-
-	Mix_Music* gPush = NULL;
 
 	// global font
 	TTF_Font* gFont = NULL;
@@ -66,14 +56,6 @@ private:
 	// will need to remove these at some point.
 	Texture gBackground;
 	SDL_Rect gBlackBox;
-	double deltaTime;
-
-	enum GAME_STATE {
-		GAME,
-		MENU,
-		PAUSE
-	};
-
 };
 
 #endif
