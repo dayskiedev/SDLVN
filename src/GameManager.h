@@ -6,7 +6,9 @@
 #include <iostream>
 #include "Config.h"
 
+// scenes
 #include "Game.h"
+#include "Menu.h"
 
 #ifndef GAMEMANAGER_H
 #define GAMEMANAGER_H
@@ -39,9 +41,10 @@ private:
 		PAUSE
 	};
 
-	GAME_STATE gameState = GAME;
+	GAME_STATE gameState = MENU;
 
 	Game _game;
+	Menu _menu;
 
 };
 

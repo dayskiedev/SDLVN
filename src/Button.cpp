@@ -1,6 +1,17 @@
 #include "Button.h"
 
 // Default Constructor 
+Button::Button() {}
+Button::Button(std::string name, SDL_Renderer* renderer, std::string texture, int w, int h, int x, int y, std::string text, int fontSize) {
+	setRenderer(renderer);
+	SetButtonName(name);
+	loadFromFile(texture);
+	setWidth(w);
+	setHeight(h);
+	setX(x);
+	setY(y);
+	setText(text, fontSize, renderer);
+}
 
 void Button::Update(SDL_Event e) {
 	_overlapping = OverlappingCheck();
@@ -12,7 +23,7 @@ void Button::Update(SDL_Event e) {
 
 			if (OnClick) { OnClick(); }
 			else {
-				std::cout << "ERROR: OnClick Function has not been assigned!\n";
+				std::cout << "ERROR: OnClick Function has not been assigned for '" << this->_btnName << "'" << std::endl;
 			}
 
 		}

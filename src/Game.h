@@ -16,6 +16,8 @@
 
 #include "Config.h"
 
+// we dony want scenes to interact with the managaer, but we need them to change scenes
+
 #ifndef GAME_H
 #define GAME_H
 

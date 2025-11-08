@@ -2,6 +2,7 @@
 #include <vector>
 
 #include "Button.h"
+#include "Texture.h"
 
 #ifndef UI_MANAGER
 #define UI_MANAGER
@@ -17,6 +18,7 @@ public:
 	std::vector<Button*> GetUiVector();
 
 	void AddButton(std::string btnName, std::string btnContents, int x, int y, int w, int h);
+	void AddButton(Button* button);
 	void RemoveButton(std::string btnName);
 	void RemoveButtons();
 

@@ -63,18 +63,20 @@ void GameManager::Run() {
 	switch (gameState)
 	{
 		case GameManager::GAME:
+			// switch these to scene swapping so we dont waste time checking each frame?
 			_game.Init(gRenderer);
 			_game.Run(e, deltaTime);
 			break;
 		case GameManager::MENU:
-			std::cout << "Yer in the menu now hehehehe";
+			_menu.Init(gRenderer);
+			_menu.Run(e, deltaTime);
 			break;
 		case GameManager::PAUSE:
 			break;
 	default:
 		break;
 	}
-}
+}   
 
 void GameManager::Quit() {
 	SDL_DestroyWindow(gWindow);
