@@ -23,6 +23,9 @@ void UIManager::RemoveButton(std::string btnName) {
 }
 
 void UIManager::RemoveButtons() {
+	for (auto b : _buttons) {
+		delete b;
+	}
 	_buttons.clear();
 }
 

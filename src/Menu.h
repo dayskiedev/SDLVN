@@ -1,6 +1,7 @@
 #include <SDL.h>
 
 #include <iostream>
+#include <memory>
 
 #include "Config.h"
 #include "UIManager.h"

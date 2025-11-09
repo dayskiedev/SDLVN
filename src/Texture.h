@@ -9,6 +9,7 @@
 class Texture {
 public:
 	Texture();
+	Texture(SDL_Renderer* renderer, std::string texturePath, int w, int h, int x, int y);
 	~Texture();
 	
 	void setRenderer(SDL_Renderer* _renderer);

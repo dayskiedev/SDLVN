@@ -4,6 +4,7 @@
 #include <SDL_mixer.h>
 
 #include <iostream>
+
 #include "Config.h"
 
 // scenes
@@ -41,7 +42,7 @@ private:
 		PAUSE
 	};
 
-	GAME_STATE gameState = MENU;
+	GAME_STATE gameState = GAME;
 
 	Game _game;
 	Menu _menu;

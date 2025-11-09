@@ -1,7 +1,9 @@
 #include "Menu.h"
 
-Texture mockLogo;
-Texture background;
+
+// unique pointer assigns ownership
+std::unique_ptr<Texture> mockLogo;
+std::unique_ptr<Texture> background;
 
 bool Menu::Init(SDL_Renderer* renderer) {
 	if (initalised) { return true; }
@@ -34,21 +36,10 @@ bool Menu::Init(SDL_Renderer* renderer) {
 	menuUi.AddButton(playButton);
 	menuUi.AddButton(quitButton);
 	// I NEED CONSTRUCTORRRRSSS
-	mockLogo.setRenderer(menuRenderer);
-	mockLogo.loadFromFile("backgrounds/logo.png");
-	mockLogo.setWidth(512);
-	mockLogo.setHeight(151);
-	mockLogo.setX((SCREEN_WIDTH / 2) - (mockLogo.getWidth() / 2));
-	mockLogo.setY(25);
 
-
-	background.setRenderer(menuRenderer);
-	background.loadFromFile("backgrounds/umabackground.png");
-	background.setWidth(SCREEN_WIDTH);
-	background.setHeight(SCREEN_HEIGHT);
-	background.setX(0);
-	background.setY(0);
-
+	// these load the textures but they do not get shown?
+	mockLogo = std::make_unique<Texture>(menuRenderer, "backgrounds/logo.png", 512, 151, (SCREEN_WIDTH / 2) - (151 / 2), 25);
+	background = std::make_unique<Texture>(menuRenderer, "backgrounds/umabackground.png", SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0);
 
 	initalised = true;
 	return true;
@@ -67,9 +58,9 @@ void Menu::Render() {
 	SDL_SetRenderDrawColor(menuRenderer, 100, 100, 100, 100);
 	SDL_RenderClear(menuRenderer);
 
-	background.render();
+	background->render();
 
-	mockLogo.render();
+	mockLogo->render();
 
 	for (auto b : menuUi.GetUiVector()) { 
 		b->render(); 

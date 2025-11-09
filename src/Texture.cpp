@@ -9,7 +9,17 @@ Texture::Texture() {
 	mY = 0;
 }
 
+Texture::Texture(SDL_Renderer* renderer, std::string texturePath, int w, int h, int x, int y) {
+	setRenderer(renderer);
+	loadFromFile(texturePath);
+	setWidth(w);
+	setHeight(h);
+	setX(x);
+	setY(y);
+}
+
 Texture::~Texture() {
+	std::cout << "Destroyed texture: " << mTexture << std::endl;
 	free();
 }
 
@@ -88,6 +98,7 @@ bool Texture::loadFromFile(std::string path) {
 
 		SDL_FreeSurface(loadedSurface);
 	}
+
 	mTexture = newTexture;
 	return mTexture != NULL;
 }
