@@ -9,12 +9,17 @@
 #ifndef MENU_H
 #define MENU_H
 
-class Menu {
+#include "GameState.h"
+
+// why does changing this to public work?
+class Menu : public GameState {
 public:
-	bool Init(SDL_Renderer* renderer);
+	void EnterState(SDL_Renderer* renderer);
 	void Run(SDL_Event e, double deltaTime);
 	void Update(SDL_Event e, double deltaTime);
 	void Render();
+
+	void PlayGame();
 private:
 	bool initalised = false;
 

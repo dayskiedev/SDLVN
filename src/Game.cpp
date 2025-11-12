@@ -11,8 +11,7 @@
 // ensure every system can properly load before we run the game, if we run into errors
 // we want to exit early
 
-bool Game::Init(SDL_Renderer* renderer) {
-	if (initalised) { return true; }
+void Game::EnterState(SDL_Renderer* renderer) {
 	// pass through the main render pointer
 	// and set it to that
 	gameRenderer = renderer;
@@ -31,16 +30,18 @@ bool Game::Init(SDL_Renderer* renderer) {
 	/// REMOVE LATER
 	gBlackBox = { 0,0, SCREEN_WIDTH, SCREEN_HEIGHT };
 
-	if (!interpreter.OpenScript(GLOBAL_SCRIPTS_PATH + script_name)) { return false; }
-	initalised = true;
-	return true;
+	// NEED TO ERROR CHECK THIS
+	interpreter.OpenScript(GLOBAL_SCRIPTS_PATH + script_name);
 }
 // run is called from main, checks for event quit
 // run handles update and render as seperate methods to call
 
 void Game::Run(SDL_Event e, double deltaTime) {	
-	Update(e, deltaTime);
-	Render();
+
+	while (true) {
+		Update(e, deltaTime);
+		Render();
+	}
 }
 
 void Game::Update(SDL_Event e, double deltaTime) {

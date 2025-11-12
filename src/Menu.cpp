@@ -1,12 +1,10 @@
 #include "Menu.h"
 
-
 // unique pointer assigns ownership
 std::unique_ptr<Texture> mockLogo;
 std::unique_ptr<Texture> background;
 
-bool Menu::Init(SDL_Renderer* renderer) {
-	if (initalised) { return true; }
+void Menu::EnterState(SDL_Renderer* renderer) {
 	// pass through the main render pointer
 	// and set it to that
 	menuRenderer = renderer;
@@ -38,16 +36,24 @@ bool Menu::Init(SDL_Renderer* renderer) {
 	// I NEED CONSTRUCTORRRRSSS
 
 	// these load the textures but they do not get shown?
-	mockLogo = std::make_unique<Texture>(menuRenderer, "backgrounds/logo.png", 512, 151, (SCREEN_WIDTH / 2) - (151 / 2), 25);
+	mockLogo = std::make_unique<Texture>(menuRenderer, "backgrounds/logo.png", 512, 151, (SCREEN_WIDTH / 2) - (512 / 2), 25);
 	background = std::make_unique<Texture>(menuRenderer, "backgrounds/umabackground.png", SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0);
-
-	initalised = true;
-	return true;
 }
 
 void Menu::Run(SDL_Event e, double deltaTime) {
+	// have this be its own loop that can be exited?
+	// that way init can run just once inside the main loop?
+	
+	// enter state calls the init,
+	// exit state calls destructors etc
+
+	// question is how do we go back to another state after switching, call the function again?
+	// in that case we already have our base case, the quit check
+	// this function should return the state to switch to?s
+
 	Update(e, deltaTime);
 	Render();
+
 }
 
 void Menu::Update(SDL_Event e, double deltaTime) {

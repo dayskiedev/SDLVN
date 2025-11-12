@@ -44,39 +44,39 @@ bool GameManager::Init() {
 		return false;
 	}
 
+	// start off by setting the launch state a menu instance
+	currentState = new Menu();
+
 	return true;
 }
 
 void GameManager::Run() {
-	SDL_PollEvent(&e);
-	if (e.type == SDL_QUIT) {
-		running = false;
-		return; // return early as its time to exit
-	}
+	while (SDL_PollEvent(&e)) {
+		if (e.type == SDL_QUIT) {
+			running = false;
+			return; // return early as its time to exit
+		}
+	}	
 
 	// calculate deltatime
 	NOW = SDL_GetPerformanceCounter();
 	deltaTime = (double)((NOW - LAST) * 1000 / (double)SDL_GetPerformanceFrequency());
 	LAST = NOW;
 
+	currentState->Update(deltaTime);
+	currentState->Render();
+
 	// Handle Gamestates
-	switch (gameState)
-	{
-		case GameManager::GAME:
-			// switch these to scene swapping so we dont waste time checking each frame?
-			_game.Init(gRenderer);
-			_game.Run(e, deltaTime);
-			break;
-		case GameManager::MENU:
-			_menu.Init(gRenderer);
-			_menu.Run(e, deltaTime);
-			break;
-		case GameManager::PAUSE:
-			break;
-	default:
-		break;
-	}
+		
 }   
+
+void GameManager::ChangeState(GameState* state) {
+	currentState->ExitState();
+	delete currentState;
+
+	currentState = state;
+	currentState->EnterState(gRenderer);
+}
 
 void GameManager::Quit() {
 	SDL_DestroyWindow(gWindow);

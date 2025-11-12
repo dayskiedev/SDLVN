@@ -153,6 +153,7 @@
     <ClInclude Include="src\DialogueLine.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\GameManager.h" />
+    <ClInclude Include="src\GameState.h" />
     <ClInclude Include="src\Interpreter.h" />
     <ClInclude Include="src\Menu.h" />
     <ClInclude Include="src\SaveManager.h" />

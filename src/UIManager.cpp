@@ -23,9 +23,9 @@ void UIManager::RemoveButton(std::string btnName) {
 }
 
 void UIManager::RemoveButtons() {
-	for (auto b : _buttons) {
-		delete b;
-	}
+	//for (auto b : _buttons) {
+	//	delete b; <  when seleecting the top button we get an error?
+	//}
 	_buttons.clear();
 }
 

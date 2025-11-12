@@ -4,6 +4,7 @@
 #include <SDL_mixer.h>
 
 #include <stdio.h>
+
 #include <vector>
 #include <sstream>
 #include <iostream>
@@ -11,19 +12,19 @@
 #include "SpriteManager.h"
 #include "TextManager.h"
 #include "Interpreter.h"
-
 #include "Button.h"
-
 #include "Config.h"
-
-// we dony want scenes to interact with the managaer, but we need them to change scenes
 
 #ifndef GAME_H
 #define GAME_H
 
-class Game {
+#include "GameState.h"
+
+// we dony want scenes to interact with the managaer, but we need them to change scenes
+
+class Game : public GameState {
 public:
-	bool Init(SDL_Renderer* renderer);
+	void EnterState(SDL_Renderer* renderer);
 	void Run(SDL_Event e, double deltaTime);
 	void Update(SDL_Event e, double deltaTime);
 	void Render();

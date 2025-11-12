@@ -107,6 +107,9 @@
     <ClInclude Include="src\UIManager.h">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="scripts\example_script.vns" />

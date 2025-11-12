@@ -5,20 +5,24 @@
 
 #include <iostream>
 
-#include "Config.h"
-
-// scenes
-#include "Game.h"
-#include "Menu.h"
-
 #ifndef GAMEMANAGER_H
 #define GAMEMANAGER_H
+
+#include "Config.h"
+
+#include "GameState.h"
+
+// states
+#include "Menu.h"
+#include "Game.h"
 
 class GameManager {
 public:
 	bool Init();
 	void Run();
 	void Quit();
+
+	void ChangeState(GameState* state);
 	
 	bool running = true;
 	bool pause;
@@ -36,13 +40,7 @@ private:
 
 	double deltaTime = 0;
 
-	enum GAME_STATE {
-		GAME,
-		MENU,
-		PAUSE
-	};
-
-	GAME_STATE gameState = GAME;
+	GameState* currentState;
 
 	Game _game;
 	Menu _menu;

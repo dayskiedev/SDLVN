@@ -18,6 +18,7 @@ int main(int argc, char* args[]) {
 	}
 
 	gameManager.Quit();
+	std::cout << "Quit!\n";
 
 	return 0;
 }

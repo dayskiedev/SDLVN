@@ -18,7 +18,6 @@
 
 #include "Config.h"
 
-
 #ifndef INTERPRETER_H
 #define INTERPRETER_H
 
