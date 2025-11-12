@@ -11,7 +11,7 @@
 // ensure every system can properly load before we run the game, if we run into errors
 // we want to exit early
 
-void Game::EnterState(SDL_Renderer* renderer) {
+void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	// pass through the main render pointer
 	// and set it to that
 	gameRenderer = renderer;

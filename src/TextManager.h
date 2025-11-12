@@ -6,12 +6,10 @@
 #include <SDL_ttf.h>
 
 #include "Texture.h"
-#include "DialogueLine.h"
+#include "Text.h"
 
 #ifndef TEXTMANAGER_H
 #define TEXTMANAGER_H
-
-
 
 class TextManager : public Texture {
 public:

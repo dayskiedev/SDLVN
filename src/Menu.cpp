@@ -1,12 +1,15 @@
 #include "Menu.h"
 
+// including it here works... why?
+
 // unique pointer assigns ownership
 std::unique_ptr<Texture> mockLogo;
-std::unique_ptr<Texture> background;
+std::unique_ptr<Texture> background;	
 
-void Menu::EnterState(SDL_Renderer* renderer) {
+void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	// pass through the main render pointer
 	// and set it to that
+	_gameManager = gameManager;
 	menuRenderer = renderer;
 	menuUi.setRenderer(menuRenderer);
 
@@ -14,9 +17,11 @@ void Menu::EnterState(SDL_Renderer* renderer) {
 	// so we can do things like set the functions later....
 	// text should be an object i can place to.
 	Button* playButton = new Button("play", 
-		menuRenderer, DEFAULT_BUTTON_TEXTURE, 
+		menuRenderer, 
+		DEFAULT_BUTTON_TEXTURE, 
 		200, 100, 
-		(SCREEN_WIDTH / 2) - 100, (SCREEN_HEIGHT / 2) - 100, 
+		(SCREEN_WIDTH / 2) - 100, 
+		(SCREEN_HEIGHT / 2) - 100, 
 		"play", 
 		30
 	);
@@ -30,10 +35,13 @@ void Menu::EnterState(SDL_Renderer* renderer) {
 		"quit", 
 		30
 	);
+
+	// define on click actions for buttons
+	playButton->OnClick = [this]() { _gameManager->ChangeState(new Game()); };
+	quitButton->OnClick = [this]() { _gameManager->running = false; };
 	
 	menuUi.AddButton(playButton);
 	menuUi.AddButton(quitButton);
-	// I NEED CONSTRUCTORRRRSSS
 
 	// these load the textures but they do not get shown?
 	mockLogo = std::make_unique<Texture>(menuRenderer, "backgrounds/logo.png", 512, 151, (SCREEN_WIDTH / 2) - (512 / 2), 25);
@@ -54,6 +62,7 @@ void Menu::Render() {
 
 	for (auto b : menuUi.GetUiVector()) { 
 		b->render(); 
+		// why is this seperate lol?
 		b->showText();
 	}
 

@@ -4,7 +4,6 @@
 #include <SDL_mixer.h>
 
 #include <stdio.h>
-
 #include <vector>
 #include <sstream>
 #include <iostream>
@@ -19,17 +18,17 @@
 #define GAME_H
 
 #include "GameState.h"
+#include "GameManager.h"
 
 // we dony want scenes to interact with the managaer, but we need them to change scenes
 
 class Game : public GameState {
 public:
-	void EnterState(SDL_Renderer* renderer);
+	void EnterState(SDL_Renderer* renderer, GameManager* gameManager);
 	void Update(SDL_Event e, double deltaTime);
 	void Render();
 	void ExitState();
 private:
-	bool initalised = false;
 	// Script to load
 	std::string script_name = "example_script.vns";
 

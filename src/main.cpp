@@ -5,8 +5,7 @@
 int main(int argc, char* args[]) {
 	GameManager gameManager;
 	
-	if (!gameManager.Init()) {
-		std::cout << "Failed to launch project! Exiting..." << std::endl;
+	if (!gameManager.Init()) { std::cout << "Failed to launch project! Exiting..." << std::endl;
 		return -1;
 	}
 

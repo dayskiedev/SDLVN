@@ -52,8 +52,8 @@ bool GameManager::Init() {
 	std::cout << "Mixer initialised" << std::endl;
 
 	// start off by setting the launch state a menu instance
-	currentState = new Game();
-	currentState->EnterState(gRenderer);
+	currentState = new Menu();
+	currentState->EnterState(gRenderer, this);
 
 	return true;
 }
@@ -64,7 +64,6 @@ void GameManager::Run() {
 		running = false;
 		return; // return early as its time to exit
 	}
-		
 
 	// calculate deltatime
 	NOW = SDL_GetPerformanceCounter();
@@ -73,9 +72,6 @@ void GameManager::Run() {
 
 	currentState->Update(e, deltaTime);
 	currentState->Render();
-
-	// Handle Gamestates
-		
 }   
 
 void GameManager::ChangeState(GameState* state) {
@@ -83,10 +79,12 @@ void GameManager::ChangeState(GameState* state) {
 	delete currentState;
 
 	currentState = state;
-	currentState->EnterState(gRenderer);
+	currentState->EnterState(gRenderer, this);
 }
 
 void GameManager::Quit() {
+	delete currentState;
+	currentState = NULL;
 	SDL_DestroyWindow(gWindow);
 	gWindow = NULL;
 	SDL_Quit();

@@ -1,8 +1,7 @@
 #include "Interpreter.h"
 
-// switch to more of a state machine system
-// tighten memory safety (look into smrt pointers)
-// should the interprertor be doing so much, or just calling the functions?
+// have compiler to scroll through uncompiled script
+
 
 bool Interpreter::OpenScript(std::string filePath) {
 	_scriptFile.empty();

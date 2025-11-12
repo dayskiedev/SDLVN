@@ -62,13 +62,8 @@ bool Button::OverlappingCheck() {
 	//std::cout << "mouse x " << mouse_x << " mouse y " << mouse_y << "\n";
 	//std::cout << "button x " << getX() << " button y " << getY() << "\n";
 
-	if (mouse_x >= getX() && mouse_x <= getX() + getWidth() && 
-		mouse_y >= getY() && mouse_y <= getY() + getHeight()) {
-		return true;
-	}
-
-	return false;
-
+	return (mouse_x >= getX() && mouse_x <= getX() + getWidth() &&
+		    mouse_y >= getY() && mouse_y <= getY() + getHeight());
 }
 
 // RENDERING THE TEXT FOR THE BUTTON

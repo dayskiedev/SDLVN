@@ -150,7 +150,7 @@
   <ItemGroup>
     <ClInclude Include="src\Button.h" />
     <ClInclude Include="src\Config.h" />
-    <ClInclude Include="src\DialogueLine.h" />
+    <ClInclude Include="src\Text.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\GameManager.h" />
     <ClInclude Include="src\GameState.h" />
