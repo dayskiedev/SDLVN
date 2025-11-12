@@ -10,8 +10,6 @@
 
 #include "Config.h"
 
-#include "GameState.h"
-
 // states
 #include "Menu.h"
 #include "Game.h"
@@ -41,10 +39,6 @@ private:
 	double deltaTime = 0;
 
 	GameState* currentState;
-
-	Game _game;
-	Menu _menu;
-
 };
 
 #endif

@@ -40,22 +40,6 @@ void Menu::EnterState(SDL_Renderer* renderer) {
 	background = std::make_unique<Texture>(menuRenderer, "backgrounds/umabackground.png", SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0);
 }
 
-void Menu::Run(SDL_Event e, double deltaTime) {
-	// have this be its own loop that can be exited?
-	// that way init can run just once inside the main loop?
-	
-	// enter state calls the init,
-	// exit state calls destructors etc
-
-	// question is how do we go back to another state after switching, call the function again?
-	// in that case we already have our base case, the quit check
-	// this function should return the state to switch to?s
-
-	Update(e, deltaTime);
-	Render();
-
-}
-
 void Menu::Update(SDL_Event e, double deltaTime) {
 	for (auto b : menuUi.GetUiVector()) { b->Update(e); }
 }
@@ -74,4 +58,8 @@ void Menu::Render() {
 	}
 
 	SDL_RenderPresent(menuRenderer);
+}
+
+void Menu::ExitState() {
+	// placeholder
 }

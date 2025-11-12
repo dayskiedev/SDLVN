@@ -36,14 +36,6 @@ void Game::EnterState(SDL_Renderer* renderer) {
 // run is called from main, checks for event quit
 // run handles update and render as seperate methods to call
 
-void Game::Run(SDL_Event e, double deltaTime) {	
-
-	while (true) {
-		Update(e, deltaTime);
-		Render();
-	}
-}
-
 void Game::Update(SDL_Event e, double deltaTime) {
 	// place logic here
 
@@ -90,5 +82,8 @@ void Game::Render() {
 	SDL_RenderPresent(gameRenderer);
 }
 
+void Game::ExitState() {
+	// placeholder
+}
 
 

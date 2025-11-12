@@ -8,7 +8,7 @@ int SCREEN_HEIGHT = 720;
 int CHOICE_BUTTON_WIDTH = 500;
 int CHOICE_BUTTON_HEIGHT = 150;
 
-double DEFAULT_TEXT_SPEED = 2.5;
+double DEFAULT_TEXT_SPEED = 2;
 
 std::string GLOBAL_FONT_PATH = "fonts/sazanami-gothic.ttf";
 std::string GLOBAL_BACKGROUNDS_PATH = "backgrounds/";

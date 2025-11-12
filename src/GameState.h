@@ -5,11 +5,10 @@
 
 class GameState {
 public:
-	virtual void EnterState(SDL_Renderer* renderer);
-	virtual void ExitState();
-	virtual void HandleEvent(SDL_Event& event);
-	virtual void Update(double deltaTime);
-	virtual void Render();
+	virtual void EnterState(SDL_Renderer* renderer) = 0;
+	virtual void ExitState() = 0;
+	virtual void Update(SDL_Event e,double deltaTime) = 0;
+	virtual void Render() = 0;
 };
 
 #endif // !GAMESTATE_H

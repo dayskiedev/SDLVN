@@ -25,9 +25,9 @@
 class Game : public GameState {
 public:
 	void EnterState(SDL_Renderer* renderer);
-	void Run(SDL_Event e, double deltaTime);
 	void Update(SDL_Event e, double deltaTime);
 	void Render();
+	void ExitState();
 private:
 	bool initalised = false;
 	// Script to load
