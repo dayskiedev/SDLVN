@@ -52,7 +52,7 @@ bool GameManager::Init() {
 	std::cout << "Mixer initialised" << std::endl;
 
 	// start off by setting the launch state a menu instance
-	currentState = new Menu();
+	currentState = std::make_unique<Menu>();
 	currentState->EnterState(gRenderer, this);
 
 	return true;
@@ -74,16 +74,14 @@ void GameManager::Run() {
 	currentState->Render();
 }   
 
-void GameManager::ChangeState(GameState* state) {
+void GameManager::ChangeState(std::unique_ptr<GameState> state) {
 	currentState->ExitState();
-	delete currentState;
 
-	currentState = state;
+	currentState = std::move(state);
 	currentState->EnterState(gRenderer, this);
 }
 
 void GameManager::Quit() {
-	delete currentState;
 	currentState = NULL;
 	SDL_DestroyWindow(gWindow);
 	gWindow = NULL;

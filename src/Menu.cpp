@@ -14,31 +14,54 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	// i should just be able to make a button constructor to create these buttons
 	// so we can do things like set the functions later....
 	// text should be an object i can place to.
-	std::shared_ptr<Button> playButton(new Button("play", 
+	std::shared_ptr<Button> playButton(new Button("new", 
 		menuRenderer, 
 		DEFAULT_BUTTON_TEXTURE, 
-		200, 100, 
+		200, 50, 
 		(SCREEN_WIDTH / 2) - 100, 
-		(SCREEN_HEIGHT / 2) - 100, 
-		"play", 
+		(SCREEN_HEIGHT / 2) - 50, 
+		"New Game", 
+		30
+	));
+
+	std::shared_ptr<Button> contButton(new Button("load",
+		menuRenderer,
+		DEFAULT_BUTTON_TEXTURE,
+		200,50,
+		(SCREEN_WIDTH / 2) - 100,
+		(SCREEN_HEIGHT / 2), 
+		"Load Game",
+		30
+	));
+
+	std::shared_ptr<Button> optButton(new Button("options",
+		menuRenderer,
+		DEFAULT_BUTTON_TEXTURE,
+		200, 50,
+		(SCREEN_WIDTH / 2) - 100,
+		(SCREEN_HEIGHT / 2) + 50,
+		"Options",
 		30
 	));
 
 	std::shared_ptr<Button> quitButton(new Button("quit", 
 		menuRenderer, 
 		DEFAULT_BUTTON_TEXTURE, 
-		200, 100, 
+		200, 50, 
 		(SCREEN_WIDTH / 2) - 100, 
-		(SCREEN_HEIGHT / 2) + 50, 
-		"quit", 
+		(SCREEN_HEIGHT / 2) + 100, 
+		"Exit", 
 		30
 	));
 
 	// define on click actions for buttons
-	playButton->OnClick = [this]() { _gameManager->ChangeState(new Game()); };
+	playButton->OnClick = [this]() { _gameManager->ChangeState(std::make_unique<Game>()); };
+	optButton->OnClick = [this]() { _gameManager->ChangeState(std::make_unique<Options>()); };
 	quitButton->OnClick = [this]() { _gameManager->running = false; };
 	
 	menuUi.AddButton(playButton);
+	menuUi.AddButton(contButton);
+	menuUi.AddButton(optButton);
 	menuUi.AddButton(quitButton);
 
 	// these load the textures but they do not get shown?

@@ -4,6 +4,7 @@
 #include <SDL_mixer.h>
 
 #include <iostream>
+#include <memory>
 
 #ifndef GAMEMANAGER_H
 #define GAMEMANAGER_H
@@ -12,6 +13,7 @@
 
 // states
 #include "Menu.h"
+#include "Options.h"
 #include "Game.h"
 
 class GameManager {
@@ -20,7 +22,7 @@ public:
 	void Run();
 	void Quit();
 
-	void ChangeState(GameState* state);
+	void ChangeState(std::unique_ptr<GameState> state);
 	
 	bool running = true;
 	bool pause;
@@ -38,7 +40,7 @@ private:
 
 	double deltaTime = 0;
 
-	GameState* currentState;
+	std::unique_ptr<GameState> currentState;
 };
 
 #endif
