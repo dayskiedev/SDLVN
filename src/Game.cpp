@@ -41,7 +41,7 @@ void Game::Update(SDL_Event e, double deltaTime) {
 
 	interpreter.Run(e, deltaTime, spriteManager, textManager, uiManager, gBackground);
 
-	for (Button* b : uiManager.GetUiVector()) {
+	for (auto b : uiManager.GetUiVector()) {
 		b->Update(e);
 	}
 }
@@ -57,7 +57,7 @@ void Game::Render() {
 	gBackground.render(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	// layer 1 character sprites
-	for (Sprite* s : spriteManager.getSpriteVector()) {
+	for (auto s : spriteManager.getSpriteVector()) {
 		// change render to be scaled based from settings
 		s->render(s->getX(), s->getY(), s->getWidth() / 1.5, s->getHeight() / 1.5);
 	}
@@ -67,7 +67,7 @@ void Game::Render() {
 
 	// layer 2 text
 	int index = 0;
-	for (Text* t : textManager.getTextVector()) {
+	for (auto t : textManager.getTextVector()) {
 		if (t->curTextLen == 0) { continue; }
 		t->textTexture->loadFromRenderedText(t->text.substr(0, t->curTextLen), t->textColor);
 		t->textTexture->render(tOffsetX, (tOffsetY * index) + tOffsetX);
@@ -75,7 +75,7 @@ void Game::Render() {
 	}
 
 	// layer 3 buttons/ui?
-	for (Button* b : uiManager.GetUiVector()) {
+	for (auto b : uiManager.GetUiVector()) {
 		b->render(b->getX(), b->getY());
 		b->showText();
 	}

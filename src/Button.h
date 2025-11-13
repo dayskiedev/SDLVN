@@ -36,7 +36,7 @@ private:
 	bool _overlapping;
 	bool _clicked;
 
-	Texture* textTexture = NULL;
+	std::unique_ptr<Texture> textTexture = NULL;
 };
 
 #endif

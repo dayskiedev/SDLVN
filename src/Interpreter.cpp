@@ -4,7 +4,7 @@
 
 
 bool Interpreter::OpenScript(std::string filePath) {
-	_scriptFile.empty();
+	_scriptFile.clear();
 
 	if (std::filesystem::path(filePath).extension() != ".vns") {
 		std::cout << "Incorrect file format! (Must be a .vns file.)\n";
@@ -83,6 +83,9 @@ void Interpreter::TokenizeLine() {
 }
 
 void Interpreter::Run(SDL_Event e, double deltaTime, SpriteManager& _spriteManager, TextManager& _textManager, UIManager& _ui, Texture& background) {
+
+	// here we pass a reference to the ui manager in order to add elements to
+	// the screen depending on whats read from the script.
 	_uiManager = &_ui;
 
 	if (_lineCount >= _scriptFile.size()) { 

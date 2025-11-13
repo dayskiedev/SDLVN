@@ -11,6 +11,7 @@
 #include <vector>
 #include <regex>
 #include <functional>
+#include <memory>
 
 #include "SpriteManager.h"
 #include "TextManager.h"
@@ -45,7 +46,7 @@ private:
 	bool increment = true;
 	bool incrementText = false;
 
-	Text* curDialogueLine;
+	std::shared_ptr<Text> curDialogueLine;
 	// vns file:
 	// type: MAIN -- entry point for file
 	// data: path/to/data vn title, dialouge selections

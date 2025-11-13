@@ -18,29 +18,19 @@ void TextManager::setFont(std::string fontPath) {
 	_currentFont = TTF_OpenFont(_fontPath.c_str(), _fontSize);
 }
 
-std::vector<Text*> TextManager::getTextVector() {
+std::vector<std::shared_ptr<Text>> TextManager::getTextVector() {
 	return _texts;
 }
 
 // these should not interact with event, that should be game managers job...
-Text* TextManager::addText(std::string text) {
-	// maybe add a wait for input? next time idk
-	Text* _text = new Text;
+std::shared_ptr<Text> TextManager::addText(std::string text) {
+	// needs constructor
+	std::shared_ptr<Text> _text(new Text);
 	_text->text = text;
 	_text->textTexture->setRenderer(_renderer);
 	_text->textTexture->setFont(_currentFont);
 	_text->textColor = _white;
 	_text->curTextLen = 0;
-	//std::string rmpText = exampleCommandLine[cCount].erase(0, 6);
-	//textTexture->loadFromRenderedText(text, _white);
-
-	// change this to store structs of text, 
-	// Texture* textTexture
-	// int sentenceLength
-	// std::string textCut = text.trim(0, sentenceLength)
-
-	// we want to render each letter one by one based on a set speed
-	// so we need a way to constantly re render EACH text
 
 	_texts.push_back(_text);
 
@@ -48,8 +38,6 @@ Text* TextManager::addText(std::string text) {
 }
 
 void TextManager::clearText() {
-	for (auto text : _texts) {
-		delete text;
-	}
+	// text should be auto deleted by pointer
 	_texts.clear();
 }

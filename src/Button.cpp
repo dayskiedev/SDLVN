@@ -36,7 +36,7 @@ void Button::setText(std::string text, int fontSize, SDL_Renderer* renderer) {
 	//	RE USING TEXT/TEXTURE CODE (BAD)
 
 	// SHOULD THE BUTTON BE HANDELLING THE RENDER OF BUTTON TEXT?
-	textTexture = new Texture;
+	textTexture = std::unique_ptr<Texture>(new Texture);
 
 	textTexture->setRenderer(renderer);
 	textTexture->setFont(TTF_OpenFont(GLOBAL_FONT_PATH.c_str(), fontSize));

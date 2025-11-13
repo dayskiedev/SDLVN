@@ -5,15 +5,16 @@ void UIManager::setRenderer(SDL_Renderer* renderer) {
 	_renderer = renderer;
 }
 
-std::vector<Button*> UIManager::GetUiVector() { return _buttons; }
+std::vector<std::shared_ptr<Button>> UIManager::GetUiVector() { return _buttons; }
 
 void UIManager::AddButton(std::string btnName, std::string btnContents, int x, int y, int w, int h) {
-	Button* button = new Button(btnName, _renderer, DEFAULT_BUTTON_TEXTURE, w, h, x, y, btnContents, 30);
+	// should be able to set font size
+	std::shared_ptr<Button> button(new Button(btnName, _renderer, DEFAULT_BUTTON_TEXTURE, w, h, x, y, btnContents, 30));
 	// why do we need them to be pointers?
 	_buttons.push_back(button);
 }
 
-void UIManager::AddButton(Button* button) {
+void UIManager::AddButton(std::shared_ptr<Button> button) {
 	_buttons.push_back(button);
 }
 
@@ -23,9 +24,6 @@ void UIManager::RemoveButton(std::string btnName) {
 }
 
 void UIManager::RemoveButtons() {
-	//for (auto b : _buttons) {
-	//	delete b; <  when seleecting the top button we get an error?
-	//}
 	_buttons.clear();
 }
 

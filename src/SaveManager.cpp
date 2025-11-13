@@ -1,5 +1,7 @@
 #include "SaveManager.h"
 
+// dump game memory into binary and load that?
+
 void SaveManager::Save() {
 	std::cout << "Saving test";
 

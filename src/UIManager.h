@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <memory>
 
 #include "Button.h"
 #include "Texture.h"
@@ -15,10 +16,10 @@ public:
 
 	void setRenderer(SDL_Renderer* renderer);
 	
-	std::vector<Button*> GetUiVector();
+	std::vector<std::shared_ptr<Button>> GetUiVector();
 
 	void AddButton(std::string btnName, std::string btnContents, int x, int y, int w, int h);
-	void AddButton(Button* button);
+	void AddButton(std::shared_ptr<Button> button);
 	void RemoveButton(std::string btnName);
 	void RemoveButtons();
 
@@ -26,7 +27,7 @@ public:
 
 private:
 	SDL_Renderer* _renderer = NULL;
-	std::vector <Button*> _buttons;
+	std::vector <std::shared_ptr<Button>> _buttons;
 	int _btnOffset = 250;
 };
 

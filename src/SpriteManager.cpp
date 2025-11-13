@@ -3,9 +3,7 @@
 SpriteManager::SpriteManager() {}
 
 SpriteManager::~SpriteManager() {
-	for (auto sprite : _sprites) {
-		delete sprite;
-	}
+	// using unqiue pointers so they will get auto deleted
 	_sprites.clear();
 }
 
@@ -17,13 +15,13 @@ void SpriteManager::setSpriteTexPath(std::string spritesTexPath) {
 	_spritesTexPath = spritesTexPath;
 }
 
-std::vector<Sprite*> SpriteManager::getSpriteVector() {
+std::vector<std::shared_ptr<Sprite>> SpriteManager::getSpriteVector() {
 	return _sprites;
 }
 
 void SpriteManager::addSprite(std::string spriteObjName, std::string spriteTexName, std::string screenPos) {
 	// look into changing this to a smart pointer / object?
-	Sprite* sprite = new Sprite;
+	std::shared_ptr<Sprite> sprite(new Sprite);
 
 	// this could all be in a constructor?
 	sprite->setRenderer(_renderer);
@@ -80,16 +78,14 @@ void SpriteManager::removeSprite(std::string spriteObjName) {
 		return;
 	}
 
-	// dangling pointer
-	(*spriteToErase) = NULL;
-	delete (*spriteToErase);
+	// smart pointer will auto erase at this point	
 	_sprites.erase(spriteToErase);
 }
 
-std::vector<Sprite*>::iterator SpriteManager::findSpriteByName(std::string spriteName) {
+std::vector<std::shared_ptr<Sprite>>::iterator SpriteManager::findSpriteByName(std::string spriteName) {
 	// does this NEED to be an iterator? Can i not just use the for auto loop?
 	auto vecSpriteElement = std::find_if(_sprites.begin(), _sprites.end(),
-		[spriteName](Sprite* s) {
+		[spriteName](std::shared_ptr<Sprite> s) {
 			return s->GetSpriteName() == spriteName;
 		});
 
