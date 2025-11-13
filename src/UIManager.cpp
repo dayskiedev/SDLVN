@@ -1,6 +1,10 @@
 #include <vector>
 #include "UIManager.h"
 
+UIManager::~UIManager() {
+	_buttons.clear();
+}
+
 void UIManager::setRenderer(SDL_Renderer* renderer) {
 	_renderer = renderer;
 }

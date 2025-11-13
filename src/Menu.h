@@ -22,7 +22,7 @@ public:
 private:
 	// window renderer
 	SDL_Renderer* menuRenderer = NULL;
-	UIManager menuUi;
+	std::unique_ptr<UIManager> menuUi;
 };
 
 #endif

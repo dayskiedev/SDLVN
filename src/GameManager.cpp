@@ -59,6 +59,7 @@ bool GameManager::Init() {
 }
 
 void GameManager::Run() {
+
 	SDL_PollEvent(&e);
 	if (e.type == SDL_QUIT) {
 		running = false;
@@ -75,8 +76,11 @@ void GameManager::Run() {
 }   
 
 void GameManager::ChangeState(std::unique_ptr<GameState> state) {
-	currentState->ExitState();
-
+	if (currentState) {
+		currentState->ExitState();
+		currentState.reset();
+	}
+		
 	currentState = std::move(state);
 	currentState->EnterState(gRenderer, this);
 }

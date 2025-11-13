@@ -9,7 +9,8 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	// and set it to that
 	_gameManager = gameManager;
 	menuRenderer = renderer;
-	menuUi.setRenderer(menuRenderer);
+	menuUi = std::make_unique<UIManager>();
+	menuUi->setRenderer(menuRenderer);
 
 	// i should just be able to make a button constructor to create these buttons
 	// so we can do things like set the functions later....
@@ -59,10 +60,10 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	optButton->OnClick = [this]() { _gameManager->ChangeState(std::make_unique<Options>()); };
 	quitButton->OnClick = [this]() { _gameManager->running = false; };
 	
-	menuUi.AddButton(playButton);
-	menuUi.AddButton(contButton);
-	menuUi.AddButton(optButton);
-	menuUi.AddButton(quitButton);
+	menuUi->AddButton(playButton);
+	menuUi->AddButton(contButton);
+	menuUi->AddButton(optButton);
+	menuUi->AddButton(quitButton);
 
 	// these load the textures but they do not get shown?
 	mockLogo = std::make_unique<Texture>(
@@ -85,7 +86,7 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 }
 
 void Menu::Update(SDL_Event e, double deltaTime) {
-	for (auto b : menuUi.GetUiVector()) { b->Update(e); }
+	for (auto b : menuUi->GetUiVector()) { b->Update(e); }
 }
 
 void Menu::Render() {
@@ -96,7 +97,7 @@ void Menu::Render() {
 
 	mockLogo->render();
 
-	for (auto b : menuUi.GetUiVector()) { 
+	for (auto b : menuUi->GetUiVector()) { 
 		b->render(); 
 		// why is this seperate lol?
 		b->showText();

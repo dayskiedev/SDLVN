@@ -16,6 +16,8 @@ public:
 	Button();
 	Button(std::string name, SDL_Renderer* renderer, std::string texture, int w, int h, int x, int y, std::string text, int fontSize);
 	Button(std::string btnName, std::string btnText, int fontSize, int w, int h, int x, int y, SDL_Renderer* renderer);
+
+	//~Button();
 	
 	//void OnClick();
 	std::function<void()> OnClick;
@@ -37,6 +39,7 @@ private:
 	bool _clicked;
 
 	std::unique_ptr<Texture> textTexture = NULL;
+	TTF_Font* _font = NULL;
 };
 
 #endif

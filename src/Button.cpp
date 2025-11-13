@@ -40,7 +40,7 @@ void Button::setText(std::string text, int fontSize, SDL_Renderer* renderer) {
 
 	textTexture->setRenderer(renderer);
 	textTexture->setFont(TTF_OpenFont(GLOBAL_FONT_PATH.c_str(), fontSize));
-
+	
 	textTexture->loadFromRenderedText(text, { 255,255,255 });
 }
 

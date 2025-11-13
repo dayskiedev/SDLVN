@@ -22,7 +22,7 @@ public:
 	void Run();
 	void Quit();
 
-	void ChangeState(std::unique_ptr<GameState> state);
+	void ChangeState(std::unique_ptr<GameState> state);	
 	
 	bool running = true;
 	bool pause;

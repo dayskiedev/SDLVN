@@ -20,7 +20,7 @@ class Options : public GameState {
 private:
 	// window renderer
 	SDL_Renderer* optionRenderer = NULL;
-	UIManager optionUi;
+	std::unique_ptr<UIManager> optionUi;
 };
 
 #endif // !

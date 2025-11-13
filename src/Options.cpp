@@ -3,7 +3,10 @@
 void Options::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	_gameManager = gameManager;
 	optionRenderer = renderer;
-	optionUi.setRenderer(optionRenderer);
+
+	optionUi = std::make_unique<UIManager>();
+	optionUi->setRenderer(optionRenderer);
+
 
 	std::shared_ptr<Button> backButton(new Button("back",
 		optionRenderer,
@@ -17,7 +20,7 @@ void Options::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	// maybe should be added as soon as we make the button?
 	backButton->OnClick = [this]() { _gameManager->ChangeState(std::make_unique<Menu>()); };
 
-	optionUi.AddButton(backButton);
+	optionUi->AddButton(backButton);
 
 }
 
@@ -25,7 +28,7 @@ void Options::Render() {
 	SDL_SetRenderDrawColor(optionRenderer, 100, 100, 100, 100);
 	SDL_RenderClear(optionRenderer);
 
-	for (auto b : optionUi.GetUiVector()) {
+	for (auto b : optionUi->GetUiVector()) {
 		b->render();
 		// why is this seperate lol?
 		b->showText();
@@ -35,11 +38,9 @@ void Options::Render() {
 }
 
 void Options::Update(SDL_Event e, double deltaTime) {
-	for (auto b : optionUi.GetUiVector()) { b->Update(e); }
+	for (auto b : optionUi->GetUiVector()) { b->Update(e); }
 }
 
 void Options::ExitState() {
-	optionUi.RemoveButtons();
-	optionUi.free();	
 	// placeholder
 }

@@ -10,7 +10,7 @@ class Texture {
 public:
 	Texture();
 	Texture(SDL_Renderer* renderer, std::string texturePath, int w, int h, int x, int y);
-	~Texture();
+	virtual ~Texture();
 	
 	void setRenderer(SDL_Renderer* _renderer);
 	void setFont(TTF_Font* _font);
@@ -40,7 +40,7 @@ public:
 	bool loadFromRenderedText(std::string text, SDL_Color textColour);
 
 	void free();
-
+	void freeFont();
 private:
 	SDL_Texture* mTexture = NULL;
 	SDL_Renderer* renderer = NULL;
