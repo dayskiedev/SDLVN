@@ -57,6 +57,7 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 
 	// define on click actions for buttons
 	playButton->OnClick = [this]() { _gameManager->ChangeState(std::make_unique<Game>()); };
+	contButton->OnClick = [this]() { _gameManager->ChangeState(std::make_unique<Load>()); };
 	optButton->OnClick = [this]() { _gameManager->ChangeState(std::make_unique<Options>()); };
 	quitButton->OnClick = [this]() { _gameManager->running = false; };
 	

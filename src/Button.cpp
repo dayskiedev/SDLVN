@@ -13,6 +13,7 @@ Button::Button(std::string name, SDL_Renderer* renderer, std::string texture, in
 	setText(text, fontSize, renderer);
 
 	// set button hover sound
+	// should be done in audiomanager?
 	buttonHover = Mix_LoadWAV((GLOBAL_SOUNDS_PATH + "snd_hover.wav").c_str());
 	buttonClick = Mix_LoadWAV((GLOBAL_SOUNDS_PATH + "snd_click.wav").c_str());
 	if (buttonClick == NULL) { std::cout << "erorr]\n"; }

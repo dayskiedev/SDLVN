@@ -15,6 +15,7 @@
 #include "Menu.h"
 #include "Options.h"
 #include "Game.h"
+#include "Load.h"
 
 class GameManager {
 public:
