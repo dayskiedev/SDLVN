@@ -49,6 +49,8 @@ bool GameManager::Init() {
 		std::cout << "SDL_mixer could not be initalised! " << Mix_GetError() << std::endl;
 		return false;
 	}
+
+	Mix_Volume(2, 30);
 	std::cout << "Mixer initialised" << std::endl;
 
 	// start off by setting the launch state a menu instance
@@ -59,6 +61,8 @@ bool GameManager::Init() {
 }
 
 void GameManager::Run() {
+
+	// create and have a master audiomanager running to play all music / sounds
 
 	SDL_PollEvent(&e);
 	if (e.type == SDL_QUIT) {

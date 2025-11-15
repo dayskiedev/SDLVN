@@ -7,7 +7,6 @@ void Options::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	optionUi = std::make_unique<UIManager>();
 	optionUi->setRenderer(optionRenderer);
 
-
 	std::shared_ptr<Button> backButton(new Button("back",
 		optionRenderer,
 		DEFAULT_BUTTON_TEXTURE,
@@ -16,6 +15,10 @@ void Options::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 		"Back to Menu",
 		25
 	));
+
+	// volume slider
+	// simple box that can be dragged
+	// lock y axis, set limit on x axis
 
 	// maybe should be added as soon as we make the button?
 	backButton->OnClick = [this]() { _gameManager->ChangeState(std::make_unique<Menu>()); };

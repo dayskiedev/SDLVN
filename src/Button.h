@@ -1,4 +1,5 @@
 #include <SDL.h>
+#include <SDL_mixer.h>
 #include <SDL_ttf.h>
 #include <iostream>
 #include <functional>
@@ -17,7 +18,7 @@ public:
 	Button(std::string name, SDL_Renderer* renderer, std::string texture, int w, int h, int x, int y, std::string text, int fontSize);
 	Button(std::string btnName, std::string btnText, int fontSize, int w, int h, int x, int y, SDL_Renderer* renderer);
 
-	//~Button();
+	~Button();
 	
 	//void OnClick();
 	std::function<void()> OnClick;
@@ -37,9 +38,12 @@ private:
 	std::string _btnName;
 	bool _overlapping;
 	bool _clicked;
+	bool entered;
 
 	std::unique_ptr<Texture> textTexture = NULL;
 	TTF_Font* _font = NULL;
+	Mix_Chunk* buttonHover;
+	Mix_Chunk* buttonClick;
 };
 
 #endif

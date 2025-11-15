@@ -11,6 +11,20 @@ Button::Button(std::string name, SDL_Renderer* renderer, std::string texture, in
 	setX(x);
 	setY(y);
 	setText(text, fontSize, renderer);
+
+	// set button hover sound
+	buttonHover = Mix_LoadWAV((GLOBAL_SOUNDS_PATH + "snd_hover.wav").c_str());
+	buttonClick = Mix_LoadWAV((GLOBAL_SOUNDS_PATH + "snd_click.wav").c_str());
+	if (buttonClick == NULL) { std::cout << "erorr]\n"; }
+}
+
+Button::~Button() {
+	// button specifc destructors (ie sounds)
+	Mix_FreeChunk(buttonHover);
+	buttonHover = NULL;
+	Mix_FreeChunk(buttonClick);
+	buttonClick = NULL;
+
 }
 
 void Button::Update(SDL_Event e) {
@@ -21,7 +35,10 @@ void Button::Update(SDL_Event e) {
 
 		if (e.type == SDL_MOUSEBUTTONDOWN) {
 
-			if (OnClick) { OnClick(); }
+			if (OnClick) { 
+				Mix_PlayChannel(2, buttonClick, 0);
+				OnClick(); 
+			}
 			else {
 				std::cout << "ERROR: OnClick Function has not been assigned for '" << this->_btnName << "'" << std::endl;
 			}
@@ -45,11 +62,17 @@ void Button::setText(std::string text, int fontSize, SDL_Renderer* renderer) {
 }
 
 void Button::OnHover() {
+	if (!entered) {
+		entered = true;
+		Mix_PlayChannel(2, buttonHover, 0);
+	}
+
 	setAlpha(100);
 	textTexture->setAlpha(100);
 }
 
 void Button::ExitHover() {
+	entered = false; 
 	// we want this to only shoot once?
 	setAlpha(255);
 	textTexture->setAlpha(255);
@@ -68,7 +91,8 @@ bool Button::OverlappingCheck() {
 
 // RENDERING THE TEXT FOR THE BUTTON
 void Button::showText() {
-	textTexture->render(getX() + 20, getY() + (getHeight() / 2) - 20);
+	// height needs to include font size
+	textTexture->render(getX() + 20, getY() + (getHeight() / 2) - 15);
 }
 
 void Button::SetButtonName(std::string btnName) {
