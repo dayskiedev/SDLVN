@@ -11,6 +11,10 @@
 
 #include "Config.h"
 
+// managers
+#include "SaveManager.h"
+#include "UIManager.h"
+
 // states
 #include "Menu.h"
 #include "Options.h"
@@ -42,6 +46,7 @@ private:
 	double deltaTime = 0;
 
 	std::unique_ptr<GameState> currentState;
+	std::unique_ptr<SaveManager> saveManager;
 };
 
 #endif

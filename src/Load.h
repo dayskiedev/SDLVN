@@ -11,6 +11,7 @@
 
 #include "GameState.h"
 #include "GameManager.h"
+#include "SaveManager.h"
 
 class Load : public GameState {
 	void EnterState(SDL_Renderer* renderer, GameManager* gameManager);
@@ -21,6 +22,7 @@ private:
 	// window renderer
 	SDL_Renderer* loadRenderer = NULL;
 	std::unique_ptr<UIManager> loadUI;
+	std::unique_ptr<SaveManager> saveManager;
 };
 
 #endif // !

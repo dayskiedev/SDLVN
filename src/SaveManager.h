@@ -1,8 +1,3 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-
-#include "Config.h"
 
 // this will handle all the saving and loading for the game
 // loading a save will tell the intepretor what line to go to
@@ -23,12 +18,22 @@
 // figure out how to save a screenshot of the game with save
 
 #ifndef SAVEMANAGER_H
-#define SAVEMANGER_H
+#define SAVEMANAGER_H
+
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <filesystem>
+
+#include "Config.h"
+
 
 class SaveManager {
 public:
 	void Save();
 	void Load();
+	std::vector<std::string> ScanForSaves();
 private:
 	int saveNum = 0;
 	std::ofstream File;

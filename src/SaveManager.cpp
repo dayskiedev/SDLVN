@@ -2,7 +2,6 @@
 
 // dump game memory into binary and load that?
 
-
 // SAVE STRUCTURE:
 // SAVE VERSION
 // SCRIPT LOCATION
@@ -47,7 +46,7 @@ void SaveManager::Save() {
 
 	outfile.write(reinterpret_cast<char*>(&scriptLine), sizeof(scriptLine));			// SCRIPT LINE NUMBER	
 
-	size = backgroundLoc.size(); 
+	size = backgroundLoc.size();
 	outfile.write(reinterpret_cast<char*>(&size), sizeof(size));						// background directory location
 	outfile.write(backgroundLoc.c_str(), backgroundLoc.size());
 
@@ -96,7 +95,7 @@ void SaveManager::Load() {
 	if (rSaveVer != SAVE_VERSION) {
 		std::cout << "Error: mismatched save version, read: " << rSaveVer << " when current version is: " << SAVE_VERSION << std::endl;
 		return;
-	}	
+	}
 
 	infile.read(reinterpret_cast<char*>(&size), sizeof(size));
 	rScriptLoc.resize(size);
@@ -134,7 +133,20 @@ void SaveManager::Load() {
 	std::cout << "Character name: " << rCharName << std::endl;
 	std::cout << "Character sprite path: " << rCharSpriLoc << std::endl;
 	std::cout << "######### CHOICES #########" << std::endl;
-	std::cout << "Choice name: " << rChoiceName  << std::endl;
+	std::cout << "Choice name: " << rChoiceName << std::endl;
 	std::cout << "Choice value: " << rChoiceValue << std::endl;
-	
+
+}
+
+std::vector<std::string> SaveManager::ScanForSaves() {
+	std::string path = DEFAULT_SAVE_LOCATION;
+	std::vector<std::string> saveFiles;
+
+	for (const auto& entry : std::filesystem::directory_iterator(path)) {
+		if (entry.path().extension() == ".dat") {
+			saveFiles.push_back(entry.path().string());
+		}
+	}
+
+	return saveFiles;
 }

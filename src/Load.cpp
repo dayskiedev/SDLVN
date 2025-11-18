@@ -7,6 +7,12 @@ void Load::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	loadUI = std::make_unique<UIManager>();
 	loadUI->setRenderer(loadRenderer);
 
+	saveManager = std::make_unique<SaveManager>();
+
+	for (auto save : saveManager->ScanForSaves()) {
+		std::cout << save << std::endl;
+	}
+
 	std::shared_ptr<Button> backButton(new Button("back",
 		loadRenderer,
 		DEFAULT_BUTTON_TEXTURE,

@@ -288,7 +288,6 @@ void Interpreter::Run(SDL_Event e, double deltaTime, SpriteManager& _spriteManag
 		if (e.type == SDL_KEYDOWN) {
 			switch (e.key.keysym.sym) {
 			case SDLK_SPACE:
-
 				if (curDialogueLine->curTextLen < curDialogueLine->text.length() - 1) {
 					curDialogueLine->curTextLen = curDialogueLine->text.length();
 					incrementText = false;
@@ -300,7 +299,7 @@ void Interpreter::Run(SDL_Event e, double deltaTime, SpriteManager& _spriteManag
 				else {
 					increment = true;
 				}
-
+				break;
 			}
 		}
 	}

@@ -10,7 +10,6 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	menuRenderer = renderer;
 	menuUi = std::make_unique<UIManager>();
 	menuUi->setRenderer(menuRenderer);
-	saveManager = std::make_unique<SaveManager>();
 
 	// i should just be able to make a button constructor to create these buttons
 	// so we can do things like set the functions later....
@@ -68,8 +67,7 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	// define on click actions for buttons
 	playButton->OnClick = [this]() { _gameManager->ChangeState(std::make_unique<Game>()); };
 
-	saveButton->OnClick = [this]() { saveManager->Save(); };
-	contButton->OnClick = [this]() { saveManager->Load(); };
+	contButton->OnClick = [this]() { _gameManager->ChangeState(std::make_unique<Load>()); };
 
 	optButton->OnClick = [this]() { _gameManager->ChangeState(std::make_unique<Options>()); };
 	quitButton->OnClick = [this]() { _gameManager->running = false; };

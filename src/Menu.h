@@ -4,15 +4,12 @@
 #include <memory>
 
 #include "Config.h"
-#include "UIManager.h"
 
 #ifndef MENU_H
 #define MENU_H
 
 #include "GameState.h"
 #include "GameManager.h"
-
-#include "SaveManager.h"
 
 // why does changing this to public work?
 class Menu : public GameState {
@@ -25,7 +22,6 @@ private:
 	// window renderer
 	SDL_Renderer* menuRenderer = NULL;
 	std::unique_ptr<UIManager> menuUi;
-	std::unique_ptr<SaveManager> saveManager;
 };
 
 #endif
