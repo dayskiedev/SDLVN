@@ -16,6 +16,15 @@ void Options::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 		25
 	));
 
+	std::shared_ptr<Button> eraseButton(new Button("erase",
+		optionRenderer,
+		DEFAULT_BUTTON_TEXTURE,
+		200, 50,
+		(SCREEN_WIDTH / 2 - 100), (SCREEN_HEIGHT / 2) - 25,
+		"Erase Data",
+		25
+	));
+
 	// volume slider
 	// simple box that can be dragged
 	// lock y axis, set limit on x axis
@@ -23,7 +32,9 @@ void Options::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	// maybe should be added as soon as we make the button?
 	backButton->OnClick = [this]() { _gameManager->ChangeState(std::make_unique<Menu>()); };
 
+
 	optionUi->AddButton(backButton);
+	optionUi->AddButton(eraseButton);
 
 }
 

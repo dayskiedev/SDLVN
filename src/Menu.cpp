@@ -1,7 +1,6 @@
 #include "Menu.h"
 
 // unique pointer assigns ownership
-std::unique_ptr<Texture> mockLogo;
 std::unique_ptr<Texture> background;	
 
 void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
@@ -11,6 +10,7 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	menuRenderer = renderer;
 	menuUi = std::make_unique<UIManager>();
 	menuUi->setRenderer(menuRenderer);
+	saveManager = std::make_unique<SaveManager>();
 
 	// i should just be able to make a button constructor to create these buttons
 	// so we can do things like set the functions later....
@@ -25,12 +25,22 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 		30
 	));
 
+	std::shared_ptr<Button> saveButton(new Button("save",
+		menuRenderer,
+		DEFAULT_BUTTON_TEXTURE,
+		200, 50,
+		(SCREEN_WIDTH / 2) - 100,
+		(SCREEN_HEIGHT / 2),
+		"Save Game",
+		30
+	));
+
 	std::shared_ptr<Button> contButton(new Button("load",
 		menuRenderer,
 		DEFAULT_BUTTON_TEXTURE,
 		200,50,
 		(SCREEN_WIDTH / 2) - 100,
-		(SCREEN_HEIGHT / 2), 
+		(SCREEN_HEIGHT / 2) + 50, 
 		"Load Game",
 		30
 	));
@@ -40,7 +50,7 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 		DEFAULT_BUTTON_TEXTURE,
 		200, 50,
 		(SCREEN_WIDTH / 2) - 100,
-		(SCREEN_HEIGHT / 2) + 50,
+		(SCREEN_HEIGHT / 2) + 100,
 		"Options",
 		30
 	));
@@ -50,35 +60,30 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 		DEFAULT_BUTTON_TEXTURE, 
 		200, 50, 
 		(SCREEN_WIDTH / 2) - 100, 
-		(SCREEN_HEIGHT / 2) + 100, 
+		(SCREEN_HEIGHT / 2) + 150, 
 		"Exit", 
 		30
 	));
 
 	// define on click actions for buttons
 	playButton->OnClick = [this]() { _gameManager->ChangeState(std::make_unique<Game>()); };
-	contButton->OnClick = [this]() { _gameManager->ChangeState(std::make_unique<Load>()); };
+
+	saveButton->OnClick = [this]() { saveManager->Save(); };
+	contButton->OnClick = [this]() { saveManager->Load(); };
+
 	optButton->OnClick = [this]() { _gameManager->ChangeState(std::make_unique<Options>()); };
 	quitButton->OnClick = [this]() { _gameManager->running = false; };
 	
 	menuUi->AddButton(playButton);
+	menuUi->AddButton(saveButton);
 	menuUi->AddButton(contButton);
 	menuUi->AddButton(optButton);
 	menuUi->AddButton(quitButton);
 
 	// these load the textures but they do not get shown?
-	mockLogo = std::make_unique<Texture>(
-		menuRenderer, 
-		"backgrounds/logo.png", 
-		512, 
-		151, 
-		(SCREEN_WIDTH / 2) - (512 / 2), 
-		25
-	);
-
 	background = std::make_unique<Texture>(
 		menuRenderer, 
-		"backgrounds/umabackground.png", 
+		"backgrounds/umabackground2.png", 
 		SCREEN_WIDTH, 
 		SCREEN_HEIGHT, 
 		0, 
@@ -95,8 +100,6 @@ void Menu::Render() {
 	SDL_RenderClear(menuRenderer);
 
 	background->render();
-
-	mockLogo->render();
 
 	for (auto b : menuUi->GetUiVector()) { 
 		b->render(); 

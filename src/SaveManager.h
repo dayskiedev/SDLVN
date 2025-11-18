@@ -1,13 +1,6 @@
-#include <SDL.h>
-#include <SDL_image.h>
-#include <SDL_ttf.h>
-#include <SDL_mixer.h>
-
-#include <stdio.h>
-#include <vector>
-#include <sstream>
 #include <iostream>
 #include <fstream>
+#include <string>
 
 #include "Config.h"
 
@@ -31,7 +24,6 @@
 
 #ifndef SAVEMANAGER_H
 #define SAVEMANGER_H
-#endif 
 
 class SaveManager {
 public:
@@ -39,18 +31,9 @@ public:
 	void Load();
 private:
 	int saveNum = 0;
-	std::ofstream saveFile;
-
-	std::string scriptName;
-	int scriptLineNumber;
-		
-	struct spriteSaveFlags {
-		std::string spriteObjname;
-		std::string curSprite;
-		int x, y, w, h;
-		double opacity;
-	};
-
-	std::string background;
+	std::ofstream File;
+	unsigned int size;
 
 };
+
+#endif 

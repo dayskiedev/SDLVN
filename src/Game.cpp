@@ -4,9 +4,6 @@
 // check if its linked in your path variables
 
 // TODO: 
-// 1. change main to have game states: menu and game
-
-// Hsve custom rendeering for menu
 
 // ensure every system can properly load before we run the game, if we run into errors
 // we want to exit early

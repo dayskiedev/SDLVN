@@ -35,9 +35,8 @@ void Button::Update(SDL_Event e) {
 		OnHover();
 
 		if (e.type == SDL_MOUSEBUTTONDOWN) {
-
+			Mix_PlayChannel(2, buttonClick, 0);
 			if (OnClick) { 
-				Mix_PlayChannel(2, buttonClick, 0);
 				OnClick(); 
 			}
 			else {

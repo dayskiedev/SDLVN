@@ -1,6 +1,8 @@
 #ifndef CONFIG_H
 #define CONFIG_h
 
+extern const int SAVE_VERSION;
+
 extern int SCREEN_WIDTH;
 extern int SCREEN_HEIGHT;
 

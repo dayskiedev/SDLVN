@@ -2,6 +2,8 @@
 
 #include "Config.h"
 
+const int SAVE_VERSION = 1;
+
 int SCREEN_WIDTH = 1280;
 int SCREEN_HEIGHT = 720;
 

@@ -12,9 +12,10 @@ void Load::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 		DEFAULT_BUTTON_TEXTURE,
 		200, 50,
 		0, 0,
-		"X",
+		"Back to Menu",
 		25
 	));
+
 
 	// volume slider
 	// simple box that can be dragged
@@ -24,6 +25,7 @@ void Load::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	backButton->OnClick = [this]() { _gameManager->ChangeState(std::make_unique<Menu>()); };
 
 	loadUI->AddButton(backButton);
+
 
 }
 
