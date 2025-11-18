@@ -33,7 +33,7 @@ private:
 	int saveNum = 0;
 	std::ofstream File;
 	unsigned int size;
-
+	std::string saveFileName = "save.dat";
 };
 
 #endif 
