@@ -150,3 +150,7 @@ std::vector<std::string> SaveManager::ScanForSaves() {
 
 	return saveFiles;
 }
+
+bool SaveManager::SaveExists(std::string savePath) {
+	return std::filesystem::exists(savePath);
+}

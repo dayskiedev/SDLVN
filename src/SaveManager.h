@@ -34,6 +34,7 @@ public:
 	void Save();
 	void Load();
 	std::vector<std::string> ScanForSaves();
+	bool SaveExists(std::string savePath);
 private:
 	int saveNum = 0;
 	std::ofstream File;

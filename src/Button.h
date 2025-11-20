@@ -16,7 +16,9 @@ class Button : public Texture {
 public:
 	Button();
 	Button(std::string name, SDL_Renderer* renderer, std::string texture, int w, int h, int x, int y, std::string text, int fontSize);
-	Button(std::string btnName, std::string btnText, int fontSize, int w, int h, int x, int y, SDL_Renderer* renderer);
+
+	// button without text
+	Button(std::string name, SDL_Renderer* renderer, std::string texture, int w, int h, int x, int y);
 
 	~Button();
 	
@@ -39,6 +41,7 @@ private:
 	bool _overlapping;
 	bool _clicked;
 	bool entered;
+	bool hasText;
 
 	std::unique_ptr<Texture> textTexture = NULL;
 	TTF_Font* _font = NULL;

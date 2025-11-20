@@ -19,6 +19,21 @@ Button::Button(std::string name, SDL_Renderer* renderer, std::string texture, in
 	if (buttonClick == NULL) { std::cout << "erorr]\n"; }
 }
 
+Button::Button(std::string name, SDL_Renderer* renderer, std::string texture, int w, int h, int x, int y) {
+	setRenderer(renderer);
+	SetButtonName(name);
+	loadFromFile(texture);
+	setWidth(w);
+	setHeight(h);
+	setX(x);
+	setY(y);
+	// set button hover sound
+	// should be done in audiomanager?
+	buttonHover = Mix_LoadWAV((GLOBAL_SOUNDS_PATH + "snd_hover.wav").c_str());
+	buttonClick = Mix_LoadWAV((GLOBAL_SOUNDS_PATH + "snd_click.wav").c_str());
+	if (buttonClick == NULL) { std::cout << "erorr]\n"; }
+}
+
 Button::~Button() {
 	// button specifc destructors (ie sounds)
 	Mix_FreeChunk(buttonHover);
@@ -68,6 +83,8 @@ void Button::OnHover() {
 	}
 
 	setAlpha(100);
+
+	if (textTexture == NULL) { return; }
 	textTexture->setAlpha(100);
 }
 
@@ -75,6 +92,8 @@ void Button::ExitHover() {
 	entered = false; 
 	// we want this to only shoot once?
 	setAlpha(255);
+
+	if (textTexture == NULL) { return;  }
 	textTexture->setAlpha(255);
 }
 
@@ -92,6 +111,8 @@ bool Button::OverlappingCheck() {
 // RENDERING THE TEXT FOR THE BUTTON
 void Button::showText() {
 	// height needs to include font size
+	if (textTexture == NULL) { return; }
+
 	textTexture->render(getX() + 20, getY() + (getHeight() / 2) - 15);
 }
 
