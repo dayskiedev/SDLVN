@@ -109,5 +109,7 @@ void Menu::Render() {
 }
 
 void Menu::ExitState() {
-	// placeholder
+	// ensures everyhting in the state is destroyed
+	background.reset();
+	menuUi.reset();
 }

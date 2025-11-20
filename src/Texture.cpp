@@ -32,10 +32,12 @@
 	}
 
 	void Texture::setColour(Uint8 r, Uint8 g, Uint8 b) {
+		if (!mTexture) { return; }
 		SDL_SetTextureColorMod(mTexture, r, g, b);
 	}
 
 	void Texture::setAlpha(Uint8 a) {
+		if (!mTexture) { return; }
 		SDL_SetTextureAlphaMod(mTexture, a);
 	}
 

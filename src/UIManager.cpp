@@ -3,6 +3,7 @@
 
 UIManager::~UIManager() {
 	_buttons.clear();
+	
 }
 
 void UIManager::setRenderer(SDL_Renderer* renderer) {

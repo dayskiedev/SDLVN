@@ -25,7 +25,7 @@ Button::~Button() {
 	buttonHover = NULL;
 	Mix_FreeChunk(buttonClick);
 	buttonClick = NULL;
-
+	//std::cout << "destroyed button " << this->GetButtonName() << std::endl;
 }
 
 void Button::Update(SDL_Event e) {
