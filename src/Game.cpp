@@ -4,9 +4,11 @@
 // check if its linked in your path variables
 
 // TODO: 
-
-// ensure every system can properly load before we run the game, if we run into errors
-// we want to exit early
+// we want to load
+// in enter state we just call the save load function
+// but using default save values
+// that way if we load a save, the save struct values will be changed
+// so we can just call them 
 
 void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	// pass through the main render pointer
@@ -28,6 +30,10 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	gBlackBox = { 0,0, SCREEN_WIDTH, SCREEN_HEIGHT };
 
 	// NEED TO ERROR CHECK THIS
+
+	// here is when we load values for the interpretor
+	//  such as background, character sprite, etc
+
 	interpreter.OpenScript(GLOBAL_SCRIPTS_PATH + script_name);
 }
 // run is called from main, checks for event quit

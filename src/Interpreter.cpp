@@ -2,6 +2,16 @@
 
 // have compiler to scroll through uncompiled script
 
+bool Interpreter::Initialise(SpriteManager& _spriteManager, TextManager& _textManager, UIManager& _uiManager, Texture& background,
+	int lineNum, std::string scriptPath, std::string backgroundPath, std::vector<SpriteInformation> sprites) {
+
+	_lineCount = lineNum; // line to start script at.
+	OpenScript(scriptPath);
+
+
+
+	return true;
+}
 
 bool Interpreter::OpenScript(std::string filePath) {
 	_scriptFile.clear();

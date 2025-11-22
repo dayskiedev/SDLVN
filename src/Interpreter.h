@@ -14,6 +14,7 @@
 #include <memory>
 
 #include "SpriteManager.h"
+#include "SpriteInformation.h"
 #include "TextManager.h"
 #include "UIManager.h"
 
@@ -24,6 +25,8 @@
 
 class Interpreter {
 public:
+	bool Initialise(SpriteManager& _spriteManager, TextManager& _textManager, UIManager& _uiManager, Texture& background,
+					int lineNum, std::string scriptPath, std::string backgroundPath, std::vector<SpriteInformation> sprites);
 	bool OpenScript(std::string scriptPath);
 
 	void PrintError(std::string Error);
@@ -58,6 +61,10 @@ private:
 	double threshold	= 50 / textSpeed;
 
 	UIManager* _uiManager;
+	SpriteManager& _spriteManager;
+	TextManager& _textManager;
+	UIManager& _uiManager;
+	Texture& background;
 };
 
 #endif

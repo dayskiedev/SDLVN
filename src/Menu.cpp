@@ -24,23 +24,13 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 		30
 	));
 
-	std::shared_ptr<Button> saveButton(new Button("save",
-		menuRenderer,
-		DEFAULT_BUTTON_TEXTURE,
-		200, 50,
-		(SCREEN_WIDTH / 2) - 100,
-		(SCREEN_HEIGHT / 2),
-		"Save Game",
-		30
-	));
-
 	std::shared_ptr<Button> contButton(new Button("load",
 		menuRenderer,
 		DEFAULT_BUTTON_TEXTURE,
 		200,50,
 		(SCREEN_WIDTH / 2) - 100,
-		(SCREEN_HEIGHT / 2) + 50, 
-		"Load Game",
+		(SCREEN_HEIGHT / 2), 
+		"Load Save",
 		30
 	));
 
@@ -49,7 +39,7 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 		DEFAULT_BUTTON_TEXTURE,
 		200, 50,
 		(SCREEN_WIDTH / 2) - 100,
-		(SCREEN_HEIGHT / 2) + 100,
+		(SCREEN_HEIGHT / 2) + 50,
 		"Options",
 		30
 	));
@@ -59,21 +49,18 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 		DEFAULT_BUTTON_TEXTURE, 
 		200, 50, 
 		(SCREEN_WIDTH / 2) - 100, 
-		(SCREEN_HEIGHT / 2) + 150, 
+		(SCREEN_HEIGHT / 2) + 100, 
 		"Exit", 
 		30
 	));
 
 	// define on click actions for buttons
 	playButton->OnClick = [this]() { _gameManager->ChangeState(std::make_unique<Game>()); };
-
 	contButton->OnClick = [this]() { _gameManager->ChangeState(std::make_unique<Load>()); };
-
 	optButton->OnClick = [this]() { _gameManager->ChangeState(std::make_unique<Options>()); };
 	quitButton->OnClick = [this]() { _gameManager->running = false; };
 	
 	menuUi->AddButton(playButton);
-	menuUi->AddButton(saveButton);
 	menuUi->AddButton(contButton);
 	menuUi->AddButton(optButton);
 	menuUi->AddButton(quitButton);

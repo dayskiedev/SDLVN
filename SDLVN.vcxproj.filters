@@ -79,6 +79,9 @@
     <ClInclude Include="src\Load.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
+    <ClInclude Include="src\SpriteInformation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Button.cpp">

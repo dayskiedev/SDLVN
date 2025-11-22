@@ -1,6 +1,8 @@
 #ifndef CONFIG_H
 #define CONFIG_h
 
+extern const std::string PROGRAM_NAME;
+
 extern const int SAVE_VERSION;
 
 extern int SCREEN_WIDTH;

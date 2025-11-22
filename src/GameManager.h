@@ -28,6 +28,8 @@ public:
 	void Quit();
 
 	void ChangeState(std::unique_ptr<GameState> state);	
+
+	bool SaveExists(std::string savePath);
 	
 	bool running = true;
 	bool pause;

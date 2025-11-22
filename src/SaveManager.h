@@ -24,9 +24,11 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <unordered_map>
 #include <filesystem>
 
 #include "Config.h"
+#include "SpriteInformation.h"
 
 
 class SaveManager {
@@ -35,6 +37,16 @@ public:
 	void Load();
 	std::vector<std::string> ScanForSaves();
 	bool SaveExists(std::string savePath);
+
+	struct SaveData {
+		int scriptLine = 0;
+		std::string scriptPath = "";
+		std::string backgroundPath = "";
+		// sprite name, sprite path, sprite x, sprite y, sprite width, sprite height
+		std::vector<SpriteInformation> sprites;
+		// hashmap containing past choices player has made
+		//std::unordered_map<std::string, int> choices;
+	};
 private:
 	int saveNum = 0;
 	std::ofstream File;

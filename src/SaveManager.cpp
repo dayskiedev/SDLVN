@@ -5,10 +5,18 @@
 // SAVE STRUCTURE:
 // SAVE VERSION
 // SCRIPT LOCATION
+// TIME
+// DATE (DAY/MNTH)
 // SCRIPT LINE (THEN WE WILL AUTO READ THE LINE)
 // BACKGROUND TO LOAD
 // [CHARACTERS]
-// CHARACTERS TO LOAD (name, path to cur sprite)
+// number of characters
+// sprite name
+// sprite file location
+// x
+// y
+// w
+// h
 // [CHOICES]
 // SET EVERY SAVED CHOICE
 
@@ -84,8 +92,11 @@ void SaveManager::Load() {
 	std::string rScriptLoc = "";
 	int rScriptLine = 0;
 	std::string rBacLoc = "";
+	// number of characters
 	std::string rCharName = "";
 	std::string rCharSpriLoc = "";
+	// character sprite position
+	// number of choices
 	std::string rChoiceName = "";
 	int rChoiceValue = 99;
 

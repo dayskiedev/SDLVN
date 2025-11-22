@@ -20,7 +20,6 @@ std::vector<std::shared_ptr<Sprite>> SpriteManager::getSpriteVector() {
 }
 
 void SpriteManager::addSprite(std::string spriteObjName, std::string spriteTexName, std::string screenPos) {
-	// look into changing this to a smart pointer / object?
 	std::shared_ptr<Sprite> sprite(new Sprite);
 
 	// this could all be in a constructor?
@@ -54,6 +53,16 @@ void SpriteManager::addSprite(std::string spriteObjName, std::string spriteTexNa
 
 	sprite->setX(x_pos);
 	sprite->setY(y_pos);
+
+	_sprites.push_back(sprite);
+}
+
+void SpriteManager::addSprite(std::string spriteObjName, std::string spriteTextName, int x, int y, int w, int h) {
+	std::shared_ptr<Sprite> sprite(new Sprite(spriteObjName,
+		spriteTextName,
+		x, y,
+		w, h,
+		_renderer));
 
 	_sprites.push_back(sprite);
 }

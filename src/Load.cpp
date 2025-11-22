@@ -7,8 +7,6 @@ void Load::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	loadUI = std::make_unique<UIManager>();
 	loadUI->setRenderer(loadRenderer);
 
-	saveManager = std::make_unique<SaveManager>();
-
 	std::shared_ptr<Button> backButton(new Button("back",
 		loadRenderer,
 		DEFAULT_BUTTON_TEXTURE,
@@ -59,13 +57,17 @@ void Load::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	// will change depending on selection
 	int saveIndex = 0;
 
+
+	// he we create a 2*3 grid of save icons that the users can select from to load a save
+	// the save index will match the name of save files created, so we can have as many saves
+	// as we want, just need to create a row selector to cycle between saves and set the buttons
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < cols; j++) {
 			std::string savefileButtonTexture = DEFAULT_BUTTON_TEXTURE;
 			std::string saveName = "save" + std::to_string(saveIndex);
 
 			// for some reason i could still use filesystem even when i removeed the header??
-			bool saveExists = saveManager->SaveExists(DEFAULT_SAVE_LOCATION + saveName + ".dat");
+			bool saveExists = gameManager->SaveExists(DEFAULT_SAVE_LOCATION + saveName + ".dat");
 
 			if (saveExists) {;
 				savefileButtonTexture = GLOBAL_SPRITES_PATH + "saveExists.png";

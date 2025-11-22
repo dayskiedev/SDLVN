@@ -11,7 +11,7 @@ bool GameManager::Init() {
 	std::cout << "SDL initialised" << std::endl;
 
 	// Create window
-	gWindow = SDL_CreateWindow("SDLVN", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+	gWindow = SDL_CreateWindow(PROGRAM_NAME.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 	if (gWindow == NULL) {
 		std::cout << "Window could not be created!" << std::endl;
 		return false;
@@ -57,6 +57,8 @@ bool GameManager::Init() {
 	currentState = std::make_unique<Menu>();
 	currentState->EnterState(gRenderer, this);
 
+	saveManager = std::make_unique<SaveManager>();
+
 	return true;
 }
 
@@ -95,3 +97,11 @@ void GameManager::Quit() {
 	gWindow = NULL;
 	SDL_Quit();
 }
+
+bool GameManager::SaveExists(std::string savePath) {
+	return saveManager->SaveExists(savePath);
+}
+
+
+// GAME MANAGER
+// controls [game state, save]

@@ -2,6 +2,8 @@
 
 #include "Config.h"
 
+const std::string PROGRAM_NAME = "SDLVN";
+
 const int SAVE_VERSION = 1;
 
 int SCREEN_WIDTH = 1280;

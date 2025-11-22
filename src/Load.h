@@ -23,7 +23,7 @@ private:
 	// window renderer
 	SDL_Renderer* loadRenderer = NULL;
 	std::unique_ptr<UIManager> loadUI;
-	std::unique_ptr<SaveManager> saveManager;
+
 };
 
 #endif // !
