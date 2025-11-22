@@ -32,6 +32,7 @@ public:
 	bool SaveExists(std::string savePath);
 
 	SaveManager::SaveData& GetSaveData() { return saveManager->GetSaveData(); }
+	void SaveGame();
 	
 	bool running = true;
 	bool pause;

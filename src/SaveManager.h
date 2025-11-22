@@ -54,7 +54,7 @@ private:
 	int saveNum = 0;
 	std::ofstream File;
 	unsigned int size;
-	std::string saveFileName = "save.dat";
+	std::string saveFileName = "save3.dat";
 
 	SaveData defaultSaveData;
 };

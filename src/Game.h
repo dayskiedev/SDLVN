@@ -35,18 +35,15 @@ private:
 	// window renderer
 	SDL_Renderer* gameRenderer = NULL;
 
-	// Nabafers
-	SpriteManager spriteManager;
-	TextManager textManager;
-	UIManager uiManager;
+	// we have these as shared pointers because they are accessed by both
+	// Game.cpp and INterpreter.cpp, so only get deleted if they go out of scope in both file 
+	// (ie changing back to main menu)
+	std::shared_ptr<SpriteManager> spriteManager = std::make_shared <SpriteManager>();;
+	std::shared_ptr<TextManager> textManager = std::make_shared<TextManager>();
+	std::shared_ptr<UIManager> uiManager = std::make_shared<UIManager>();
 
 	// Main script logic handler
 	// need to initialise referneces in constructor
-
-	std::vector<Button*> _buttons;
-
-	// global font
-	TTF_Font* gFont = NULL;
 
 	SDL_Color gWhite = { 255,255,255 };
 	SDL_Color gBlack = { 0,0,0 };
@@ -56,7 +53,7 @@ private:
 	const int tOffsetY = 32;
 
 	// will need to remove these at some point.
-	Texture gBackground;
+	std::shared_ptr<Texture> gBackground = std::make_shared<Texture>();
 	SDL_Rect gBlackBox;
 
 	Interpreter interpreter;

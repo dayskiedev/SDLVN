@@ -2,7 +2,8 @@
 
 // have compiler to scroll through uncompiled script
 
-bool Interpreter::Initialise(SpriteManager* sm, TextManager* tm, UIManager* uim, Texture* bg,
+bool Interpreter::Initialise(std::shared_ptr<SpriteManager> sm, std::shared_ptr<TextManager> tm,
+							std::shared_ptr<UIManager> uim, std::shared_ptr<Texture> bg,
 	int lineNum, std::string scriptPath, std::string backgroundPath, std::vector<SpriteInformation> sprites) {
 
 	_spriteManager = sm;
@@ -24,8 +25,6 @@ bool Interpreter::Initialise(SpriteManager* sm, TextManager* tm, UIManager* uim,
 			curSprite.x, curSprite.y,
 			curSprite.w, curSprite.h);
 	}
-
-	std::cout << "Default state loaded" << std::endl;
 	return true;
 }
 

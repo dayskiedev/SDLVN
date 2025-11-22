@@ -102,6 +102,17 @@ bool GameManager::SaveExists(std::string savePath) {
 	return saveManager->SaveExists(savePath);
 }
 
+void GameManager::SaveGame() {
+	// here is where we will pass through data from
+	// the interpretor to save...
+
+	// need to store data we want to save, open save(load) menu
+	// once user selects a save, then we save to file
+	// or should we just make a copy of the load state to save to?
+
+	saveManager->Save();
+}
+
 
 // GAME MANAGER
 // controls [game state, save]

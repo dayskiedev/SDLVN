@@ -26,7 +26,8 @@
 class Interpreter {
 public:
 
-	bool Initialise(SpriteManager* sm, TextManager* tm, UIManager* uim, Texture* bg,
+	bool Initialise(std::shared_ptr<SpriteManager> sm, std::shared_ptr<TextManager> tm, 
+					std::shared_ptr<UIManager> uim, std::shared_ptr<Texture> bg,
 		int lineNum, std::string scriptPath, std::string backgroundPath, std::vector<SpriteInformation> sprites);
 	bool OpenScript(std::string scriptPath);
 
@@ -62,10 +63,10 @@ private:
 	double threshold	= 50 / textSpeed;
 
 //	UIManager* _uiManager;
-	SpriteManager* _spriteManager;
-	TextManager* _textManager;
-	UIManager* _uiManager; // turn these to smart poiners
-	Texture* background;
+	std::shared_ptr<SpriteManager> _spriteManager;
+	std::shared_ptr<TextManager> _textManager;
+	std::shared_ptr<UIManager> _uiManager; 
+	std::shared_ptr<Texture> background;
 };
 
 #endif

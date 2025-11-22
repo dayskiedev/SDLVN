@@ -44,7 +44,6 @@ void SpriteManager::addSprite(std::string spriteObjName, std::string spriteTexNa
 		screenPos = "CENTRE";
 	}
 
-
 	int x_pos = _spritePositions.find(screenPos)->second.first;
 	int y_pos = _spritePositions.find(screenPos)->second.second;
 
