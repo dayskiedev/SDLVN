@@ -11,6 +11,11 @@ extern int SCREEN_HEIGHT;
 extern int CHOICE_BUTTON_WIDTH;
 extern int CHOICE_BUTTON_HEIGHT;
 
+// SAVE DATA DEFAULT INFORMATION FOR NEW GAME
+extern int _SCRIPT_LINE;
+extern std::string _SCRIPT_PATH;
+extern std::string _BACKGROUND_PATH;
+
 // should not be const as they can be changed in a seperate config.ini ?
 extern std::string GLOBAL_FONT_PATH;
 extern std::string GLOBAL_BACKGROUNDS_PATH;

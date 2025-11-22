@@ -39,19 +39,24 @@ public:
 	bool SaveExists(std::string savePath);
 
 	struct SaveData {
-		int scriptLine = 0;
-		std::string scriptPath = "";
-		std::string backgroundPath = "";
+		int scriptLine = _SCRIPT_LINE;
+		std::string scriptPath = _SCRIPT_PATH;
+		std::string backgroundPath = _BACKGROUND_PATH;
 		// sprite name, sprite path, sprite x, sprite y, sprite width, sprite height
-		std::vector<SpriteInformation> sprites;
+		std::vector<SpriteInformation> sprites; // empty by default
 		// hashmap containing past choices player has made
 		//std::unordered_map<std::string, int> choices;
 	};
+
+	SaveData& GetSaveData() { return defaultSaveData;  }
+
 private:
 	int saveNum = 0;
 	std::ofstream File;
 	unsigned int size;
 	std::string saveFileName = "save.dat";
+
+	SaveData defaultSaveData;
 };
 
 #endif 

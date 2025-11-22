@@ -89,7 +89,7 @@
 			SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0, 0xFF, 0xFF));
 			newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
 			if (newTexture == NULL) {
-				std::cout << "Unable to create texture: " << SDL_GetError() << std::endl;
+				std::cout << "Unable to create texture from " << path << ": " << SDL_GetError() << std::endl;
 				// keep it as current texture as a failsafe
 
 			}

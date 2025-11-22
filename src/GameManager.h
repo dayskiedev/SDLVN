@@ -30,6 +30,8 @@ public:
 	void ChangeState(std::unique_ptr<GameState> state);	
 
 	bool SaveExists(std::string savePath);
+
+	SaveManager::SaveData& GetSaveData() { return saveManager->GetSaveData(); }
 	
 	bool running = true;
 	bool pause;

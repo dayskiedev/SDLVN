@@ -10,6 +10,8 @@
 // that way if we load a save, the save struct values will be changed
 // so we can just call them 
 
+//Game::Game() : interpreter(spriteManager, textManager, &uiManager, gBackground) {}
+
 void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	// pass through the main render pointer
 	// and set it to that
@@ -18,6 +20,8 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	// LOAD GLOBALS (there has to be a better way to do this?
 	spriteManager.setRenderer(gameRenderer);
 	spriteManager.setSpriteTexPath(GLOBAL_SPRITES_PATH);
+
+	std::cout << spriteManager.getSpriteTexPath() << std::endl;
 
 	textManager.setRenderer(gameRenderer);
 	textManager.setFont(GLOBAL_FONT_PATH);
@@ -33,8 +37,12 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 
 	// here is when we load values for the interpretor
 	//  such as background, character sprite, etc
+	
+	auto& saveData = gameManager->GetSaveData();
 
-	interpreter.OpenScript(GLOBAL_SCRIPTS_PATH + script_name);
+	interpreter.Initialise(&spriteManager, &textManager, &uiManager, &gBackground,
+		saveData.scriptLine, saveData.scriptPath, saveData.backgroundPath, saveData.sprites);
+
 }
 // run is called from main, checks for event quit
 // run handles update and render as seperate methods to call
@@ -42,7 +50,7 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 void Game::Update(SDL_Event e, double deltaTime) {
 	// place logic here
 
-	interpreter.Run(e, deltaTime, spriteManager, textManager, uiManager, gBackground);
+	interpreter.Run(e, deltaTime);
 
 	for (auto b : uiManager.GetUiVector()) {
 		b->Update(e);

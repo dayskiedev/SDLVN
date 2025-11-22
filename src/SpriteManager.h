@@ -20,6 +20,7 @@ public:
 
 	void setRenderer(SDL_Renderer* renderer);
 	void setSpriteTexPath(std::string spritesTexPath);
+	std::string getSpriteTexPath() { return _spritesTexPath; }
 
 	std::vector<std::shared_ptr<Sprite>> getSpriteVector();
 

@@ -2,14 +2,30 @@
 
 // have compiler to scroll through uncompiled script
 
-bool Interpreter::Initialise(SpriteManager& _spriteManager, TextManager& _textManager, UIManager& _uiManager, Texture& background,
+bool Interpreter::Initialise(SpriteManager* sm, TextManager* tm, UIManager* uim, Texture* bg,
 	int lineNum, std::string scriptPath, std::string backgroundPath, std::vector<SpriteInformation> sprites) {
 
+	_spriteManager = sm;
+	_textManager = tm;
+	_uiManager = uim;
+	background = bg;
+
 	_lineCount = lineNum; // line to start script at.
-	OpenScript(scriptPath);
 
+	if (!OpenScript(scriptPath)) { return false; } // load script 
 
+	std::cout << "line count: " << _lineCount << std::endl;
+	background->loadFromFile(backgroundPath); // set background to whatever was saved;
 
+	// load any sprites saved in file
+	for (auto curSprite : sprites) {
+		_spriteManager->addSprite(curSprite.spriteName,
+			curSprite.spriteLocation,
+			curSprite.x, curSprite.y,
+			curSprite.w, curSprite.h);
+	}
+
+	std::cout << "Default state loaded" << std::endl;
 	return true;
 }
 
@@ -92,11 +108,10 @@ void Interpreter::TokenizeLine() {
 	}
 }
 
-void Interpreter::Run(SDL_Event e, double deltaTime, SpriteManager& _spriteManager, TextManager& _textManager, UIManager& _ui, Texture& background) {
+void Interpreter::Run(SDL_Event e, double deltaTime) {
 
 	// here we pass a reference to the ui manager in order to add elements to
 	// the screen depending on whats read from the script.
-	_uiManager = &_ui;
 
 	if (_lineCount >= _scriptFile.size()) { 
 		return; // dunno what to do now that we've reached the end of file... just sit there?
@@ -115,7 +130,6 @@ void Interpreter::Run(SDL_Event e, double deltaTime, SpriteManager& _spriteManag
 
 	else if (_commandArgs[0] == "*enter") {
 		// *enter [objName] [sprName] [position]
-
 		// some sort of arg checker 
 		spriteObjName	= _commandArgs[1];
 		spriteTexName	= _commandArgs[2];
@@ -124,12 +138,12 @@ void Interpreter::Run(SDL_Event e, double deltaTime, SpriteManager& _spriteManag
 		if (_commandArgs.size() > 3) {
 			spritePosition = _commandArgs[3];
 		}
-		_spriteManager.addSprite(spriteObjName, spriteTexName, spritePosition);
+		_spriteManager->addSprite(spriteObjName, spriteTexName, spritePosition);
 	}
 	
 	else if (_commandArgs[0] == "*exit") {
 		spriteObjName = _commandArgs[1];
-		_spriteManager.removeSprite(spriteObjName);
+		_spriteManager->removeSprite(spriteObjName);
 	}
 
 	else if (_commandArgs[0] == "*setsprite") {
@@ -137,11 +151,11 @@ void Interpreter::Run(SDL_Event e, double deltaTime, SpriteManager& _spriteManag
 		spriteObjName = _commandArgs[1];
 		spriteTexName = _commandArgs[2];
 
-		_spriteManager.setSprite(spriteObjName, spriteTexName);
+		_spriteManager->setSprite(spriteObjName, spriteTexName);
 	}
 
 	else if (_commandArgs[0] == "*cleartext") {
-		_textManager.clearText();
+		_textManager->clearText();
 	}
 
 	else if (_commandArgs[0] == "*wait") {
@@ -248,7 +262,7 @@ void Interpreter::Run(SDL_Event e, double deltaTime, SpriteManager& _spriteManag
 	else if (_commandArgs[0] == "*setbackground") {
 		// *setbackackground [background_path]
 		if (!ArgCheckSize(2, _commandArgs.size())) { return; }
-		background.loadFromFile(GLOBAL_BACKGROUNDS_PATH + _commandArgs[1]);
+		background->loadFromFile(GLOBAL_BACKGROUNDS_PATH + _commandArgs[1]);
 
 	}
 
@@ -267,7 +281,7 @@ void Interpreter::Run(SDL_Event e, double deltaTime, SpriteManager& _spriteManag
 
 	else {
 		if (increment) {
-			curDialogueLine = _textManager.addText(_scriptFile[_lineCount]);
+			curDialogueLine = _textManager->addText(_scriptFile[_lineCount]);
 			incrementText = true;
 			increment = false;
 

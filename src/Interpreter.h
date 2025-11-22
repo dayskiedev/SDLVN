@@ -25,14 +25,15 @@
 
 class Interpreter {
 public:
-	bool Initialise(SpriteManager& _spriteManager, TextManager& _textManager, UIManager& _uiManager, Texture& background,
-					int lineNum, std::string scriptPath, std::string backgroundPath, std::vector<SpriteInformation> sprites);
+
+	bool Initialise(SpriteManager* sm, TextManager* tm, UIManager* uim, Texture* bg,
+		int lineNum, std::string scriptPath, std::string backgroundPath, std::vector<SpriteInformation> sprites);
 	bool OpenScript(std::string scriptPath);
 
 	void PrintError(std::string Error);
 
 	// pass by referecne because we want to modify the sprites/text in these vectors
-	void Run(SDL_Event e, double deltaTime, SpriteManager& _spriteManager, TextManager& _textManager, UIManager& _uiManager, Texture& background);
+	void Run(SDL_Event e, double deltaTime);
 
 	void JumpToChoice(std::string choice);
 	void ButtonClicked();
@@ -60,11 +61,11 @@ private:
 	double textCounter	= 0;
 	double threshold	= 50 / textSpeed;
 
-	UIManager* _uiManager;
-	SpriteManager& _spriteManager;
-	TextManager& _textManager;
-	UIManager& _uiManager;
-	Texture& background;
+//	UIManager* _uiManager;
+	SpriteManager* _spriteManager;
+	TextManager* _textManager;
+	UIManager* _uiManager; // turn these to smart poiners
+	Texture* background;
 };
 
 #endif

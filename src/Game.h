@@ -41,7 +41,7 @@ private:
 	UIManager uiManager;
 
 	// Main script logic handler
-	Interpreter interpreter;
+	// need to initialise referneces in constructor
 
 	std::vector<Button*> _buttons;
 
@@ -58,6 +58,8 @@ private:
 	// will need to remove these at some point.
 	Texture gBackground;
 	SDL_Rect gBlackBox;
+
+	Interpreter interpreter;
 };
 
 #endif
