@@ -10,6 +10,8 @@ void UIManager::setRenderer(SDL_Renderer* renderer) {
 	_renderer = renderer;
 }
 
+SDL_Renderer* UIManager::getRenderer() { return _renderer; }
+
 std::vector<std::shared_ptr<Button>> UIManager::GetUiVector() { return _buttons; }
 
 void UIManager::AddButton(std::string btnName, std::string btnContents, int x, int y, int w, int h) {

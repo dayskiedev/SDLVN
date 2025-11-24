@@ -197,42 +197,25 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 		for (int i = 2; i <= numButtons * 2; i++) {
 			btnName = _commandArgs[i];
 			btnContents = _commandArgs[i + 1];
-			btnContents = btnContents.substr(1, (btnContents.length() - 2) );
+			btnContents = btnContents.substr(1, (btnContents.length() - 2));
 
-			_uiManager->AddButton(btnName, btnContents, 
-				(SCREEN_WIDTH / 2) - (CHOICE_BUTTON_WIDTH/2) , startY - CHOICE_BUTTON_HEIGHT,
-				CHOICE_BUTTON_WIDTH, CHOICE_BUTTON_HEIGHT);
-			startY += CHOICE_BUTTON_HEIGHT + (CHOICE_BUTTON_HEIGHT/2);
+			std::shared_ptr<Button> choiceButton(new Button(btnName,
+				_uiManager->getRenderer(),
+				DEFAULT_BUTTON_TEXTURE,
+				CHOICE_BUTTON_WIDTH,
+				CHOICE_BUTTON_HEIGHT,
+				(SCREEN_WIDTH / 2) - (CHOICE_BUTTON_WIDTH / 2),
+				startY - CHOICE_BUTTON_HEIGHT,
+				btnContents,
+				30
+			));
+
+			choiceButton->OnClick = [this, btnName]() { JumpToChoice(btnName); };
+
+			_uiManager->AddButton(choiceButton);
+			startY += CHOICE_BUTTON_HEIGHT + (CHOICE_BUTTON_HEIGHT / 2);
 			i++; // NEED TO MAKE SURE WE SKIP OVER THE BUTTON TXT FOR THE CURRENT BUTTON
 		}
-
-		// what are we doing here?
-		// In button.h we have defined an std::function OnClick()
-		// this is because we want to be able to copy different functions to it.
-		// why?
-		// So we can have multiple buttons that do different things...
-		// example fast forward button to skip text, pause button, choice button
-		// so when a button is created, it needs a function assigned.
-		// to do that we use a lambda, this allows us to pass the function not as
-		// a result but to say "use this function when OnClick for this button is called"
-		// this means we can also let any potentiol arguments go through for each button
-
-		for (auto btn : _uiManager->GetUiVector()) {
-			// Could use [=] for lambda capture, but all lambda might capture the 
-			// last pointer value of the button, so we just want the string on its own.
-			std::string btnName = btn->GetButtonName(); 
-
-			// capture group [] what the lambda can pass in and access
-			// () not sure
-			// {} has the function but not sure
-			btn->OnClick = [this, btnName]() { JumpToChoice(btnName); };
-		}
-
-		// when button is clicked:
-		//	interpreter fires function JUMPTOEVENT(STRING btnName)
-		//  uses the button name 
-		//	store this function into the onclick function? so it gets fired by the button?
-		// using callbacks?
 
 		increment = false;
 
@@ -242,20 +225,24 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 	else if (_commandArgs[0] == "*reply") {
 		// reply [reply text]
 		if (!increment) { return; }
-		std::string replyName = "reply";
 		std::string replyContents = _commandArgs[1];
 		replyContents = replyContents.substr(1, (replyContents.length() - 2));
-		
-		_uiManager->AddButton(replyName, replyContents, (SCREEN_WIDTH / 2) - (CHOICE_BUTTON_WIDTH / 2),
-			(SCREEN_HEIGHT / 2) - (CHOICE_BUTTON_HEIGHT / 2), CHOICE_BUTTON_WIDTH, CHOICE_BUTTON_HEIGHT);
+
+		std::shared_ptr<Button> replyButton(new Button("reply",
+			_uiManager->getRenderer(),
+			DEFAULT_BUTTON_TEXTURE,
+			CHOICE_BUTTON_WIDTH,
+			CHOICE_BUTTON_HEIGHT,
+			(SCREEN_WIDTH / 2) - (CHOICE_BUTTON_WIDTH / 2),
+			(SCREEN_HEIGHT / 2) - (CHOICE_BUTTON_HEIGHT / 2),
+			replyContents,
+			30
+		));
+		replyButton->OnClick = [this]() { ButtonClicked(); };
+		_uiManager->AddButton(replyButton);
 
 		// wait for input
 		increment = false;
-
-		// we are asumming this is the only button... THIS IS BAD!!!!!
-		auto rplyBtn = _uiManager->GetUiVector()[0];
-		rplyBtn->OnClick = [this]() { ButtonClicked(); };
-
 	}
 
 	else if (_commandArgs[0] == "*setbackground") {

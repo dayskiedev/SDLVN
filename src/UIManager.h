@@ -16,6 +16,7 @@ public:
 	~UIManager();
 
 	void setRenderer(SDL_Renderer* renderer);
+	SDL_Renderer* getRenderer();
 	
 	std::vector<std::shared_ptr<Button>> GetUiVector();
 
