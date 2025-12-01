@@ -14,12 +14,15 @@ public:
 	Sprite(std::string spriteName, std::string spriteTexPath, int x, int y, int w, int h, SDL_Renderer* renderer);
 	//~Sprite();
 
-
-	void SetSpriteName(std::string SpriteName);
+	void SetSpriteName(std::string spriteName);
 	std::string GetSpriteName();
+
+	void SetSpritePath(std::string spritePath);
+	std::string GetSpriteTexPath();
 
 private:
 	std::string _spriteName;
+	std::string _spriteTexPath;
 };
 
 #endif

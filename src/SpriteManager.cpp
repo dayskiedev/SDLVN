@@ -27,6 +27,7 @@ void SpriteManager::addSprite(std::string spriteObjName, std::string spriteTexNa
 
 	sprite->SetSpriteName(spriteObjName);
 	std::string spritePath = _spritesTexPath + spriteTexName;
+	sprite->SetSpritePath(spritePath);
 	sprite->loadFromFile(spritePath);
 	// get screen positons from dictonary/enum? hardcoded for now which is a big nono
 	// screen width / 2 - 200

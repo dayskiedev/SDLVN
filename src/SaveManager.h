@@ -33,11 +33,6 @@
 
 class SaveManager {
 public:
-	void Save();
-	void Load();
-	std::vector<std::string> ScanForSaves();
-	bool SaveExists(std::string savePath);
-
 	struct SaveData {
 		int scriptLine = _SCRIPT_LINE;
 		std::string scriptPath = _SCRIPT_PATH;
@@ -48,10 +43,16 @@ public:
 		//std::unordered_map<std::string, int> choices;
 	};
 
+	void Save();
+	bool Load(SaveData& saveData, std::string savePath);
+
+	std::vector<std::string> ScanForSaves();
+	bool SaveExists(std::string savePath);
+
 	SaveData& GetSaveData() { return defaultSaveData;  }
 
 private:
-	int saveNum = 0;
+	int saveNum = 1;
 	std::ofstream File;
 	unsigned int size;
 	std::string saveFileName = "save3.dat";

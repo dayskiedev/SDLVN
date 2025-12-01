@@ -97,6 +97,8 @@ void Menu::Render() {
 
 void Menu::ExitState() {
 	// ensures everyhting in the state is destroyed
+	menuRenderer = NULL;
+	_gameManager = NULL;
 	background.reset();
 	menuUi.reset();
 }

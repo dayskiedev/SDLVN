@@ -65,9 +65,10 @@ void Load::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 		for (int j = 0; j < cols; j++) {
 			std::string savefileButtonTexture = DEFAULT_BUTTON_TEXTURE;
 			std::string saveName = "save" + std::to_string(saveIndex);
+			std::string saveDirectory = DEFAULT_SAVE_LOCATION + saveName + ".dat";
 
 			// for some reason i could still use filesystem even when i removeed the header??
-			bool saveExists = gameManager->SaveExists(DEFAULT_SAVE_LOCATION + saveName + ".dat");
+			bool saveExists = gameManager->SaveExists(saveDirectory);
 
 			if (saveExists) {;
 				savefileButtonTexture = GLOBAL_SPRITES_PATH + "saveExists.png";
@@ -86,7 +87,11 @@ void Load::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 
 			if (saveExists) {
 				// i know its silly to check again but we need to in order to properly assign the onClick functions
-				loadSaveButton->OnClick = [this, saveIndex]() { std::cout << "Loading save " << std::to_string(saveIndex) << std::endl; };
+				loadSaveButton->OnClick = [this, saveIndex, saveDirectory]() { 
+					std::cout << "Loading save " << std::to_string(saveIndex) << std::endl,
+					_gameManager->LoadSave(saveDirectory),
+					_gameManager->ChangeState(std::make_unique<Game>());
+					};
 			}
 			else {
 				loadSaveButton->OnClick = [this, saveIndex]() { std::cout << "No save found..." << std::endl; };
@@ -117,5 +122,7 @@ void Load::Update(SDL_Event e, double deltaTime) {
 }
 
 void Load::ExitState() {
+	loadRenderer = NULL;
+	_gameManager = NULL;
 	loadUI.reset();
 }

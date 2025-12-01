@@ -59,6 +59,20 @@ bool GameManager::Init() {
 
 	saveManager = std::make_unique<SaveManager>();
 
+	//
+	//SCREEN_WIDTH = 1920;
+	//SCREEN_HEIGHT = 1080;
+	//SDL_RenderSetLogicalSize(gRenderer, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+	//SDL_SetWindowFullscreen(gWindow, true);
+	//SDL_SetWindowBordered(gWindow, SDL_FALSE);
+	
+	// checking for memory leaks
+	//for (int i = 0; i < 599; ++i) {
+	//	ChangeState(std::make_unique<Load>());
+	//	ChangeState(std::make_unique<Menu>());
+	//}
+
 	return true;
 }
 
@@ -102,17 +116,25 @@ bool GameManager::SaveExists(std::string savePath) {
 	return saveManager->SaveExists(savePath);
 }
 
-void GameManager::SaveGame() {
-	// here is where we will pass through data from
-	// the interpretor to save...
+void GameManager::SaveGame(Interpreter& interpreter) {
+	
+	// grab details from interpretor about current game state
+	// which can then be sent through the save manager to be
+	// formatted and saved into binary format!
 
-	// need to store data we want to save, open save(load) menu
-	// once user selects a save, then we save to file
-	// or should we just make a copy of the load state to save to?
+	// this will need to be updated with save path
+
+	// interpretor has function (get gamestate data??)
+	// returns current line, current background reiiruferuire
+	// pass that through here to game save?
 
 	saveManager->Save();
 }
 
+void GameManager::LoadSave(std::string savePath) {
+	// this will set the GameManagers saveStruct which will be used by the interpretor
 
-// GAME MANAGER
-// controls [game state, save]
+	if (!saveManager->Load(saveData, savePath)) {
+		std::cout << "error loading save";
+	}
+}

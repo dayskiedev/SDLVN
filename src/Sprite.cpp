@@ -7,6 +7,7 @@
 Sprite::Sprite(){}
 Sprite::Sprite(std::string spriteName, std::string spriteTexPath, int x, int y, int w, int h, SDL_Renderer* renderer) {
 	SetSpriteName(spriteName);
+	SetSpritePath(spriteTexPath);
 	loadFromFile(spriteTexPath);
 	setX(x);
 	setY(y);
@@ -20,8 +21,13 @@ Sprite::Sprite(std::string spriteName, std::string spriteTexPath, int x, int y, 
 //	std::cout << "Remvoing sprite\n";
 //}
 
-void Sprite::SetSpriteName(std::string SpriteName) {
-	_spriteName = SpriteName;
+void Sprite::SetSpriteName(std::string spriteName) {
+	_spriteName = spriteName;
+}
+
+void Sprite::SetSpritePath(std::string spritePath) {
+	_spriteTexPath = spritePath;
 }
 
 std::string Sprite::GetSpriteName() { return _spriteName; }
+std::string Sprite::GetSpriteTexPath() { return _spriteTexPath; }

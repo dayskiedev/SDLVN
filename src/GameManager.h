@@ -31,8 +31,10 @@ public:
 
 	bool SaveExists(std::string savePath);
 
-	SaveManager::SaveData& GetSaveData() { return saveManager->GetSaveData(); }
-	void SaveGame();
+	SaveManager::SaveData& GetSaveData() { return saveData; }
+
+	void LoadSave(std::string savePath);
+	void SaveGame(Interpreter& interpreter);
 	
 	bool running = true;
 	bool pause;
@@ -49,7 +51,7 @@ private:
 	Uint64 LAST = 0;
 
 	double deltaTime = 0;
-
+	SaveManager::SaveData saveData;
 	std::unique_ptr<GameState> currentState;
 	std::unique_ptr<SaveManager> saveManager;
 };

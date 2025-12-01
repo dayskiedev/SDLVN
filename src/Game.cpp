@@ -37,6 +37,15 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 
 	// here is when we load values for the interpretor
 	//  such as background, character sprite, etc
+
+	// save manager needs to pass through:
+	// - current interpretor line
+	// - whatever the current background is
+	// - whatever sprites are on screen split up into:
+	//		the sprite name
+	//		the sprites texture path
+	//		the sprites x and y coordinate
+
 	
 	// UI
 	std::shared_ptr<Button> menuButton(new Button("quit",
@@ -44,7 +53,7 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 		DEFAULT_BUTTON_TEXTURE,
 		250, 50,
 		(SCREEN_WIDTH / 2) - 250,
-		(SCREEN_HEIGHT) - 50,
+		(SCREEN_HEIGHT)-50,
 		"Return to Menu",
 		30
 	));
@@ -63,7 +72,7 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	uiManager->AddButton(menuButton);
 	uiManager->AddButton(saveButton);
 	menuButton->OnClick = [this]() { _gameManager->ChangeState(std::make_unique<Menu>()); };
-	saveButton->OnClick = [this]() { _gameManager->SaveGame(); };
+	saveButton->OnClick = [this]() { _gameManager->SaveGame(interpreter); };
 
 	// game data
 	auto& saveData = gameManager->GetSaveData();

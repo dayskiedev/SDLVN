@@ -52,10 +52,28 @@ private:
 	const int tOffsetX = 20;
 	const int tOffsetY = 32;
 
-	// will need to remove these at some point.
+	// game specific UI
 	std::shared_ptr<Texture> gBackground = std::make_shared<Texture>();
 	SDL_Rect gBlackBox;
+	std::shared_ptr<Button> menuButton(new Button("quit",
+		gameRenderer,
+		DEFAULT_BUTTON_TEXTURE,
+		250, 50,
+		(SCREEN_WIDTH / 2) - 250,
+		(SCREEN_HEIGHT)-50,
+		"Return to Menu",
+		30
+	));
 
+	std::shared_ptr<Button> saveButton(new Button("save",
+		gameRenderer,
+		DEFAULT_BUTTON_TEXTURE,
+		200, 50,
+		(SCREEN_WIDTH / 2),
+		(SCREEN_HEIGHT)-50,
+		"Save",
+		30
+	));
 	Interpreter interpreter;
 };
 

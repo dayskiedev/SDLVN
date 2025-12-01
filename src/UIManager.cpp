@@ -3,7 +3,7 @@
 
 UIManager::~UIManager() {
 	_buttons.clear();
-	
+	_renderer = NULL;
 }
 
 void UIManager::setRenderer(SDL_Renderer* renderer) {
@@ -14,9 +14,9 @@ SDL_Renderer* UIManager::getRenderer() { return _renderer; }
 
 std::vector<std::shared_ptr<Button>> UIManager::GetUiVector() { return _buttons; }
 
-void UIManager::AddButton(std::string btnName, std::string btnContents, int x, int y, int w, int h) {
+void UIManager::AddButton(std::string btnName, std::string btnContents, ButtonType type, int x, int y, int w, int h) {
 	// should be able to set font size
-	std::shared_ptr<Button> button(new Button(btnName, _renderer, DEFAULT_BUTTON_TEXTURE, w, h, x, y, btnContents, 30));
+	std::shared_ptr<Button> button(new Button(btnName, type, _renderer, DEFAULT_BUTTON_TEXTURE, w, h, x, y, btnContents, 30));
 	// why do we need them to be pointers?
 	_buttons.push_back(button);
 }

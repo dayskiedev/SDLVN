@@ -77,13 +77,15 @@ void SaveManager::Save() {
 	outfile.close();
 }
 
-void SaveManager::Load() {
-	std::cout << "Loading " << DEFAULT_SAVE_LOCATION << saveFileName << std::endl;
-	std::ifstream infile(DEFAULT_SAVE_LOCATION + saveFileName, std::ifstream::binary);
+bool SaveManager::Load(SaveData& saveData, std::string savePath) {
+	std::cout << "Loading " << savePath << std::endl;
+	std::ifstream infile(savePath, std::ifstream::binary);
 	if (!infile.is_open()) {
 		std::cout << "Failed to open file!" << std::endl;
-		return;
+		return false;
 	}
+
+	// this will be filled with loaded data from save file;
 
 	unsigned size = 0;
 
@@ -105,7 +107,7 @@ void SaveManager::Load() {
 	// safety check for saves, because we may change the save layout we want to change this (should be removed in final ver)
 	if (rSaveVer != SAVE_VERSION) {
 		std::cout << "Error: mismatched save version, read: " << rSaveVer << " when current version is: " << SAVE_VERSION << std::endl;
-		return;
+		return false;
 	}
 
 	infile.read(reinterpret_cast<char*>(&size), sizeof(size));
@@ -147,6 +149,8 @@ void SaveManager::Load() {
 	std::cout << "Choice name: " << rChoiceName << std::endl;
 	std::cout << "Choice value: " << rChoiceValue << std::endl;
 
+	saveData.scriptLine = 2;
+	return true;
 }
 
 std::vector<std::string> SaveManager::ScanForSaves() {

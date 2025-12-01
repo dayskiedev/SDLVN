@@ -14,8 +14,15 @@
 
 class Button : public Texture {
 public:
+	enum ButtonType
+	{
+		CHOICE,
+		REPLY,
+		UI
+	};
+
 	Button();
-	Button(std::string name, SDL_Renderer* renderer, std::string texture, int w, int h, int x, int y, std::string text, int fontSize);
+	Button(std::string name, ButtonType type, SDL_Renderer* renderer, std::string texture, int w, int h, int x, int y, std::string text, int fontSize);
 
 	// button without text
 	Button(std::string name, SDL_Renderer* renderer, std::string texture, int w, int h, int x, int y);
@@ -38,6 +45,7 @@ public:
 
 private:
 	std::string _btnName;
+	ButtonType type;
 	bool _overlapping;
 	bool _clicked;
 	bool entered;
