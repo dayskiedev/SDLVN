@@ -34,4 +34,18 @@ void UIManager::RemoveButtons() {
 	_buttons.clear();
 }
 
+void UIManager::RemoveButtonsByType(ButtonType type) {
+	// probably better iterator way to do it but this makes sense
+
+	for (int i = 0; i <= _buttons.size(); ++i) {
+		// removing button changes size of vector
+		// so it gets skipped over
+		auto btn = _buttons.at(i);
+		//sstd::cout << btn->GetButtonName() << std::endl;
+		if (btn->GetType() == type) {
+			_buttons.erase(_buttons.begin() + i);
+		}
+	}
+}
+
 int UIManager::GetButtonOffset() { return _btnOffset; }

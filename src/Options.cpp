@@ -8,6 +8,7 @@ void Options::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	optionUi->setRenderer(optionRenderer);
 
 	std::shared_ptr<Button> backButton(new Button("back",
+		Button::UI,
 		optionRenderer,
 		DEFAULT_BUTTON_TEXTURE,
 		200, 50,
@@ -17,6 +18,7 @@ void Options::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	));
 
 	std::shared_ptr<Button> eraseButton(new Button("erase",
+		Button::UI,
 		optionRenderer,
 		DEFAULT_BUTTON_TEXTURE,
 		200, 50,

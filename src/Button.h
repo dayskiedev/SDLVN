@@ -25,7 +25,7 @@ public:
 	Button(std::string name, ButtonType type, SDL_Renderer* renderer, std::string texture, int w, int h, int x, int y, std::string text, int fontSize);
 
 	// button without text
-	Button(std::string name, SDL_Renderer* renderer, std::string texture, int w, int h, int x, int y);
+	Button(std::string name, ButtonType type, SDL_Renderer* renderer, std::string texture, int w, int h, int x, int y);
 
 	~Button();
 	
@@ -40,8 +40,10 @@ public:
 
 	void Update(SDL_Event e);
 
-	void SetButtonName(std::string btnName);
+	void setButtonName(std::string btnName);
 	std::string GetButtonName();
+
+	ButtonType GetType();
 
 private:
 	std::string _btnName;

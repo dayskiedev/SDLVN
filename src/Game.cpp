@@ -49,6 +49,7 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	
 	// UI
 	std::shared_ptr<Button> menuButton(new Button("quit",
+		Button::UI,
 		gameRenderer,
 		DEFAULT_BUTTON_TEXTURE,
 		250, 50,
@@ -59,6 +60,7 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	));
 
 	std::shared_ptr<Button> saveButton(new Button("save",
+		Button::UI,
 		gameRenderer,
 		DEFAULT_BUTTON_TEXTURE,
 		200, 50,

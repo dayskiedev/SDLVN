@@ -8,6 +8,7 @@ void Load::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	loadUI->setRenderer(loadRenderer);
 
 	std::shared_ptr<Button> backButton(new Button("back",
+		Button::UI,
 		loadRenderer,
 		DEFAULT_BUTTON_TEXTURE,
 		200, 50,
@@ -78,6 +79,7 @@ void Load::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 			// if this save exists in save directory, then we want the icon to be the save img
 			// using raw values for ui is bad i know
 			std::shared_ptr<Button> loadSaveButton(new Button("save",
+				Button::UI,
 				loadRenderer,
 				savefileButtonTexture,
 				250, 250,

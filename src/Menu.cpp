@@ -14,7 +14,8 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	// i should just be able to make a button constructor to create these buttons
 	// so we can do things like set the functions later....
 	// text should be an object i can place to.
-	std::shared_ptr<Button> playButton(new Button("new", 
+	std::shared_ptr<Button> playButton(new Button("new",
+		Button::UI,
 		menuRenderer, 
 		DEFAULT_BUTTON_TEXTURE, 
 		200, 50, 
@@ -25,6 +26,7 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	));
 
 	std::shared_ptr<Button> contButton(new Button("load",
+		Button::UI,
 		menuRenderer,
 		DEFAULT_BUTTON_TEXTURE,
 		200,50,
@@ -35,6 +37,7 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	));
 
 	std::shared_ptr<Button> optButton(new Button("options",
+		Button::UI,
 		menuRenderer,
 		DEFAULT_BUTTON_TEXTURE,
 		200, 50,
@@ -45,6 +48,7 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	));
 
 	std::shared_ptr<Button> quitButton(new Button("quit", 
+		Button::UI,
 		menuRenderer, 
 		DEFAULT_BUTTON_TEXTURE, 
 		200, 50, 

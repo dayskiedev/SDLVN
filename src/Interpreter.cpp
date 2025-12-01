@@ -90,7 +90,6 @@ bool Interpreter::ArgCheckSize(int expected, int actual) {
 void Interpreter::ButtonClicked() {
 	_lineCount++; // rollover so we dont print the choice
 	increment = true;
-	_uiManager->RemoveButtons();
 }
 
 void Interpreter::TokenizeLine() {
@@ -200,6 +199,7 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 			btnContents = btnContents.substr(1, (btnContents.length() - 2));
 
 			std::shared_ptr<Button> choiceButton(new Button(btnName,
+				Button::CHOICE,
 				_uiManager->getRenderer(),
 				DEFAULT_BUTTON_TEXTURE,
 				CHOICE_BUTTON_WIDTH,
@@ -210,7 +210,10 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 				30
 			));
 
-			choiceButton->OnClick = [this, btnName]() { JumpToChoice(btnName); };
+			choiceButton->OnClick = [this, btnName]() { 
+				JumpToChoice(btnName),
+				_uiManager->RemoveButtonsByType(Button::CHOICE);
+			};
 
 			_uiManager->AddButton(choiceButton);
 			startY += CHOICE_BUTTON_HEIGHT + (CHOICE_BUTTON_HEIGHT / 2);
@@ -229,6 +232,7 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 		replyContents = replyContents.substr(1, (replyContents.length() - 2));
 
 		std::shared_ptr<Button> replyButton(new Button("reply",
+			Button::REPLY,
 			_uiManager->getRenderer(),
 			DEFAULT_BUTTON_TEXTURE,
 			CHOICE_BUTTON_WIDTH,
@@ -238,7 +242,10 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 			replyContents,
 			30
 		));
-		replyButton->OnClick = [this]() { ButtonClicked(); };
+		replyButton->OnClick = [this]() { 
+			ButtonClicked(),
+			_uiManager->RemoveButtonsByType(Button::REPLY);
+		};
 		_uiManager->AddButton(replyButton);
 
 		// wait for input

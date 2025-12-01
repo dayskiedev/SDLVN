@@ -2,9 +2,10 @@
 
 // Default Constructor 
 Button::Button() {}
-Button::Button(std::string name, SDL_Renderer* renderer, std::string texture, int w, int h, int x, int y, std::string text, int fontSize) {
+Button::Button(std::string name, ButtonType setType, SDL_Renderer* renderer, std::string texture, int w, int h, int x, int y, std::string text, int fontSize) {
+	setButtonName(name);
+	type = setType;
 	setRenderer(renderer);
-	SetButtonName(name);
 	loadFromFile(texture);
 	setWidth(w);
 	setHeight(h);
@@ -19,9 +20,10 @@ Button::Button(std::string name, SDL_Renderer* renderer, std::string texture, in
 	if (buttonClick == NULL) { std::cout << "erorr]\n"; }
 }
 
-Button::Button(std::string name, SDL_Renderer* renderer, std::string texture, int w, int h, int x, int y) {
+Button::Button(std::string name, ButtonType setType, SDL_Renderer* renderer, std::string texture, int w, int h, int x, int y) {
+	setButtonName(name);
+	type = setType;
 	setRenderer(renderer);
-	SetButtonName(name);
 	loadFromFile(texture);
 	setWidth(w);
 	setHeight(h);
@@ -116,8 +118,10 @@ void Button::showText() {
 	textTexture->render(getX() + 20, getY() + (getHeight() / 2) - 15);
 }
 
-void Button::SetButtonName(std::string btnName) {
+void Button::setButtonName(std::string btnName) {
 	_btnName = btnName;
 }
 
 std::string Button::GetButtonName() { return _btnName; }
+
+Button::ButtonType Button::GetType() { return type; }
