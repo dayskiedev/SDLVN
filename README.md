@@ -1,42 +1,49 @@
 # SDLVN
 ## A Custom Visual Novel Engine For Non-Programmers
+
+![EngineExample2](example2.png)
 My goal with this engine is to make it easy for Non-Programmers to create visual novels, similar to something like Ren'Py
 
 *But without ANY coding*
-
+(ok, maybe a little scripting....)
 
 I wish to achieve this through a custom scripting language that resembles, well, a script. I know I just said no programming and this is technically programming, but you get what im trying to say... (right?)
 
 THIS PROJECT IS BAREBONES AT THE MOMENT (0.0.0.0.1v)
+## TODO:
+- Proper command handling
+- Proper Settings Menu/UI
+- Multiple Resolutions including fullscreen/borderless
+- Choices that affect future outcomes
+- Basic animation (Fade In/Out, Transitions)
+- Fully complete save and load system with save selection and save previews
+- cleaned up codebase
 
 
 ## Usage/Examples
 
-```text
-*enter Saber saber
-So, what am I doing here exactly?
-*setsprite Saber angry_1
-Hurry up and say something!
-```
 
+```text
+*enter saber saber.png CENTRE
+*enter rin rin.png LEFT
+*setsprite Saber angry_1
+WHAT DO YOU THINK YOU'RE DOING!!!
+```
 ![EngineExample](example.png)
 
 
+Currently the engine supports basic text as well as player indicated replys and choices that can both be customised.
 
 ```text
-*setsprite rin rin3.png
-Did I do something to make her mad?
-*choice 2 [yes] "Umm.. I think so.." [no] "Not at all!"
+Well I was just dropping by to say hello.
+But I guess im not needed here!
+Hmpg!
+*reply "Geez, she's grumpy today..."
 ```
 
-![EngineExample2](example2.png)
-## TODO:
-- Proper command handling
-- ~~Proper sprite class and sprite ownership~~
-- Solid engine foundation
-- ~~Delay between commands~~
-- ~~Proper command advancement~~
-- ~~Actual choices like a proper visual novel~~
-- ~~Animated text~~``
-- Animations (sprite and background)
-- Menus (Main, Pause, Settings etc.)
+
+![EngineExample3](example3.png)
+# Install/Use
+Until I find a proper way to compile the game, you will have to simply clone the repo, you need to ensure you have **SDL2, SDL2 Image, SDL2 TTF and SDL2 Mixer** libs downloaded and point them to the project.
+
+You also must ensure that you have a valid .vns file to point to as this is what runs the actual events for the engine, an exmaple_script.vns is provided.

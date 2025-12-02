@@ -1,5 +1,5 @@
 *setbackground entrance.png
-*enter rin rin.png LEFT
+*enter rin rin.png RIGHT
 Yo, whats up loser?
 # *jumpto bad
 *reply "Oh. it's you."
@@ -32,6 +32,8 @@ I am also in this episode
 Ha Ha Ha
 *reply "..."
 yeah
+*cleartext
+*jumpto saber_what
 
 :chill
 *cleartext
@@ -47,3 +49,11 @@ It...
 Makes me kind of happy...
 *reply "...!"
 uGHHH you idiot!
+
+:saber_what
+*setsprite saber saber2.png
+so what you wanna do huh?
+*reply "idk tbh"
+*enter rin rin.png LEFT
+*cleartext
+WHAT DO YOU THINK YOU'RE DOING!!!
