@@ -24,6 +24,7 @@ bool Interpreter::Initialise(std::shared_ptr<SpriteManager> sm, std::shared_ptr<
 
 	std::cout << "line count: " << _lineCount << std::endl;
 	background->loadFromFile(backgroundPath); // set background to whatever was saved;
+	background->SetSpritePath(backgroundPath);
 
 	// load any sprites saved in file
 	for (auto curSprite : sprites) {
@@ -263,6 +264,7 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 		// *setbackackground [background_path]
 		if (!ArgCheckSize(2, _commandArgs.size())) { return; }
 		background->loadFromFile(GLOBAL_BACKGROUNDS_PATH + _commandArgs[1]);
+		background->SetSpritePath(GLOBAL_BACKGROUNDS_PATH + _commandArgs[1]);
 
 	}
 

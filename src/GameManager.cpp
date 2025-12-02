@@ -149,6 +149,8 @@ void GameManager::SaveGame(Interpreter& interpreterInfo, std::shared_ptr<SpriteM
 		spriteInfoRaw.push_back(sInfo);
 	}
 
+	rawGameData.sprites = spriteInfoRaw;
+
 	saveManager->Save(rawGameData);
 }
 

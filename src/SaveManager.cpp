@@ -61,22 +61,22 @@ void SaveManager::Save(SaveData saveRawInfo) {
 
 	outfile.write(reinterpret_cast<char*>(&numCharacters), sizeof(numCharacters));		// number of characters to save/load
 
-	for (auto s : saveRawInfo.sprites) {
+	for (auto s : saveRawInfo.sprites) {												// character specific info
 		// sprite name
 		size = s.spriteName.size();
 		outfile.write(reinterpret_cast<char*>(&size), sizeof(size));
 		outfile.write(s.spriteName.c_str(), s.spriteName.size());
 
-		// sprite texture path
+		//// sprite texture path
 		size = s.spriteLocation.size();
 		outfile.write(reinterpret_cast<char*>(&size), sizeof(size));
 		outfile.write(s.spriteLocation.c_str(), s.spriteLocation.size());
 
-		// sprite width, height, x, y
-		outfile.write(reinterpret_cast<char*>(s.w), sizeof(s.w));
-		outfile.write(reinterpret_cast<char*>(s.h), sizeof(s.h));
-		outfile.write(reinterpret_cast<char*>(s.x), sizeof(s.x));
-		outfile.write(reinterpret_cast<char*>(s.y), sizeof(s.y));
+		//// sprite width, height, x, y
+		outfile.write(reinterpret_cast<char*>(&s.w), sizeof(s.w));
+		outfile.write(reinterpret_cast<char*>(&s.h), sizeof(s.h));
+		outfile.write(reinterpret_cast<char*>(&s.x), sizeof(s.x));
+		outfile.write(reinterpret_cast<char*>(&s.y), sizeof(s.y));
 
 	}
 
@@ -100,6 +100,7 @@ bool SaveManager::Load(SaveData& saveData, std::string savePath) {
 	std::string rScriptLoc = "";
 	int rScriptLine = 0;
 	std::string rBacLoc = "";
+	int rNumChar = 0;
 	// number of characters
 	std::string rCharName = "";
 	std::string rCharSpriLoc = "";
@@ -116,11 +117,13 @@ bool SaveManager::Load(SaveData& saveData, std::string savePath) {
 		return false;
 	}
 
-	infile.read(reinterpret_cast<char*>(&size), sizeof(size));
+	infile.read(reinterpret_cast<char*>(&size), sizeof(size));		
 	rScriptLoc.resize(size);
-	infile.read(&rScriptLoc[0], rScriptLoc.size());
+	infile.read(&rScriptLoc[0], rScriptLoc.size());								// read in script location
 
-	infile.read(reinterpret_cast<char*>(&rScriptLine), sizeof(rScriptLine));
+	infile.read(reinterpret_cast<char*>(&rScriptLine), sizeof(rScriptLine));	// read in script line number
+
+	infile.read(reinterpret_cast<char*>(&rScriptLine), sizeof(rScriptLine));	// read in number of characters
 
 	infile.read(reinterpret_cast<char*>(&size), sizeof(size));
 	rBacLoc.resize(size);
