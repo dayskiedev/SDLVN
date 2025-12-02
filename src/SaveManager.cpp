@@ -20,7 +20,9 @@
 // [CHOICES]
 // SET EVERY SAVED CHOICE
 
-void SaveManager::Save() {
+void SaveManager::Save(SaveData saveRawInfo) {
+
+	// need to be able to select a save file slot
 	std::cout << "Saving file to " << DEFAULT_SAVE_LOCATION + saveFileName << std::endl;
 
 	std::ofstream outfile(DEFAULT_SAVE_LOCATION + saveFileName, std::ofstream::binary);
@@ -32,17 +34,16 @@ void SaveManager::Save() {
 	//outfile.write(text.c_str(), text.size());
 	// we need to tell the binary file what we are writing to it, and how big it is (the point of sizeof)
 	
-	std::string scriptLoc = "script/location/path";
-	int scriptLine = 12;
-	std::string backgroundLoc = "background/directory.png";
+	std::string scriptLoc		= saveRawInfo.scriptPath;
+	int scriptLine				= saveRawInfo.scriptLine;
+	std::string backgroundLoc	= saveRawInfo.backgroundPath;
+	int numCharacters			= saveRawInfo.sprites.size();
 
-	// will be a loop
-	std::string characterName = "lucio";
-	std::string characterSprite = "sprites/lucio_mad.png";
-
-	// also a loop
-	std::string choiceName = "kill your dad?";
-	int choiceValue = 1; // flipped
+	std::cout << "Saving raw data:" << std::endl;
+	std::cout << "Script location: " << scriptLoc << std::endl;
+	std::cout << "Script line: " << scriptLine << std::endl;
+	std::cout << "Background location: " << backgroundLoc << std::endl;
+	std::cout << "Number of characters: " << numCharacters << std::endl;
 
 	unsigned int size;
 
@@ -58,21 +59,26 @@ void SaveManager::Save() {
 	outfile.write(reinterpret_cast<char*>(&size), sizeof(size));						// background directory location
 	outfile.write(backgroundLoc.c_str(), backgroundLoc.size());
 
-	// CHARACTER DATA
-	size = characterName.size();
-	outfile.write(reinterpret_cast<char*>(&size), sizeof(size));						// CHARACTER NAME
-	outfile.write(characterName.c_str(), characterName.size());
+	outfile.write(reinterpret_cast<char*>(&numCharacters), sizeof(numCharacters));		// number of characters to save/load
 
-	size = characterSprite.size();
-	outfile.write(reinterpret_cast<char*>(&size), sizeof(size));						// CHARACTER SPRITE DIRECTORY LOCATION
-	outfile.write(characterSprite.c_str(), characterSprite.size());
+	for (auto s : saveRawInfo.sprites) {
+		// sprite name
+		size = s.spriteName.size();
+		outfile.write(reinterpret_cast<char*>(&size), sizeof(size));
+		outfile.write(s.spriteName.c_str(), s.spriteName.size());
 
-	// CHOICE DATA
-	size = choiceName.size();
-	outfile.write(reinterpret_cast<char*>(&size), sizeof(size));						// CHOICE NAME
-	outfile.write(choiceName.c_str(), choiceName.size());
+		// sprite texture path
+		size = s.spriteLocation.size();
+		outfile.write(reinterpret_cast<char*>(&size), sizeof(size));
+		outfile.write(s.spriteLocation.c_str(), s.spriteLocation.size());
 
-	outfile.write(reinterpret_cast<char*>(&choiceValue), sizeof(choiceValue));			// SCRIPT LINE NUMBER
+		// sprite width, height, x, y
+		outfile.write(reinterpret_cast<char*>(s.w), sizeof(s.w));
+		outfile.write(reinterpret_cast<char*>(s.h), sizeof(s.h));
+		outfile.write(reinterpret_cast<char*>(s.x), sizeof(s.x));
+		outfile.write(reinterpret_cast<char*>(s.y), sizeof(s.y));
+
+	}
 
 	outfile.close();
 }

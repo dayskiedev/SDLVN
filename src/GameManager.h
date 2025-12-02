@@ -34,7 +34,7 @@ public:
 	SaveManager::SaveData& GetSaveData() { return saveData; }
 
 	void LoadSave(std::string savePath);
-	void SaveGame(Interpreter& interpreter);
+	void SaveGame(Interpreter& interpreterInfo, std::shared_ptr<SpriteManager> spriteManagerInfo, std::shared_ptr<Sprite> background);
 	
 	bool running = true;
 	bool pause;

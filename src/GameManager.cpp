@@ -116,7 +116,7 @@ bool GameManager::SaveExists(std::string savePath) {
 	return saveManager->SaveExists(savePath);
 }
 
-void GameManager::SaveGame(Interpreter& interpreter) {
+void GameManager::SaveGame(Interpreter& interpreterInfo, std::shared_ptr<SpriteManager> spriteManagerInfo, std::shared_ptr<Sprite> background) {
 	
 	// grab details from interpretor about current game state
 	// which can then be sent through the save manager to be
@@ -128,7 +128,28 @@ void GameManager::SaveGame(Interpreter& interpreter) {
 	// returns current line, current background reiiruferuire
 	// pass that through here to game save?
 
-	saveManager->Save();
+	SaveManager::SaveData rawGameData;
+
+	rawGameData.scriptPath = interpreterInfo.GetCurrentScript();
+	rawGameData.scriptLine = interpreterInfo.GetCurrentScriptLine();
+
+	rawGameData.backgroundPath = background->GetSpriteTexPath();
+
+	std::vector<SpriteInformation> spriteInfoRaw;
+	for (auto s : spriteManagerInfo->GetSprites()) {
+		SpriteInformation sInfo;
+
+		sInfo.spriteName = s->GetSpriteName();
+		sInfo.spriteLocation = s->GetSpriteTexPath();
+		sInfo.w = s->getWidth();
+		sInfo.h = s->getHeight();
+		sInfo.x = s->getX();
+		sInfo.y = s->getY();
+		
+		spriteInfoRaw.push_back(sInfo);
+	}
+
+	saveManager->Save(rawGameData);
 }
 
 void GameManager::LoadSave(std::string savePath) {

@@ -53,7 +53,7 @@ private:
 	const int tOffsetY = 32;
 
 	// game specific UI
-	std::shared_ptr<Texture> gBackground = std::make_shared<Texture>();
+	std::shared_ptr<Sprite> gBackground = std::make_shared<Sprite>();
 	SDL_Rect gBlackBox;
 
 	Interpreter interpreter;

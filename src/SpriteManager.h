@@ -32,6 +32,7 @@ public:
 
 	std::vector<std::shared_ptr<Sprite>>::iterator findSpriteByName(std::string spriteName);
 
+	std::vector<std::shared_ptr<Sprite>> GetSprites();
 
 private:
 	std::vector<std::shared_ptr<Sprite>> _sprites;

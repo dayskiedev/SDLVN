@@ -74,7 +74,7 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	uiManager->AddButton(menuButton);
 	uiManager->AddButton(saveButton);
 	menuButton->OnClick = [this]() { _gameManager->ChangeState(std::make_unique<Menu>()); };
-	saveButton->OnClick = [this]() { _gameManager->SaveGame(interpreter); };
+	saveButton->OnClick = [this]() { _gameManager->SaveGame(interpreter, spriteManager, gBackground); };
 
 	// game data
 	auto& saveData = gameManager->GetSaveData();
@@ -116,6 +116,8 @@ void Game::Render() {
 	SDL_RenderFillRect(gameRenderer, &gBlackBox);
 
 	// layer 2 text
+
+	// this should be done in the text manager????
 	int index = 0;
 	for (auto t : textManager->getTextVector()) {
 		if (t->curTextLen == 0) { continue; }

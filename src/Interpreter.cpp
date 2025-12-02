@@ -3,7 +3,7 @@
 // have compiler to scroll through uncompiled script
 
 bool Interpreter::Initialise(std::shared_ptr<SpriteManager> sm, std::shared_ptr<TextManager> tm,
-							std::shared_ptr<UIManager> uim, std::shared_ptr<Texture> bg,
+							std::shared_ptr<UIManager> uim, std::shared_ptr<Sprite> bg,
 	int lineNum, std::string scriptPath, std::string backgroundPath, std::vector<SpriteInformation> sprites) {
 
 	_spriteManager = sm;
@@ -11,9 +11,16 @@ bool Interpreter::Initialise(std::shared_ptr<SpriteManager> sm, std::shared_ptr<
 	_uiManager = uim;
 	background = bg;
 
-	_lineCount = lineNum; // line to start script at.
+	// loading info should be:
+	// load script
+	// line to start at
+	// whatever background is needed
+	// whatever sprite is needed
 
-	if (!OpenScript(scriptPath)) { return false; } // load script 
+	_curScript = scriptPath;
+	if (!OpenScript(_curScript)) { return false; } // load script 
+
+	_lineCount = lineNum; // line to start script at.
 
 	std::cout << "line count: " << _lineCount << std::endl;
 	background->loadFromFile(backgroundPath); // set background to whatever was saved;
@@ -326,3 +333,6 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 	}
 	
 }
+
+std::string Interpreter::GetCurrentScript() { return _curScript; }
+int Interpreter::GetCurrentScriptLine() { return _lineCount; }

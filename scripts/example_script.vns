@@ -2,7 +2,7 @@
 *enter rin rin.png LEFT
 Yo, whats up loser?
 # *jumpto bad
-# *reply "Oh. it's you."
+*reply "Oh. it's you."
 *cleartext
 *setsprite rin rin2.png
 Wha.

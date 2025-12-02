@@ -27,9 +27,12 @@ class Interpreter {
 public:
 
 	bool Initialise(std::shared_ptr<SpriteManager> sm, std::shared_ptr<TextManager> tm, 
-					std::shared_ptr<UIManager> uim, std::shared_ptr<Texture> bg,
+					std::shared_ptr<UIManager> uim, std::shared_ptr<Sprite> bg,
 		int lineNum, std::string scriptPath, std::string backgroundPath, std::vector<SpriteInformation> sprites);
 	bool OpenScript(std::string scriptPath);
+
+	std::string GetCurrentScript();
+	int GetCurrentScriptLine();
 
 	void PrintError(std::string Error);
 
@@ -55,6 +58,7 @@ private:
 	// vns file:
 	// type: MAIN -- entry point for file
 	// data: path/to/data vn title, dialouge selections
+	std::string _curScript;
 	std::vector<std::string> _scriptFile;
 	std::vector<std::string> _commandArgs;
 
@@ -66,7 +70,7 @@ private:
 	std::shared_ptr<SpriteManager> _spriteManager;
 	std::shared_ptr<TextManager> _textManager;
 	std::shared_ptr<UIManager> _uiManager; 
-	std::shared_ptr<Texture> background;
+	std::shared_ptr<Sprite> background;
 };
 
 #endif

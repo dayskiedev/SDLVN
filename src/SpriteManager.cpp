@@ -107,3 +107,6 @@ std::vector<std::shared_ptr<Sprite>>::iterator SpriteManager::findSpriteByName(s
 		return _sprites.end();
 	}
 }
+
+// return by refernce only if the caller should mutate them, we don't want save to modify directly
+std::vector<std::shared_ptr<Sprite>> SpriteManager::GetSprites() { return _sprites; }
