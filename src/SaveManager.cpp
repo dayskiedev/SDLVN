@@ -102,8 +102,11 @@ bool SaveManager::Load(SaveData& saveData, std::string savePath) {
 	std::string rBacLoc = "";
 	int rNumChar = 0;
 	// number of characters
-	std::string rCharName = "";
-	std::string rCharSpriLoc = "";
+	std::string rSprName = "";
+	std::string rSpriteLoc = "";
+	int w, h, x, y;
+	SpriteInformation rTempSpriteInfo;
+	std::vector<SpriteInformation> rTempSpriteInfoVec;
 	// character sprite position
 	// number of choices
 	std::string rChoiceName = "";
@@ -123,26 +126,39 @@ bool SaveManager::Load(SaveData& saveData, std::string savePath) {
 
 	infile.read(reinterpret_cast<char*>(&rScriptLine), sizeof(rScriptLine));	// read in script line number
 
-	infile.read(reinterpret_cast<char*>(&rScriptLine), sizeof(rScriptLine));	// read in number of characters
-
-	infile.read(reinterpret_cast<char*>(&size), sizeof(size));
+	infile.read(reinterpret_cast<char*>(&size), sizeof(size));					// read in background loc
 	rBacLoc.resize(size);
 	infile.read(&rBacLoc[0], rBacLoc.size());
 
-	infile.read(reinterpret_cast<char*>(&size), sizeof(size));
-	rCharName.resize(size);
-	infile.read(&rCharName[0], rCharName.size());
+	infile.read(reinterpret_cast<char*>(&rNumChar), sizeof(rNumChar));			// read in number of characters
 
-	infile.read(reinterpret_cast<char*>(&size), sizeof(size));
-	rCharSpriLoc.resize(size);
-	infile.read(&rCharSpriLoc[0], rCharSpriLoc.size());
+	// loading character info
+	for (int i = 0; i < rNumChar; ++i) {
+		// sprite name 
+		infile.read(reinterpret_cast<char*>(&size), sizeof(size));
+		rSprName.resize(size);
+		infile.read(&rSprName[0], rSprName.size());
 
-	infile.read(reinterpret_cast<char*>(&size), sizeof(size));
-	rChoiceName.resize(size);
-	infile.read(&rChoiceName[0], rChoiceName.size());
+		// sprite location
+		infile.read(reinterpret_cast<char*>(&size), sizeof(size));
+		rSpriteLoc.resize(size);
+		infile.read(&rSpriteLoc[0], rSpriteLoc.size());
 
-	infile.read(reinterpret_cast<char*>(&rChoiceValue), sizeof(rChoiceValue));
+		// w h x y
+		infile.read(reinterpret_cast<char*>(&w), sizeof(w));
+		infile.read(reinterpret_cast<char*>(&h), sizeof(h));
+		infile.read(reinterpret_cast<char*>(&x), sizeof(x));
+		infile.read(reinterpret_cast<char*>(&y), sizeof(y));
 
+		rTempSpriteInfo.spriteName = rSprName;
+		rTempSpriteInfo.spriteLocation = rSpriteLoc;
+		rTempSpriteInfo.w = w;
+		rTempSpriteInfo.h = h;
+		rTempSpriteInfo.x = x;
+		rTempSpriteInfo.y = y;
+
+		rTempSpriteInfoVec.push_back(rTempSpriteInfo);
+	}
 	infile.close();
 
 	std::cout << std::endl;
@@ -152,13 +168,16 @@ bool SaveManager::Load(SaveData& saveData, std::string savePath) {
 	std::cout << "Script line number: " << rScriptLine << std::endl;
 	std::cout << "Background path: " << rBacLoc << std::endl;
 	std::cout << "######### CHARACTERS #########" << std::endl;
-	std::cout << "Character name: " << rCharName << std::endl;
-	std::cout << "Character sprite path: " << rCharSpriLoc << std::endl;
-	std::cout << "######### CHOICES #########" << std::endl;
-	std::cout << "Choice name: " << rChoiceName << std::endl;
-	std::cout << "Choice value: " << rChoiceValue << std::endl;
+	for (int i = 0; i < rNumChar; ++i) {
+		std::cout << "Character name: " << rTempSpriteInfoVec.at(i).spriteName << std::endl;
+		std::cout << "Character sprite: " << rTempSpriteInfoVec.at(i).spriteLocation << std::endl;
+	}
 
-	saveData.scriptLine = 2;
+	saveData.scriptPath = rScriptLoc;
+	saveData.scriptLine = rScriptLine;
+	saveData.backgroundPath = rBacLoc;
+	saveData.sprites = rTempSpriteInfoVec;
+
 	return true;
 }
 

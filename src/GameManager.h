@@ -36,6 +36,8 @@ public:
 	void LoadSave(std::string savePath);
 	void SaveGame(Interpreter& interpreterInfo, std::shared_ptr<SpriteManager> spriteManagerInfo, std::shared_ptr<Sprite> background);
 	
+	void SetDefaultGameState() { saveData = {}; }
+
 	bool running = true;
 	bool pause;
 

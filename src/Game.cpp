@@ -135,7 +135,8 @@ void Game::Render() {
 }
 
 void Game::ExitState() {	
-
+	// make sure gamemanager is in default state
+	_gameManager->SetDefaultGameState();
 }
 
 

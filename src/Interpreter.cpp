@@ -158,6 +158,7 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 		spriteTexName = _commandArgs[2];
 
 		_spriteManager->setSprite(spriteObjName, spriteTexName);
+		
 	}
 
 	else if (_commandArgs[0] == "*cleartext") {

@@ -24,6 +24,14 @@ But I guess im not needed here!
 Hmpg!
 *exit rin
 *reply "Geez, she's grumpy today..."
+*cleartext
+*setbackground umabackground.png
+*enter saber saber.png CENTRE
+I am also in this episode
+*setsprite saber saber2.png
+Ha Ha Ha
+*reply "..."
+yeah
 
 :chill
 *cleartext

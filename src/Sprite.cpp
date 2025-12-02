@@ -6,6 +6,7 @@
 
 Sprite::Sprite(){}
 Sprite::Sprite(std::string spriteName, std::string spriteTexPath, int x, int y, int w, int h, SDL_Renderer* renderer) {
+	setRenderer(renderer); // needs to be assigned first so that textures can be created
 	SetSpriteName(spriteName);
 	SetSpritePath(spriteTexPath);
 	loadFromFile(spriteTexPath);
@@ -13,7 +14,6 @@ Sprite::Sprite(std::string spriteName, std::string spriteTexPath, int x, int y, 
 	setY(y);
 	setWidth(w);
 	setHeight(h);
-	setRenderer(renderer);
 }
 
 //

@@ -63,7 +63,6 @@ void SpriteManager::addSprite(std::string spriteObjName, std::string spriteTextN
 		x, y,
 		w, h,
 		_renderer));
-
 	_sprites.push_back(sprite);
 }
 
@@ -76,7 +75,10 @@ void SpriteManager::setSprite(std::string spriteObjName, std::string spriteTexNa
 		std::cout << "Unable to change sprite object, " << spriteObjName << " not found!" << std::endl;
 		return;
 	}
+
+	// these should just happen together i think......
 	(*spriteToChange)->loadFromFile(_spritesTexPath + spriteTexName);
+	(*spriteToChange)->SetSpritePath(_spritesTexPath + spriteTexName);
 }
 
 void SpriteManager::removeSprite(std::string spriteObjName) {
