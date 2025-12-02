@@ -35,15 +35,14 @@ void UIManager::RemoveButtons() {
 }
 
 void UIManager::RemoveButtonsByType(ButtonType type) {
-	// probably better iterator way to do it but this makes sense
-
-	for (int i = 0; i <= _buttons.size(); ++i) {
-		// removing button changes size of vector
-		// so it gets skipped over
+	for (int i = _buttons.size() - 1; i >= 0; i--) {
+		// we start from the back, because removing an element reduces the size of the vector
+		// so if we started from the front, we would 'skip' some elements if we removed any,
+		// because their position would move.
 		auto btn = _buttons.at(i);
-		//sstd::cout << btn->GetButtonName() << std::endl;
 		if (btn->GetType() == type) {
-			_buttons.erase(_buttons.begin() + i);
+			//_buttons.at(i) = _buttons.back();
+			_buttons.pop_back();
 		}
 	}
 }
