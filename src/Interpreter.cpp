@@ -290,7 +290,7 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 
 		}
 		if (incrementText) {
-			if (curDialogueLine->curTextLen >= curDialogueLine->text.length()) {
+			if (curDialogueLine->GetCurTextLength() >= curDialogueLine->GetTextLength()) {
 				incrementText = false;
 				return;
 			}
@@ -298,7 +298,7 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 			// smooth text update per frame without interuptting other actions
 			if (textCounter >= threshold) {
 				// if we have passed or reached the text threshold, render the next character
-				curDialogueLine->curTextLen++;
+				curDialogueLine->SetTextLength(curDialogueLine->GetCurTextLength() + 1); // try out overload operators?
 				textCounter = 0;
 			}
 			// otherwise increase the textcounter, deltatime keeps the text incremementing at the same 
@@ -315,8 +315,8 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 		if (e.type == SDL_KEYDOWN) {
 			switch (e.key.keysym.sym) {
 			case SDLK_SPACE:
-				if (curDialogueLine->curTextLen < curDialogueLine->text.length() - 1) {
-					curDialogueLine->curTextLen = curDialogueLine->text.length();
+				if (curDialogueLine->GetCurTextLength() < curDialogueLine->GetTextLength() - 1) {
+					curDialogueLine->SetTextLength(curDialogueLine->GetTextLength());
 					incrementText = false;
 
 					// if we don't return we will instantly skip to the next line in the

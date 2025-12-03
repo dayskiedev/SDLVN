@@ -131,11 +131,12 @@ void Game::Render() {
 	SDL_RenderFillRect(gameRenderer, &gBlackBox);
 
 	// this should be done in the text manager????
+	// right now 
+
 	int index = 0;
 	for (auto t : textManager->getTextVector()) {
-		if (t->curTextLen == 0) { continue; }
-		t->textTexture->loadFromRenderedText(t->text.substr(0, t->curTextLen), t->textColor);
-		t->textTexture->render(tOffsetX, (tOffsetY * index) + tOffsetX);
+		if (t->GetCurTextLength() == 0) { continue; }
+		t->Render(tOffsetX, (tOffsetY * index) + tOffsetX);
 		index++;
 	}
 
@@ -144,10 +145,9 @@ void Game::Render() {
 		b->render();
 		b->showText();
 	}
-	SDL_RenderPresent(gameRenderer);
 
-	// one in front, smaller number (ie sprite
-	// one in back higher number ( ie background
+
+	SDL_RenderPresent(gameRenderer);
 }
 
 void Game::ExitState() {	

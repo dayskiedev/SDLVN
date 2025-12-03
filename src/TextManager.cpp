@@ -24,12 +24,9 @@ std::vector<std::shared_ptr<Text>> TextManager::getTextVector() {
 
 std::shared_ptr<Text> TextManager::addText(std::string text) {
 	// needs constructor
-	std::shared_ptr<Text> _text(new Text);
-	_text->text = text;
-	_text->textTexture->setRenderer(_renderer);
-	_text->textTexture->setFont(_currentFont);
-	_text->textColor = _white;
-	_text->curTextLen = 0;
+	std::shared_ptr<Text> _text(new Text(text, _fontSize, Text::DIALOGUE, _renderer));
+	_text->SetTextLength(0); // since we want this to update we set the text length to 0
+	std::cout << "Creating text: " << text << std::endl;
 
 	_texts.push_back(_text);
 

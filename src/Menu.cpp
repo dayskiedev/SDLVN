@@ -11,24 +11,22 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	menuUi = std::make_unique<UIManager>();
 	menuUi->setRenderer(menuRenderer);
 
-	// i should just be able to make a button constructor to create these buttons
-	// so we can do things like set the functions later....
-	// text should be an object i can place to.
-	std::shared_ptr<Button> playButton(new Button("new",
-		Button::UI,
-		menuRenderer, 
-		DEFAULT_BUTTON_TEXTURE, 
-		200, 50, 
-		(SCREEN_WIDTH / 2) - 100, 
-		(SCREEN_HEIGHT / 2) - 50, 
-		"New Game", 
-		30
+	// these load the textures but they do not get shown?
+	background = std::make_unique<Texture>( menuRenderer, "backgrounds/umabackground2.png",
+		SCREEN_WIDTH,
+		SCREEN_HEIGHT,
+		0, 0
+	);
+
+	std::shared_ptr<Button> playButton(new Button("new", Button::UI, menuRenderer, DEFAULT_BUTTON_TEXTURE, 
+		200, 50,					// width height
+		(SCREEN_WIDTH / 2) - 100,	// x
+		(SCREEN_HEIGHT / 2) - 50,   // y
+		"New Game",					// Button contents
+		30							// Font size for button contents
 	));
 
-	std::shared_ptr<Button> contButton(new Button("load",
-		Button::UI,
-		menuRenderer,
-		DEFAULT_BUTTON_TEXTURE,
+	std::shared_ptr<Button> contButton(new Button("load", Button::UI, menuRenderer, DEFAULT_BUTTON_TEXTURE,
 		200,50,
 		(SCREEN_WIDTH / 2) - 100,
 		(SCREEN_HEIGHT / 2), 
@@ -36,10 +34,7 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 		30
 	));
 
-	std::shared_ptr<Button> optButton(new Button("options",
-		Button::UI,
-		menuRenderer,
-		DEFAULT_BUTTON_TEXTURE,
+	std::shared_ptr<Button> optButton(new Button("options", Button::UI,menuRenderer,DEFAULT_BUTTON_TEXTURE,
 		200, 50,
 		(SCREEN_WIDTH / 2) - 100,
 		(SCREEN_HEIGHT / 2) + 50,
@@ -47,10 +42,7 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 		30
 	));
 
-	std::shared_ptr<Button> quitButton(new Button("quit", 
-		Button::UI,
-		menuRenderer, 
-		DEFAULT_BUTTON_TEXTURE, 
+	std::shared_ptr<Button> quitButton(new Button("quit", Button::UI, menuRenderer, DEFAULT_BUTTON_TEXTURE, 
 		200, 50, 
 		(SCREEN_WIDTH / 2) - 100, 
 		(SCREEN_HEIGHT / 2) + 100, 
@@ -68,16 +60,6 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	menuUi->AddButton(contButton);
 	menuUi->AddButton(optButton);
 	menuUi->AddButton(quitButton);
-
-	// these load the textures but they do not get shown?
-	background = std::make_unique<Texture>(
-		menuRenderer, 
-		"backgrounds/umabackground2.png", 
-		SCREEN_WIDTH, 
-		SCREEN_HEIGHT, 
-		0, 
-		0
-	);
 }
 
 void Menu::Update(SDL_Event e, double deltaTime) {

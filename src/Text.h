@@ -2,30 +2,31 @@
 #include <SDL.h>
 
 #include "Texture.h"
+#include "Config.h"
 
 #ifndef TEXT_H
 #define TEXT_H
-
-struct Text
-{
-	std::unique_ptr<Texture> textTexture = std::make_unique<Texture>();
-	SDL_Color textColor; 
-	std::string text = "";
-	int curTextLen = 0; // change to incrementql
-
-
-	// redo text to have constructor so it can be called on its own:
-	// we want to set the font, size, colour
-};
-
 class Text : public Texture {
 public:
-	Text(std::string text, int fontSize, int x, int y, SDL_Renderer* renderer);
+	enum TextType
+	{
+		UI,
+		DIALOGUE
+	};
+
+	Text(std::string text, int fontSize, TextType textType, SDL_Renderer* renderer);
+	void SetTextColour(SDL_Color color) { textColor = color; }
+	void SetTextLength(int length) { curTextLen = length; }
+	int GetCurTextLength() { return curTextLen; }	// what the text length CURRENTLY IS
+	int GetTextLength() { return text.length();  }  // MAX text legnth
+
+	void Render(int x, int y);
+
 private:
 	std::unique_ptr<Texture> textTexture = std::make_unique<Texture>();
 	SDL_Color textColor;
 	std::string text = "";
 	int curTextLen = 0;
-}
+};
 
 #endif

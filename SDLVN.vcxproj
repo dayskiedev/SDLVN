@@ -168,6 +168,7 @@
     <ClCompile Include="src\SaveManager.cpp" />
     <ClCompile Include="src\Sprite.cpp" />
     <ClCompile Include="src\SpriteManager.cpp" />
+    <ClCompile Include="src\Text.cpp" />
     <ClCompile Include="src\TextManager.cpp" />
     <ClCompile Include="src\Texture.cpp" />
     <ClCompile Include="src\UIManager.cpp" />

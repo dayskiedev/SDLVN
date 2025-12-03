@@ -54,7 +54,8 @@ private:
 	const int tOffsetX = 20;
 	const int tOffsetY = 32;
 
-	// game specific UI
+
+	// game specific UI stuff
 	bool gamePaused = false;
 	std::shared_ptr<Sprite> gBackground = std::make_shared<Sprite>();
 	SDL_Rect gBlackBox;

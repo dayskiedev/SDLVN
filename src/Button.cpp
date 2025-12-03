@@ -115,6 +115,7 @@ void Button::showText() {
 	// height needs to include font size
 	if (textTexture == NULL) { return; }
 
+	//HARD CODED VALUES ARE BAD!!!
 	textTexture->render(getX() + 20, getY() + (getHeight() / 2) - 15);
 }
 
