@@ -66,16 +66,8 @@ void Button::Update(SDL_Event e) {
 }
 
 void Button::setText(std::string text, int fontSize, SDL_Renderer* renderer) {
-
-	//	RE USING TEXT/TEXTURE CODE (BAD)
-
-	// SHOULD THE BUTTON BE HANDELLING THE RENDER OF BUTTON TEXT?
-	textTexture = std::unique_ptr<Texture>(new Texture);
-
-	textTexture->setRenderer(renderer);
-	textTexture->setFont(TTF_OpenFont(GLOBAL_FONT_PATH.c_str(), fontSize));
-	
-	textTexture->loadFromRenderedText(text, { 255,255,255 });
+	// Text is now a simple object that is constrcuted the same way in multiple spaces
+	buttonText = std::unique_ptr<Text>(new Text(text, fontSize, Text::UI, renderer));
 }
 
 void Button::OnHover() {
@@ -86,8 +78,8 @@ void Button::OnHover() {
 
 	setAlpha(100);
 
-	if (textTexture == NULL) { return; }
-	textTexture->setAlpha(100);
+	if (buttonText == NULL) { return; }
+	buttonText->setAlpha(100);
 }
 
 void Button::ExitHover() {
@@ -95,8 +87,8 @@ void Button::ExitHover() {
 	// we want this to only shoot once?
 	setAlpha(255);
 
-	if (textTexture == NULL) { return;  }
-	textTexture->setAlpha(255);
+	if (buttonText == NULL) { return;  }
+	buttonText->SetTextAlpha(255);
 }
 
 bool Button::OverlappingCheck() {
@@ -113,10 +105,11 @@ bool Button::OverlappingCheck() {
 // RENDERING THE TEXT FOR THE BUTTON
 void Button::showText() {
 	// height needs to include font size
-	if (textTexture == NULL) { return; }
+	if (buttonText == NULL) { return; }
 
 	//HARD CODED VALUES ARE BAD!!!
-	textTexture->render(getX() + 20, getY() + (getHeight() / 2) - 15);
+	// using static render as button text should not change
+	buttonText->StaticRender(getX() + 20, getY() + (getHeight() / 2) - 15);
 }
 
 void Button::setButtonName(std::string btnName) {

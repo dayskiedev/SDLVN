@@ -22,7 +22,6 @@ bool Interpreter::Initialise(std::shared_ptr<SpriteManager> sm, std::shared_ptr<
 
 	_lineCount = lineNum; // line to start script at.
 
-	std::cout << "line count: " << _lineCount << std::endl;
 	background->loadFromFile(backgroundPath); // set background to whatever was saved;
 	background->SetSpritePath(backgroundPath);
 

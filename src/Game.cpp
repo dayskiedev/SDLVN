@@ -21,8 +21,6 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	spriteManager->setRenderer(gameRenderer);
 	spriteManager->setSpriteTexPath(GLOBAL_SPRITES_PATH);
 
-	std::cout << spriteManager->getSpriteTexPath() << std::endl;
-
 	textManager->setRenderer(gameRenderer);
 	textManager->setFont(GLOBAL_FONT_PATH);
 

@@ -5,6 +5,7 @@
 #include <functional>
 
 #include "Texture.h"
+#include "Text.h"
 #include "Config.h"
 
 // will mostly stick to interpretor except for main menu and screen ubttons?
@@ -53,7 +54,7 @@ private:
 	bool entered;
 	bool hasText;
 
-	std::unique_ptr<Texture> textTexture = NULL;
+	std::unique_ptr<Text> buttonText = NULL;
 	TTF_Font* _font = NULL;
 	Mix_Chunk* buttonHover;
 	Mix_Chunk* buttonClick;
