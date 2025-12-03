@@ -60,6 +60,8 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	menuUi->AddButton(contButton);
 	menuUi->AddButton(optButton);
 	menuUi->AddButton(quitButton);
+
+	title = std::make_unique<Text>("SDLVN", 120, Text::UI, menuRenderer);
 }
 
 void Menu::Update(SDL_Event e, double deltaTime) {
@@ -77,6 +79,8 @@ void Menu::Render() {
 		// why is this seperate lol?
 		b->showText();
 	}
+
+	title->Render(SCREEN_WIDTH / 2 - (title->GetTextWidth() / 2), 100);
 
 	SDL_RenderPresent(menuRenderer);
 }

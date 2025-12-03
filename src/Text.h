@@ -6,7 +6,7 @@
 
 #ifndef TEXT_H
 #define TEXT_H
-class Text : public Texture {
+class Text {
 public:
 	enum TextType
 	{
@@ -14,15 +14,20 @@ public:
 		DIALOGUE
 	};
 
+	Text();
 	Text(std::string text, int fontSize, TextType textType, SDL_Renderer* renderer);
+	~Text();
 
 	void SetCurTextLength(int length) { curTextLen = length; }
 	int GetCurTextLength() { return curTextLen; }	// what the text length CURRENTLY IS
-	int GetTextLength() { return text.length();  }  // MAX text legnth
+	size_t GetTextLength() { return text.length();  }  // MAX text legnth
 	std::string GetText() { return text; }
 
-	void SetTextAlpha(Uint8 a);
+	void SetTextAlpha(int a);
 	void SetTextColour(SDL_Color color) { textColor = color; }
+
+	int GetTextWidth() { return textTexture->getWidth(); }
+	int GetTextHeight() { return textTexture->getHeight(); }
 
 	void Render(int x, int y);
 

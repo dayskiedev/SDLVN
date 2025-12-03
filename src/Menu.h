@@ -10,6 +10,7 @@
 
 #include "GameState.h"
 #include "GameManager.h"
+#include "Text.h"
 
 // why does changing this to public work?
 class Menu : public GameState {
@@ -22,6 +23,8 @@ private:
 	// window renderer
 	SDL_Renderer* menuRenderer = NULL;
 	std::unique_ptr<UIManager> menuUi;
+
+	std::unique_ptr<Text> title;
 };
 
 #endif

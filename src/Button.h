@@ -4,14 +4,14 @@
 #include <iostream>
 #include <functional>
 
-#include "Texture.h"
-#include "Text.h"
-#include "Config.h"
-
 // will mostly stick to interpretor except for main menu and screen ubttons?
 
 #ifndef BUTTON_H
 #define BUTTON_H
+
+#include "Texture.h"
+#include "Text.h"
+#include "Config.h"
 
 class Button : public Texture {
 public:

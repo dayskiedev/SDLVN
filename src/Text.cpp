@@ -1,5 +1,7 @@
 #include "Text.h"
 
+Text::Text() {}
+
 Text::Text(std::string inputText, int fontSize, TextType textType, SDL_Renderer* renderer) {
 	text = inputText;
 
@@ -10,7 +12,11 @@ Text::Text(std::string inputText, int fontSize, TextType textType, SDL_Renderer*
 	textTexture->loadFromRenderedText(text, textColor);
 }
 
-void Text::SetTextAlpha(Uint8 a) {
+Text::~Text() {
+	std::cout << "Unloaded text: " << text << std::endl;
+}
+
+void Text::SetTextAlpha(int a) {
 	textTexture->setAlpha(a);
 }
 

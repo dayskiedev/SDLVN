@@ -79,7 +79,7 @@ void Button::OnHover() {
 	setAlpha(100);
 
 	if (buttonText == NULL) { return; }
-	buttonText->setAlpha(100);
+	buttonText->SetTextAlpha(100);
 }
 
 void Button::ExitHover() {
