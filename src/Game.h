@@ -14,6 +14,8 @@
 #include "Button.h"
 #include "Config.h"
 
+#include <queue>
+
 #ifndef GAME_H
 #define GAME_H
 
@@ -53,6 +55,7 @@ private:
 	const int tOffsetY = 32;
 
 	// game specific UI
+	bool gamePaused = false;
 	std::shared_ptr<Sprite> gBackground = std::make_shared<Sprite>();
 	SDL_Rect gBlackBox;
 

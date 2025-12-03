@@ -70,7 +70,6 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 		30
 	));
 
-
 	uiManager->AddButton(menuButton);
 	uiManager->AddButton(saveButton);
 	menuButton->OnClick = [this]() { _gameManager->ChangeState(std::make_unique<Menu>()); };
@@ -88,6 +87,22 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 
 void Game::Update(SDL_Event e, double deltaTime) {
 	// place logic here
+
+	switch (e.type) {
+	case SDL_KEYDOWN:
+		switch (e.key.keysym.sym) {
+		case SDLK_ESCAPE:
+			if (gamePaused) {
+				std::cout << "Unpausing" << std::endl;
+				gamePaused = false;
+			}
+			else {
+				std::cout << "Pausing" << std::endl;
+				gamePaused = true;
+			}
+			break;
+		}
+	}
 
 	interpreter.Run(e, deltaTime);
 
@@ -115,8 +130,6 @@ void Game::Render() {
 	SDL_SetRenderDrawColor(gameRenderer, 0, 0, 0, 100);
 	SDL_RenderFillRect(gameRenderer, &gBlackBox);
 
-	// layer 2 text
-
 	// this should be done in the text manager????
 	int index = 0;
 	for (auto t : textManager->getTextVector()) {
@@ -128,10 +141,13 @@ void Game::Render() {
 
 	// layer 3 buttons/ui?
 	for (auto b : uiManager->GetUiVector()) {
-		b->render(b->getX(), b->getY());
+		b->render();
 		b->showText();
 	}
 	SDL_RenderPresent(gameRenderer);
+
+	// one in front, smaller number (ie sprite
+	// one in back higher number ( ie background
 }
 
 void Game::ExitState() {	

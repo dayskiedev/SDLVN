@@ -22,7 +22,6 @@ std::vector<std::shared_ptr<Text>> TextManager::getTextVector() {
 	return _texts;
 }
 
-// these should not interact with event, that should be game managers job...
 std::shared_ptr<Text> TextManager::addText(std::string text) {
 	// needs constructor
 	std::shared_ptr<Text> _text(new Text);
