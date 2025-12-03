@@ -12,9 +12,7 @@ Text::Text(std::string inputText, int fontSize, TextType textType, SDL_Renderer*
 	textTexture->loadFromRenderedText(text, textColor);
 }
 
-Text::~Text() {
-	std::cout << "Unloaded text: " << text << std::endl;
-}
+Text::~Text() {}
 
 void Text::SetTextAlpha(int a) {
 	textTexture->setAlpha(a);

@@ -52,7 +52,7 @@ private:
 
 	// these need to change
 	const int tOffsetX = 20;
-	const int tOffsetY = 32;
+	const int tOffsetY = 34;
 
 
 	// game specific UI stuff

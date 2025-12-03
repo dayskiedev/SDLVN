@@ -164,6 +164,24 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 		_textManager->clearText();
 	}
 
+	else if (_commandArgs[0] == "*textspeed") {
+		double newTextSpeed = DEFAULT_TEXT_SPEED;
+		if (_commandArgs[1] == "default") { 
+			threshold = 50 / newTextSpeed;
+			_lineCount++;
+			return; 
+		}
+
+		try {
+			newTextSpeed = std::stod(_commandArgs[1]);
+		}
+		catch (std::invalid_argument ia) {
+			PrintError(ia.what());
+			return;
+		}
+		threshold = 50 / newTextSpeed;
+	}
+
 	else if (_commandArgs[0] == "*wait") {
 		// *wait [time_to_wait]
 		double delayTime = 0;

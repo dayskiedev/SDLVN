@@ -57,3 +57,14 @@ so what you wanna do huh?
 *enter rin rin.png LEFT
 *cleartext
 WHAT DO YOU THINK YOU'RE DOING!!!
+6 7 6 7 6 7 6 7 6 6 7
+*setsprite rin rin2.png
+*textspeed 0.5
+6 7 6 7 6 7 6 7 6 7 6 7 6 7 6 7 6 7 6 7 6 7 6 7 6 7 6 7 6 7 6 7 6 7 6 7
+*textspeed 3
+*setsprite rin rin.png
+STOP IT!!!!!
+*textspeed default
+*cleartext
+What is wrong with you!
+Are you ok in the head?

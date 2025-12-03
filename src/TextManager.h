@@ -32,7 +32,7 @@ private:
 
 	// we must keep fonts as pointers sdl definition?
 	TTF_Font* _currentFont = NULL;
-	int _fontSize = 28;
+	int _fontSize = 32;
 
 	// should these be in their own file?
 	SDL_Color _white = { 255,255,255 };
