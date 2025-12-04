@@ -93,6 +93,7 @@ void GameManager::Run() {
 
 	currentState->Update(e, deltaTime);
 	currentState->Render();
+
 }   
 
 void GameManager::ChangeState(std::unique_ptr<GameState> state) {

@@ -1,16 +1,17 @@
 #include "Game.h"
 
-// if you get the error 'The code execution cannot proceed because xxx.dll was not found.'
-// check if its linked in your path variables
+// game -> pause goes to pause state -> pause state goes to load / save state
 
-// TODO: 
-// we want to load
-// in enter state we just call the save load function
-// but using default save values
-// that way if we load a save, the save struct values will be changed
-// so we can just call them 
 
-//Game::Game() : interpreter(spriteManager, textManager, &uiManager, gBackground) {}
+// menu
+
+// backboard -> text + buttons + button to close menu
+// current context must be highest priority 
+
+// must do: saving and loading selection : relies on ui
+// pause: relies on ui
+// settings relies on ui
+// fixing game window size issues
 
 void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	// pass through the main render pointer
@@ -70,7 +71,7 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 
 	uiManager->AddButton(menuButton);
 	uiManager->AddButton(saveButton);
-	menuButton->OnClick = [this]() { _gameManager->ChangeState(std::make_unique<Menu>()); };
+	menuButton->OnClick = [this]() { _gameManager->ChangeState(std::make_unique<PauseUI>()); };
 	saveButton->OnClick = [this]() { _gameManager->SaveGame(interpreter, spriteManager, gBackground); };
 
 	// game data
@@ -143,6 +144,8 @@ void Game::Render() {
 		b->render();
 		b->showText();
 	}
+
+	// occlusion
 
 
 	SDL_RenderPresent(gameRenderer);

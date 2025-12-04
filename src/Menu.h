@@ -25,6 +25,7 @@ private:
 	std::unique_ptr<UIManager> menuUi;
 
 	std::unique_ptr<Text> title;
+	std::unique_ptr<Text> version;
 };
 
 #endif

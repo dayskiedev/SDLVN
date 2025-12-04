@@ -62,6 +62,7 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	menuUi->AddButton(quitButton);
 
 	title = std::make_unique<Text>("SDLVN", 120, Text::UI, menuRenderer);
+	version = std::make_unique<Text>("v0.0.9", 30, Text::UI, menuRenderer);
 }
 
 void Menu::Update(SDL_Event e, double deltaTime) {
@@ -80,7 +81,8 @@ void Menu::Render() {
 		b->showText();
 	}
 
-	title->Render(SCREEN_WIDTH / 2 - (title->GetTextWidth() / 2), 100);
+	title->StaticRender(SCREEN_WIDTH / 2 - (title->GetTextWidth() / 2), 100);
+	version->StaticRender(15, SCREEN_HEIGHT - version->GetTextHeight());
 
 	SDL_RenderPresent(menuRenderer);
 }

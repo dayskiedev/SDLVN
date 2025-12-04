@@ -20,6 +20,7 @@
 #include "Options.h"
 #include "Game.h"
 #include "Load.h"
+#include "PauseUI.h"
 
 class GameManager {
 public:
