@@ -35,9 +35,13 @@ public:
 	SaveManager::SaveData& GetSaveData() { return saveData; }
 
 	void LoadSave(std::string savePath);
+
+	void QuickSave(Interpreter& interpreterInfo, std::shared_ptr<SpriteManager> spriteManagerInfo, std::shared_ptr<Sprite> background);
 	void SaveGame(Interpreter& interpreterInfo, std::shared_ptr<SpriteManager> spriteManagerInfo, std::shared_ptr<Sprite> background);
 	
 	void SetDefaultGameState() { saveData = {}; }
+
+	void PrintCurrentSaveData();
 
 	bool running = true;
 	bool pause;

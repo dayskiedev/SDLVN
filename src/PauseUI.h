@@ -18,12 +18,15 @@ public:
 	void ExitState();
 private:
 	enum pause_states {
-		PAUSE,
+		MAIN_PAUSE,
 		SAVE,
 		LOAD,
+		OPTIONS,
 	};
 
 	SDL_Renderer* pauseRenderer;
+	GameManager* _gameManager;
+	std::vector<std::shared_ptr<Button>> testUI;
 };
 
 #endif

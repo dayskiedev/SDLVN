@@ -32,15 +32,28 @@
 void PauseUI::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	std::cout << "We paused now";
 	pauseRenderer = renderer;
+	_gameManager = gameManager;
+
+	// create all vector renders and set initial enum
+	std::shared_ptr<Button> returnTestButton(new Button("return", Button::UI, pauseRenderer, DEFAULT_BUTTON_TEXTURE, 200, 200, 0, 0, "resume", 32));
+	returnTestButton->OnClick = [this]() {_gameManager->ChangeState(std::make_unique<Game>()); };
+	testUI.push_back(returnTestButton);
 }
 
 void PauseUI::Update(SDL_Event e, double deltaTime) {
-
+	for (auto b : testUI) {
+		b->Update(e);
+	}
 }
 
-void PauseUI::Render() {
+void PauseUI::Render() {	
 	SDL_SetRenderDrawColor(pauseRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	SDL_RenderClear(pauseRenderer);
+
+	for (auto b : testUI) {
+		b->render();
+		b->showText();
+	}
 
 	SDL_RenderPresent(pauseRenderer);
 }

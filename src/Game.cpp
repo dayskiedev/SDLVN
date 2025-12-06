@@ -71,7 +71,7 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 
 	uiManager->AddButton(menuButton);
 	uiManager->AddButton(saveButton);
-	menuButton->OnClick = [this]() { _gameManager->ChangeState(std::make_unique<PauseUI>()); };
+	menuButton->OnClick = [this]() { _gameManager->ChangeState(std::make_unique<Menu>()); };
 	saveButton->OnClick = [this]() { _gameManager->SaveGame(interpreter, spriteManager, gBackground); };
 
 	// game data
@@ -97,6 +97,10 @@ void Game::Update(SDL_Event e, double deltaTime) {
 			}
 			else {
 				std::cout << "Pausing" << std::endl;
+				_gameManager->QuickSave(interpreter, spriteManager, gBackground);
+				_gameManager->PrintCurrentSaveData();
+				_gameManager->ChangeState(std::make_unique<PauseUI>());
+				return;
 				gamePaused = true;
 			}
 			break;
@@ -153,7 +157,6 @@ void Game::Render() {
 
 void Game::ExitState() {	
 	// make sure gamemanager is in default state
-	_gameManager->SetDefaultGameState();
 }
 
 
