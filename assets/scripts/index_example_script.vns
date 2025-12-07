@@ -1,0 +1,7 @@
+[Index]
+go 
+stay 101
+
+[script]
+*setbackground bridge.png
+*enter saber saber.png CENTRE

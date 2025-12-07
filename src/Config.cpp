@@ -14,17 +14,17 @@ int CHOICE_BUTTON_HEIGHT = 150;
 
 // SAVE DATA DEFAULT INFORMATION FOR NEW GAME
 int _SCRIPT_LINE = 0;
-std::string _SCRIPT_PATH = "scripts/example_script.vns";
-std::string _BACKGROUND_PATH = "backgrounds/dojo.png";
+std::string _SCRIPT_PATH = "assets/scripts/example_script.vns";
+std::string _BACKGROUND_PATH = "assets/backgrounds/dojo.png";
 
 double DEFAULT_TEXT_SPEED = 2;
 
-std::string GLOBAL_FONT_PATH = "fonts/sazanami-gothic.ttf";
-std::string GLOBAL_BACKGROUNDS_PATH = "backgrounds/";
-std::string GLOBAL_SPRITES_PATH = "sprites/";
-std::string GLOBAL_SCRIPTS_PATH = "scripts/";
-std::string GLOBAL_SOUNDS_PATH = "sounds/";
+std::string GLOBAL_FONT_PATH = "assets/fonts/sazanami-gothic.ttf";
+std::string GLOBAL_BACKGROUNDS_PATH = "assets/backgrounds/";
+std::string GLOBAL_SPRITES_PATH = "assets/sprites/";
+std::string GLOBAL_SCRIPTS_PATH = "assets/scripts/";
+std::string GLOBAL_SOUNDS_PATH = "assets/sounds/";
 
-std::string DEFAULT_BUTTON_TEXTURE = "sprites/sans.png";
+std::string DEFAULT_BUTTON_TEXTURE = "assets/sprites/sans.png";
 
-std::string DEFAULT_SAVE_LOCATION = "saves/";
+std::string DEFAULT_SAVE_LOCATION = "assets/saves/";

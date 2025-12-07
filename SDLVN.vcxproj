@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Programming\vclibs\SDL2_mixer-2.8.1\include;C:\Programming\vclibs\SDL2_ttf-2.24.0\include;C:\Programming\vclibs\SDL2_image-2.8.8\include;C:\Programming\vclibs\SDL2-2.30.5\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Programming\vclibs\SDL2_mixer-2.8.1\include;C:\Programming\vclibs\SDL2_ttf-2.24.0\include;C:\Programming\vclibs\SDL2_image-2.8.8\include;C:\Programming\vclibs\SDL2-2.30.5\include;C:\Users\mondo\source\repos\SDLVN\src\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Programming\vclibs\SDL2_ttf-2.24.0\lib\x64;C:\Programming\vclibs\SDL2_image-2.8.8\lib\x64;C:\Programming\vclibs\SDL2-2.30.5\lib\x64;C:\Programming\vclibs\SDL2_mixer-2.8.1\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

@@ -12,7 +12,7 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	menuUi->setRenderer(menuRenderer);
 
 	// these load the textures but they do not get shown?
-	background = std::make_unique<Texture>( menuRenderer, "backgrounds/umabackground2.png",
+	background = std::make_unique<Texture>( menuRenderer, GLOBAL_BACKGROUNDS_PATH + "/umabackground2.png",
 		SCREEN_WIDTH,
 		SCREEN_HEIGHT,
 		0, 0

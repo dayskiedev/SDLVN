@@ -144,6 +144,8 @@ void Game::Render() {
 	}
 
 	// layer 3 buttons/ui?
+	// this is where pause menu SHOULD go
+	// major overhaul needed, buttons should showtext in their own render
 	for (auto b : uiManager->GetUiVector()) {
 		b->render();
 		b->showText();

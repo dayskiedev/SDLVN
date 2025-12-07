@@ -23,7 +23,14 @@
 // Update handles updates that happen, if they're not visable they should not update
 
 
-// we have ui manager, why not use that?
+
+// NOTE FOR SAVING AND LOADNIG
+// HAVE SOME SORT OF BASE CLASS FILE THAT THEY INHERET FROM
+// THE INITIALISATION WILL BE EVERYTHING UI RELATED HOWEVER
+// THE BACK BUTTON WILL BE DIFFERENT DEPENDING ON WHERE IT IS MADE
+// SAME WHEN CLICKING ON SAVES
+// SO IN THIS CASE ONLY DEFINE THE UI, LEAVE BUTTON CLICKS BLANK FOR BASE CLASS
+
 
 
 // multiple vectors of diff ui that we want to render
@@ -35,6 +42,8 @@ void PauseUI::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	_gameManager = gameManager;
 
 	// create all vector renders and set initial enum
+	// make some sort of ui definition template?
+
 	std::shared_ptr<Button> returnTestButton(new Button("return", Button::UI, pauseRenderer, DEFAULT_BUTTON_TEXTURE, 200, 200, 0, 0, "resume", 32));
 	returnTestButton->OnClick = [this]() {_gameManager->ChangeState(std::make_unique<Game>()); };
 	testUI.push_back(returnTestButton);
