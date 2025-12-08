@@ -45,6 +45,58 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	//		the sprites texture path
 	//		the sprites x and y coordinate
 
+
+	// THIS WILL BE MOVE TO THE PAUSE UI CPP FILE TO INITIALISE THERE INSTEAD? IDK
+
+	// also by god stop with the magic numbers...
+	uma = std::make_shared<Sprite>("uma", 
+		GLOBAL_SPRITES_PATH + "saveicon.png", 
+		SCREEN_WIDTH - 800,
+		(SCREEN_HEIGHT / 2) - 300, 
+		600, 600, gameRenderer);
+
+	std::shared_ptr<Button> resumeButton(new Button("resume", Button::UI, gameRenderer, DEFAULT_BUTTON_TEXTURE,
+		200, 50,	// w h
+		150, 150,	// x y
+		"Resume", 30
+	));
+
+	std::shared_ptr<Button> optButton(new Button("options", Button::UI, gameRenderer, DEFAULT_BUTTON_TEXTURE,
+		200, 50,
+		110, 250,
+		"Options", 30
+	));
+
+	std::shared_ptr<Button> saveButton(new Button("save", Button::UI, gameRenderer, DEFAULT_BUTTON_TEXTURE,
+		200, 50,
+		75, 350,
+		"Save", 30
+	));
+
+	std::shared_ptr<Button> loadButton(new Button("load", Button::UI, gameRenderer, DEFAULT_BUTTON_TEXTURE,
+		200, 50,
+		110, 450,
+		"Load", 30
+	));
+
+	std::shared_ptr<Button> menuButton(new Button("quit", Button::UI, gameRenderer, DEFAULT_BUTTON_TEXTURE,
+		250, 50,
+		150, 550,
+		"Return to Menu", 30
+	));
+
+	PauseMenuUITest.push_back(resumeButton);
+	PauseMenuUITest.push_back(optButton);
+	PauseMenuUITest.push_back(saveButton);
+	PauseMenuUITest.push_back(loadButton);
+	PauseMenuUITest.push_back(menuButton);
+	resumeButton->OnClick = [this]() { currentState = RUNNING; };
+	optButton->OnClick = [this]() { std::cout << "show options menu" << std::endl; };
+	saveButton->OnClick = [this]() { _gameManager->SaveGame(interpreter, spriteManager, gBackground); };
+	loadButton->OnClick = [this]() { std::cout << "Show saves to load here" << std::endl; };
+	menuButton->OnClick = [this]() { _gameManager->ChangeState(std::make_unique<Menu>()); };
+
+
 	// game data
 	auto& saveData = gameManager->GetSaveData();
 
@@ -70,6 +122,7 @@ void Game::Update(SDL_Event e, double deltaTime) {
 				break;
 			}
 
+			// ALL MAIN GAME LOGIC RUNS THROUGH HERE BTW
 			interpreter.Run(e, deltaTime);
 
 			for (auto b : uiManager->GetUiVector()) {
@@ -77,16 +130,9 @@ void Game::Update(SDL_Event e, double deltaTime) {
 			}
 			break;
 		case PAUSED:
-			switch (e.type) {
-			case SDL_KEYDOWN:
-				switch (e.key.keysym.sym) {
-				case SDLK_ESCAPE:
-					std::cout << "UNPausing" << std::endl;
-					currentState = RUNNING;
-				}
-				break;
+			for (auto b : PauseMenuUITest) {
+				b->Update(e);
 			}
-			break;
 	}
 
 }
@@ -133,8 +179,19 @@ void Game::Render() {
 			break;
 		}
 		case PAUSED:
-			SDL_SetRenderDrawColor(gameRenderer, 22, 22, 22, 22);
-			int* cxd = new int[1];
+			// keep rendering background
+			gBackground->render(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+			// dim background slightly
+			SDL_SetRenderDrawColor(gameRenderer, 0, 0, 0, 100);
+			SDL_RenderFillRect(gameRenderer, &gBlackBox);
+
+			for (auto b : PauseMenuUITest) {
+				b->render();
+				b->showText(); // god damn this should just be in button render already...
+			}
+
+			uma->render();
 			break;
 	}
 

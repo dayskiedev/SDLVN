@@ -56,8 +56,9 @@ private:
 
 	
 	enum GAME_STATE {
-		RUNNING,
-		PAUSED
+		RUNNING,    // main game loop running
+		PAUSED,		// when the game is paused, switch to sub states
+		NO_TEXT,	// when we want to see sprites and backgrounds without text
 	};
 
 	GAME_STATE currentState = RUNNING;
@@ -66,6 +67,11 @@ private:
 	SDL_Rect gBlackBox;
 
 	Interpreter interpreter;
+
+
+	// PAUSE UI STUFF
+	std::vector<std::shared_ptr<Button>> PauseMenuUITest;
+	std::shared_ptr<Sprite> uma = std::make_shared<Sprite>();
 };
 
 #endif
