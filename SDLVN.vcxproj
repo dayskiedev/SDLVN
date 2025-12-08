@@ -137,26 +137,6 @@
     <None Include="scripts\index_example_script.vns" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Button.h" />
-    <ClInclude Include="src\Config.h" />
-    <ClInclude Include="src\Game.h" />
-    <ClInclude Include="src\GameManager.h" />
-    <ClInclude Include="src\GameState.h" />
-    <ClInclude Include="src\Interpreter.h" />
-    <ClInclude Include="src\Load.h" />
-    <ClInclude Include="src\Menu.h" />
-    <ClInclude Include="src\Options.h" />
-    <ClInclude Include="src\PauseUI.h" />
-    <ClInclude Include="src\SaveManager.h" />
-    <ClInclude Include="src\Sprite.h" />
-    <ClInclude Include="src\SpriteInformation.h" />
-    <ClInclude Include="src\SpriteManager.h" />
-    <ClInclude Include="src\Text.h" />
-    <ClInclude Include="src\TextManager.h" />
-    <ClInclude Include="src\Texture.h" />
-    <ClInclude Include="src\UIManager.h" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="src\Button.cpp" />
     <ClCompile Include="src\Config.cpp" />
     <ClCompile Include="src\Game.cpp" />
@@ -174,6 +154,27 @@
     <ClCompile Include="src\TextManager.cpp" />
     <ClCompile Include="src\Texture.cpp" />
     <ClCompile Include="src\UIManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\include\Button.h" />
+    <ClInclude Include="src\include\Config.h" />
+    <ClInclude Include="src\include\CustomEvents.h" />
+    <ClInclude Include="src\include\Game.h" />
+    <ClInclude Include="src\include\GameManager.h" />
+    <ClInclude Include="src\include\GameState.h" />
+    <ClInclude Include="src\include\Interpreter.h" />
+    <ClInclude Include="src\include\Load.h" />
+    <ClInclude Include="src\include\Menu.h" />
+    <ClInclude Include="src\include\Options.h" />
+    <ClInclude Include="src\include\PauseUI.h" />
+    <ClInclude Include="src\include\SaveManager.h" />
+    <ClInclude Include="src\include\Sprite.h" />
+    <ClInclude Include="src\include\SpriteInformation.h" />
+    <ClInclude Include="src\include\SpriteManager.h" />
+    <ClInclude Include="src\include\Text.h" />
+    <ClInclude Include="src\include\TextManager.h" />
+    <ClInclude Include="src\include\Texture.h" />
+    <ClInclude Include="src\include\UIManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

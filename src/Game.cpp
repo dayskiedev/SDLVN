@@ -45,35 +45,6 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	//		the sprites texture path
 	//		the sprites x and y coordinate
 
-	
-	// UI
-	std::shared_ptr<Button> menuButton(new Button("quit",
-		Button::UI,
-		gameRenderer,
-		DEFAULT_BUTTON_TEXTURE,
-		250, 50,
-		(SCREEN_WIDTH / 2) - 250,
-		(SCREEN_HEIGHT)-50,
-		"Return to Menu",
-		30
-	));
-
-	std::shared_ptr<Button> saveButton(new Button("save",
-		Button::UI,
-		gameRenderer,
-		DEFAULT_BUTTON_TEXTURE,
-		200, 50,
-		(SCREEN_WIDTH / 2),
-		(SCREEN_HEIGHT)-50,
-		"Save",
-		30
-	));
-
-	uiManager->AddButton(menuButton);
-	uiManager->AddButton(saveButton);
-	menuButton->OnClick = [this]() { _gameManager->ChangeState(std::make_unique<Menu>()); };
-	saveButton->OnClick = [this]() { _gameManager->SaveGame(interpreter, spriteManager, gBackground); };
-
 	// game data
 	auto& saveData = gameManager->GetSaveData();
 
@@ -87,31 +58,37 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 void Game::Update(SDL_Event e, double deltaTime) {
 	// place logic here
 
-	switch (e.type) {
-	case SDL_KEYDOWN:
-		switch (e.key.keysym.sym) {
-		case SDLK_ESCAPE:
-			if (gamePaused) {
-				std::cout << "Unpausing" << std::endl;
-				gamePaused = false;
+	switch (currentState) {
+		case RUNNING:
+			switch (e.type) {
+			case SDL_KEYDOWN:
+				switch (e.key.keysym.sym) {
+				case SDLK_ESCAPE:
+					std::cout << "Pausing" << std::endl;
+					currentState = PAUSED;
+				}
+				break;
 			}
-			else {
-				std::cout << "Pausing" << std::endl;
-				_gameManager->QuickSave(interpreter, spriteManager, gBackground);
-				_gameManager->PrintCurrentSaveData();
-				_gameManager->ChangeState(std::make_unique<PauseUI>());
-				return;
-				gamePaused = true;
+
+			interpreter.Run(e, deltaTime);
+
+			for (auto b : uiManager->GetUiVector()) {
+				b->Update(e);
 			}
 			break;
-		}
+		case PAUSED:
+			switch (e.type) {
+			case SDL_KEYDOWN:
+				switch (e.key.keysym.sym) {
+				case SDLK_ESCAPE:
+					std::cout << "UNPausing" << std::endl;
+					currentState = RUNNING;
+				}
+				break;
+			}
+			break;
 	}
 
-	interpreter.Run(e, deltaTime);
-
-	for (auto b : uiManager->GetUiVector()) {
-		b->Update(e);
-	}
 }
 
 void Game::Render() {
@@ -121,38 +98,45 @@ void Game::Render() {
 	SDL_SetRenderDrawColor(gameRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	SDL_RenderClear(gameRenderer);
 
-	// layer -1 background
-	gBackground->render(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+	switch (currentState) {
+		case RUNNING:
+		{
+			// layer -1 background
+			gBackground->render(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	// layer 1 character sprites
-	for (auto s : spriteManager->getSpriteVector()) {
-		// change render to be scaled based from settings
-		s->render(s->getX(), s->getY(), s->getWidth() / 1.5, s->getHeight() / 1.5);
+			// layer 1 character sprites
+			for (auto s : spriteManager->getSpriteVector()) {
+				// change render to be scaled based from settings
+				s->render(s->getX(), s->getY(), s->getWidth() / 1.5, s->getHeight() / 1.5);
+			}
+
+			SDL_SetRenderDrawColor(gameRenderer, 0, 0, 0, 100);
+			SDL_RenderFillRect(gameRenderer, &gBlackBox);
+
+			// this should be done in the text manager????
+			// right now 
+
+			int index = 0;
+			for (auto t : textManager->getTextVector()) {
+				if (t->GetCurTextLength() == 0) { continue; }
+				t->Render(tOffsetX, (tOffsetY * index) + tOffsetX);
+				index++;
+			}
+
+			// layer 3 buttons/ui?
+			// this is where pause menu SHOULD go
+			// major overhaul needed, buttons should showtext in their own render
+			for (auto b : uiManager->GetUiVector()) {
+				b->render();
+				b->showText();
+			}
+			break;
+		}
+		case PAUSED:
+			SDL_SetRenderDrawColor(gameRenderer, 22, 22, 22, 22);
+			int* cxd = new int[1];
+			break;
 	}
-
-	SDL_SetRenderDrawColor(gameRenderer, 0, 0, 0, 100);
-	SDL_RenderFillRect(gameRenderer, &gBlackBox);
-
-	// this should be done in the text manager????
-	// right now 
-
-	int index = 0;
-	for (auto t : textManager->getTextVector()) {
-		if (t->GetCurTextLength() == 0) { continue; }
-		t->Render(tOffsetX, (tOffsetY * index) + tOffsetX);
-		index++;
-	}
-
-	// layer 3 buttons/ui?
-	// this is where pause menu SHOULD go
-	// major overhaul needed, buttons should showtext in their own render
-	for (auto b : uiManager->GetUiVector()) {
-		b->render();
-		b->showText();
-	}
-
-	// occlusion
-
 
 	SDL_RenderPresent(gameRenderer);
 }

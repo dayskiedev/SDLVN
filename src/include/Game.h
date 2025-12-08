@@ -54,9 +54,14 @@ private:
 	const int tOffsetX = 20;
 	const int tOffsetY = 34;
 
+	
+	enum GAME_STATE {
+		RUNNING,
+		PAUSED
+	};
 
-	// game specific UI stuff
-	bool gamePaused = false;
+	GAME_STATE currentState = RUNNING;
+
 	std::shared_ptr<Sprite> gBackground = std::make_shared<Sprite>();
 	SDL_Rect gBlackBox;
 

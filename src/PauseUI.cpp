@@ -44,8 +44,40 @@ void PauseUI::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	// create all vector renders and set initial enum
 	// make some sort of ui definition template?
 
+	// UI
+	std::shared_ptr<Button> menuButton(new Button("quit",
+		Button::UI,
+		pauseRenderer,
+		DEFAULT_BUTTON_TEXTURE,
+		250, 50,
+		(SCREEN_WIDTH / 2) - 250,
+		(SCREEN_HEIGHT)-50,
+		"Return to Menu",
+		30
+	));
+
+	std::shared_ptr<Button> saveButton(new Button("save",
+		Button::UI,
+		pauseRenderer,
+		DEFAULT_BUTTON_TEXTURE,
+		200, 50,
+		(SCREEN_WIDTH / 2),
+		(SCREEN_HEIGHT)-50,
+		"Save",
+		30
+	));
+
+	testUI.push_back(menuButton);
+	testUI.push_back(saveButton);
+	menuButton->OnClick = [this]() { 
+		_gameManager->ChangeState(std::make_unique<Menu>()); };
+
+	// one reason pause should not be a state...
+	//saveButton->OnClick = [this]() { _gameManager->SaveGame(interpreter, spriteManager, gBackground); };
+
 	std::shared_ptr<Button> returnTestButton(new Button("return", Button::UI, pauseRenderer, DEFAULT_BUTTON_TEXTURE, 200, 200, 0, 0, "resume", 32));
-	returnTestButton->OnClick = [this]() {_gameManager->ChangeState(std::make_unique<Game>()); };
+	returnTestButton->OnClick = [this]() {
+		_gameManager->ChangeState(std::make_unique<Game>()); };
 	testUI.push_back(returnTestButton);
 }
 
