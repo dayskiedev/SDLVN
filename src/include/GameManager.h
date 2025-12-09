@@ -20,7 +20,6 @@
 #include "Options.h"
 #include "Game.h"
 #include "Load.h"
-#include "PauseUI.h"
 
 class GameManager {
 public:
@@ -28,7 +27,7 @@ public:
 	void Run();
 	void Quit();
 
-	void ChangeState(std::unique_ptr<GameState> state);	
+	void RequestState(std::unique_ptr<GameState> state);
 
 	bool SaveExists(std::string savePath);
 
@@ -44,7 +43,6 @@ public:
 	void PrintCurrentSaveData();
 
 	bool running = true;
-	bool pause;
 
 	SDL_Event e;
 
@@ -59,8 +57,11 @@ private:
 
 	double deltaTime = 0;
 	SaveManager::SaveData saveData;
-	std::unique_ptr<GameState> currentState;
 	std::unique_ptr<SaveManager> saveManager;
+
+	std::unique_ptr<GameState> currentState;
+	std::unique_ptr<GameState> pendingState;
+
 };
 
 #endif

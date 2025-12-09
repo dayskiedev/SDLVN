@@ -71,6 +71,7 @@ private:
 	};
 
 	PAUSE_STATE pauseState = PAUSED_MENU;
+	bool swappingScenes = false;
 
 	std::shared_ptr<Sprite> gBackground = std::make_shared<Sprite>();
 	SDL_Rect gBlackBox;
@@ -79,7 +80,7 @@ private:
 
 
 	// PAUSE UI STUFF
-	std::vector<std::shared_ptr<Texture>> PauseMenuUITest;
+	std::vector<std::shared_ptr<Texture>> PauseMainMenuUI;
 	std::shared_ptr<Sprite> uma = std::make_shared<Sprite>();
 };
 

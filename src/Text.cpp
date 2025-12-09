@@ -14,6 +14,7 @@ Text::Text(std::string inputText, int fontSize, TextType textType, SDL_Renderer*
 
 Text::~Text() {}
 
+
 // these where casuing a stqck overflow because i renamed the render in texture.h to Render
 // these where called render but also inherit from the base class, so they recusively called themselves...
 

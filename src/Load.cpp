@@ -23,7 +23,7 @@ void Load::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	// lock y axis, set limit on x axis
 
 	// maybe should be added as soon as we make the button?
-	backButton->OnClick = [this]() { _gameManager->ChangeState(std::make_unique<Menu>()); };
+	backButton->OnClick = [this]() { _gameManager->RequestState(std::make_unique<Menu>()); };
 	loadUI->AddButton(backButton);
 
 
@@ -92,7 +92,7 @@ void Load::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 				loadSaveButton->OnClick = [this, saveIndex, saveDirectory]() { 
 					std::cout << "Loading save " << std::to_string(saveIndex) << std::endl,
 					_gameManager->LoadSave(saveDirectory),
-					_gameManager->ChangeState(std::make_unique<Game>());
+					_gameManager->RequestState(std::make_unique<Game>());
 					};
 			}
 			else {

@@ -73,7 +73,7 @@
     <ClCompile Include="src\Text.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\PauseUI.cpp">
+    <ClCompile Include="src\OptionsUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -108,9 +108,6 @@
     <ClInclude Include="src\include\Options.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\PauseUI.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\include\SaveManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -133,6 +130,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\UIManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\OptionsUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

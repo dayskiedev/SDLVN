@@ -99,16 +99,21 @@ void GameManager::Run() {
 	currentState->Update(e, deltaTime);
 	currentState->Render();
 
+	// if we called a change of state, wait until all updates/renders have occurred, then change
+	// state so that no chance of objects in state trying to get things that have been deleted..
+	if (pendingState) {
+		currentState->ExitState();
+		currentState = std::move(pendingState);
+		// because we move ownership to currentState, pending state
+		// auto gets made a nullptr, so we wont have an infinite loop when changing states
+		currentState->EnterState(gRenderer, this);
+	}
+
 }   
 
-void GameManager::ChangeState(std::unique_ptr<GameState> state) {
-	if (currentState) {
-		currentState->ExitState();
-		currentState.reset();
-	}
-		
-	currentState = std::move(state);
-	currentState->EnterState(gRenderer, this);
+void GameManager::RequestState(std::unique_ptr<GameState> state) {
+	// transfer ownership of this state to pending state
+	pendingState = std::move(state);
 }
 
 void GameManager::Quit() {

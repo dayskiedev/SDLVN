@@ -57,8 +57,6 @@ bool Interpreter::OpenScript(std::string filePath) {
 		_scriptFile.push_back(line);
 	}
 	_scriptFileRaw.close();
-	
-	std::cout << "Copied file to vector \n";
 	return true;
 }
 

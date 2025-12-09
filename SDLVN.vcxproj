@@ -146,7 +146,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Menu.cpp" />
     <ClCompile Include="src\Options.cpp" />
-    <ClCompile Include="src\PauseUI.cpp" />
+    <ClCompile Include="src\OptionsUI.cpp" />
     <ClCompile Include="src\SaveManager.cpp" />
     <ClCompile Include="src\Sprite.cpp" />
     <ClCompile Include="src\SpriteManager.cpp" />
@@ -166,7 +166,7 @@
     <ClInclude Include="src\include\Load.h" />
     <ClInclude Include="src\include\Menu.h" />
     <ClInclude Include="src\include\Options.h" />
-    <ClInclude Include="src\include\PauseUI.h" />
+    <ClInclude Include="src\include\OptionsUI.h" />
     <ClInclude Include="src\include\SaveManager.h" />
     <ClInclude Include="src\include\Sprite.h" />
     <ClInclude Include="src\include\SpriteInformation.h" />

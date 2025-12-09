@@ -32,7 +32,7 @@ void Options::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	// lock y axis, set limit on x axis
 
 	// maybe should be added as soon as we make the button?
-	backButton->OnClick = [this]() { _gameManager->ChangeState(std::make_unique<Menu>()); };
+	backButton->OnClick = [this]() { _gameManager->RequestState(std::make_unique<Menu>()); };
 
 
 	optionUi->AddButton(backButton);
