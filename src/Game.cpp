@@ -52,7 +52,7 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	uma = std::make_shared<Sprite>("uma", GLOBAL_SPRITES_PATH + "saveicon.png", 
 		SCREEN_WIDTH - 800,
 		(SCREEN_HEIGHT / 2) - 300, 
-		600, 600, gameRenderer);
+		800, 800, gameRenderer);
 
 	std::shared_ptr<Button> resumeButton(new Button("resume", Button::UI, gameRenderer, DEFAULT_BUTTON_TEXTURE,
 		200, 50,	// w h
@@ -95,9 +95,8 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	loadButton->OnClick = [this]() { std::cout << "Show saves to load here" << std::endl; };
 	menuButton->OnClick = [this]() { _gameManager->ChangeState(std::make_unique<Menu>()); };
 
-	std::shared_ptr<Text> pauseText = std::make_unique<Text>("PAUSED", 120, Text::UI, gameRenderer);
-	pauseText->SetTextX((SCREEN_WIDTH / 2) - pauseText->GetTextWidth() / 2);
-
+	std::shared_ptr<Text> pauseText = std::make_unique<Text>("PAUSEDPAUSEDPAUSEDPAUSEDPAUSEDPAUSEDPAUSEDPAUSED", 120, Text::UI, gameRenderer);
+	//pauseText->SetTextX((SCREEN_WIDTH / 2) - pauseText->GetTextWidth() / 2);
 	PauseMenuUITest.push_back(pauseText);
 
 	// game data
@@ -135,7 +134,9 @@ void Game::Update(SDL_Event e, double deltaTime) {
 		case PAUSED:
 			switch (pauseState) {
 				case Game::PAUSED_MENU:
-					for (auto b : PauseMenuUITest) { b->Update(e); }
+					for (auto b : PauseMenuUITest) {
+						b->Update(e); 
+					}
 					break;
 				case Game::SAVE_MENU:
 					break;

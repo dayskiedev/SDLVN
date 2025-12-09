@@ -84,8 +84,8 @@ void Menu::Render() {
 		b->showText();
 	}
 
-	title->StaticRender(SCREEN_WIDTH / 2 - (title->GetTextWidth() / 2), 100);
-	version->StaticRender(15, SCREEN_HEIGHT - version->GetTextHeight());
+	title->StaticRender(SCREEN_WIDTH / 2 - (title->getWidth() / 2), 100);
+	version->StaticRender(15, SCREEN_HEIGHT - version->getHeight());
 
 	SDL_RenderPresent(menuRenderer);
 }

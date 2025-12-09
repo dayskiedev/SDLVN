@@ -93,7 +93,7 @@ void Button::OnHover() {
 	setAlpha(100);
 
 	if (buttonText == NULL) { return; }
-	buttonText->SetTextAlpha(100);
+	buttonText->setAlpha(100);
 }
 
 void Button::ExitHover() {
@@ -102,7 +102,7 @@ void Button::ExitHover() {
 	setAlpha(255);
 
 	if (buttonText == NULL) { return;  }
-	buttonText->SetTextAlpha(255);
+	buttonText->setAlpha(255);
 }
 
 bool Button::OverlappingCheck() {

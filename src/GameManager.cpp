@@ -57,7 +57,12 @@ bool GameManager::Init() {
 	currentState = std::make_unique<Menu>();
 	currentState->EnterState(gRenderer, this);
 
+	std::cout << "Default state initialised" << std::endl;
+
 	saveManager = std::make_unique<SaveManager>();
+
+	std::cout << "Save Manager initialised" << std::endl;
+
 
 	//
 	//SCREEN_WIDTH = 1920;
