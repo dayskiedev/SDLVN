@@ -29,6 +29,9 @@ public:
 	int GetTextWidth() { return textTexture->getWidth(); }
 	int GetTextHeight() { return textTexture->getHeight(); }
 
+	void SetTextX(int x) { textTexture->setX(x); };
+	void SetTextY(int y) { textTexture->setY(y); };
+
 	void Render();
 	void Render(int x, int y);
 

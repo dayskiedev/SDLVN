@@ -95,9 +95,8 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	loadButton->OnClick = [this]() { std::cout << "Show saves to load here" << std::endl; };
 	menuButton->OnClick = [this]() { _gameManager->ChangeState(std::make_unique<Menu>()); };
 
-	std::shared_ptr<Text> pauseText = std::make_unique<Text>("SDLVN", 120, Text::UI, gameRenderer);
-	pauseText->setX(300);
-	pauseText->setY(300);
+	std::shared_ptr<Text> pauseText = std::make_unique<Text>("PAUSED", 120, Text::UI, gameRenderer);
+	pauseText->SetTextX((SCREEN_WIDTH / 2) - pauseText->GetTextWidth() / 2);
 
 	PauseMenuUITest.push_back(pauseText);
 
@@ -197,6 +196,8 @@ void Game::Render() {
 			SDL_SetRenderDrawColor(gameRenderer, 0, 0, 0, 100);
 			SDL_RenderFillRect(gameRenderer, &gBlackBox);
 
+			// for some reason we need to get the x and y values of the object,
+			// even though the base render uses the same values?
 			for (auto b : PauseMenuUITest) {
 				b->Render();
 			}
