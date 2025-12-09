@@ -45,7 +45,7 @@ void Options::Render() {
 	SDL_RenderClear(optionRenderer);
 
 	for (auto b : optionUi->GetUiVector()) {
-		b->render();
+		b->Render();
 		// why is this seperate lol?
 		b->showText();
 	}

@@ -49,8 +49,7 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	// THIS WILL BE MOVE TO THE PAUSE UI CPP FILE TO INITIALISE THERE INSTEAD? IDK
 
 	// also by god stop with the magic numbers...
-	uma = std::make_shared<Sprite>("uma", 
-		GLOBAL_SPRITES_PATH + "saveicon.png", 
+	uma = std::make_shared<Sprite>("uma", GLOBAL_SPRITES_PATH + "saveicon.png", 
 		SCREEN_WIDTH - 800,
 		(SCREEN_HEIGHT / 2) - 300, 
 		600, 600, gameRenderer);
@@ -92,10 +91,15 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	PauseMenuUITest.push_back(menuButton);
 	resumeButton->OnClick = [this]() { currentState = RUNNING; };
 	optButton->OnClick = [this]() { std::cout << "show options menu" << std::endl; };
-	saveButton->OnClick = [this]() { _gameManager->SaveGame(interpreter, spriteManager, gBackground); };
+	saveButton->OnClick = [this]() { pauseState = SAVE_MENU; };
 	loadButton->OnClick = [this]() { std::cout << "Show saves to load here" << std::endl; };
 	menuButton->OnClick = [this]() { _gameManager->ChangeState(std::make_unique<Menu>()); };
 
+	std::shared_ptr<Text> pauseText = std::make_unique<Text>("SDLVN", 120, Text::UI, gameRenderer);
+	pauseText->setX(300);
+	pauseText->setY(300);
+
+	PauseMenuUITest.push_back(pauseText);
 
 	// game data
 	auto& saveData = gameManager->GetSaveData();
@@ -130,8 +134,16 @@ void Game::Update(SDL_Event e, double deltaTime) {
 			}
 			break;
 		case PAUSED:
-			for (auto b : PauseMenuUITest) {
-				b->Update(e);
+			switch (pauseState) {
+				case Game::PAUSED_MENU:
+					for (auto b : PauseMenuUITest) { b->Update(e); }
+					break;
+				case Game::SAVE_MENU:
+					break;
+				case Game::LOAD_MENU:
+					break;
+				case Game::OPTIONS_MENU:
+					break;
 			}
 	}
 
@@ -148,12 +160,12 @@ void Game::Render() {
 		case RUNNING:
 		{
 			// layer -1 background
-			gBackground->render(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+			gBackground->Render(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 			// layer 1 character sprites
 			for (auto s : spriteManager->getSpriteVector()) {
 				// change render to be scaled based from settings
-				s->render(s->getX(), s->getY(), s->getWidth() / 1.5, s->getHeight() / 1.5);
+				s->Render(s->getX(), s->getY(), s->getWidth() / 1.5, s->getHeight() / 1.5);
 			}
 
 			SDL_SetRenderDrawColor(gameRenderer, 0, 0, 0, 100);
@@ -173,25 +185,23 @@ void Game::Render() {
 			// this is where pause menu SHOULD go
 			// major overhaul needed, buttons should showtext in their own render
 			for (auto b : uiManager->GetUiVector()) {
-				b->render();
-				b->showText();
+				b->Render();
 			}
 			break;
 		}
 		case PAUSED:
 			// keep rendering background
-			gBackground->render(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+			gBackground->Render(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 			// dim background slightly
 			SDL_SetRenderDrawColor(gameRenderer, 0, 0, 0, 100);
 			SDL_RenderFillRect(gameRenderer, &gBlackBox);
 
 			for (auto b : PauseMenuUITest) {
-				b->render();
-				b->showText(); // god damn this should just be in button render already...
+				b->Render();
 			}
 
-			uma->render();
+			uma->Render();
 			break;
 	}
 

@@ -19,9 +19,13 @@ public:
 
 	void setAlpha(Uint8 a);
 
-	void render();
-	void render(int x, int y);
-	void render(int x, int y, int w, int h);
+	virtual void Render();
+	virtual void Render(int x, int y);
+	virtual void Render(int x, int y, int w, int h);
+
+	// this should NOT be in texture class, should make some sort of gameobject
+	// base class that includes texture that everyhting should derive from?
+	virtual void Update(SDL_Event e);
 
 	// might as well be public right?
 	int getWidth();

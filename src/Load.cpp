@@ -111,7 +111,7 @@ void Load::Render() {
 	SDL_RenderClear(loadRenderer);
 
 	for (auto b : loadUI->GetUiVector()) {
-		b->render();
+		b->Render();
 		// why is this seperate lol?
 		b->showText();
 	}

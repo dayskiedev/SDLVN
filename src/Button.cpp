@@ -1,6 +1,5 @@
 #include "Button.h"
 
-// Default Constructor 
 Button::Button() {}
 Button::Button(std::string name, ButtonType setType, SDL_Renderer* renderer, std::string texture, int w, int h, int x, int y, std::string text, int fontSize) {
 	setButtonName(name);
@@ -43,6 +42,21 @@ Button::~Button() {
 	Mix_FreeChunk(buttonClick);
 	buttonClick = NULL;
 	//std::cout << "destroyed button " << this->GetButtonName() << std::endl;
+}
+
+// overloads to render text at the same time, kinda annoying...
+void Button::Render() {
+	Texture::Render();
+	showText();
+}
+
+void Button::Render(int x, int y) {
+	Texture::Render(x, y);
+	showText();
+}
+void Button::Render(int x, int y, int w, int h) {
+	Texture::Render(x, y, w, h);
+	showText();
 }
 
 void Button::Update(SDL_Event e) {

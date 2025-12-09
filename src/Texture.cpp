@@ -43,12 +43,12 @@
 
 	// dont need this many variations of the render?
 
-	void Texture::render() {
+	void Texture::Render() {
 		SDL_Rect renderQuad = { mX,mY, mWidth, mHeight };
 		SDL_RenderCopy(renderer, mTexture, NULL, &renderQuad);
 	}
 
-	void Texture::render(int x, int y) {
+	void Texture::Render(int x, int y) {
 		mX = x;
 		mY = y;
 		SDL_Rect renderQuad = { x,y, mWidth, mHeight };
@@ -56,12 +56,14 @@
 	}
 
 
-	void Texture::render(int x, int y, int w, int h) {
+	void Texture::Render(int x, int y, int w, int h) {
 		mX = x;
 		mY = y;
 		SDL_Rect renderQuad = { x,y, w, h };
 		SDL_RenderCopy(renderer, mTexture, NULL, &renderQuad);
 	}
+
+	void Texture::Update(SDL_Event e) {}
 
 	// might as well be public right?
 	int Texture::getWidth() { return mWidth; }

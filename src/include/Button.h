@@ -39,10 +39,17 @@ public:
 	void setText(std::string text, int fontSize, SDL_Renderer* renderer);
 	void showText();
 
-	void Update(SDL_Event e);
+	void Update(SDL_Event e); // overide texture virtual function 
+
+
+	// texture.h overloads
+	void Render();
+	void Render(int x, int y);
+	void Render(int x, int y, int w, int h);
 
 	void setButtonName(std::string btnName);
 	std::string GetButtonName();
+
 
 	ButtonType GetType();
 

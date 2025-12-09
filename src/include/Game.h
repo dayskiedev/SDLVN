@@ -63,6 +63,15 @@ private:
 
 	GAME_STATE currentState = RUNNING;
 
+	enum PAUSE_STATE {
+		PAUSED_MENU,
+		SAVE_MENU,
+		LOAD_MENU,
+		OPTIONS_MENU			
+	};
+
+	PAUSE_STATE pauseState = PAUSED_MENU;
+
 	std::shared_ptr<Sprite> gBackground = std::make_shared<Sprite>();
 	SDL_Rect gBlackBox;
 
@@ -70,7 +79,7 @@ private:
 
 
 	// PAUSE UI STUFF
-	std::vector<std::shared_ptr<Button>> PauseMenuUITest;
+	std::vector<std::shared_ptr<Texture>> PauseMenuUITest;
 	std::shared_ptr<Sprite> uma = std::make_shared<Sprite>();
 };
 

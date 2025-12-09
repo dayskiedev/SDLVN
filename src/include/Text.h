@@ -6,7 +6,7 @@
 
 #ifndef TEXT_H
 #define TEXT_H
-class Text {
+class Text : public Texture {
 public:
 	enum TextType
 	{
@@ -29,6 +29,7 @@ public:
 	int GetTextWidth() { return textTexture->getWidth(); }
 	int GetTextHeight() { return textTexture->getHeight(); }
 
+	void Render();
 	void Render(int x, int y);
 
 	// for text whose length does not change

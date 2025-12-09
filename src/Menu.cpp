@@ -65,7 +65,7 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	menuUi->AddButton(quitButton);
 
 	title = std::make_unique<Text>("SDLVN", 120, Text::UI, menuRenderer);
-	version = std::make_unique<Text>("v0.0.9", 30, Text::UI, menuRenderer);
+	version = std::make_unique<Text>("v0.1.4", 30, Text::UI, menuRenderer);
 }
 
 void Menu::Update(SDL_Event e, double deltaTime) {
@@ -76,10 +76,10 @@ void Menu::Render() {
 	SDL_SetRenderDrawColor(menuRenderer, 100, 100, 100, 100);
 	SDL_RenderClear(menuRenderer);
 
-	background->render();
+	background->Render();
 
 	for (auto b : menuUi->GetUiVector()) { 
-		b->render(); 
+		b->Render(); 
 		// why is this seperate lol?
 		b->showText();
 	}
