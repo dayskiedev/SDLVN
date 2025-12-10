@@ -62,7 +62,7 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	PauseMainMenuUI.push_back(loadButton);
 	PauseMainMenuUI.push_back(menuButton);
 	resumeButton->OnClick = [this]() { currentState = RUNNING; };
-	optButton->OnClick = [this]() { std::cout << "show options menu" << std::endl; };
+	optButton->OnClick = [this]() { pauseState = OPTIONS_MENU; };
 	saveButton->OnClick = [this]() { _gameManager->SaveGame(interpreter, spriteManager, gBackground); };
 	loadButton->OnClick = [this]() { std::cout << "Show saves to load here" << std::endl; };
 	menuButton->OnClick = [this]() { _gameManager->RequestState(std::make_unique<Menu>()); };
@@ -71,6 +71,14 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	std::shared_ptr<Text> pauseText = std::make_unique<Text>("PAUSEDPAUSEDPAUSEDPAUSEDPAUSEDPAUSEDPAUSEDPAUSED", 120, Text::UI, gameRenderer);
 	pauseText->setX((SCREEN_WIDTH / 2) - pauseText->getWidth() / 2);
 	PauseMainMenuUI.push_back(pauseText);
+
+	// pause menu UI
+
+	// Options
+	optionsUI->LoadOptionsUI(gameRenderer);
+	std::shared_ptr<Button> optBackButton(new Button("optionsBack", Button::UI, gameRenderer, DEFAULT_BUTTON_TEXTURE, 200, 50, 0, 0, "Back", 30));
+	optBackButton->OnClick = [this]() { pauseState = PAUSED_MENU; };
+	optionsUI->AddObject(optBackButton);
 
 	// game data
 	auto& saveData = gameManager->GetSaveData();
@@ -107,8 +115,8 @@ void Game::Update(SDL_Event e, double deltaTime) {
 		case PAUSED:
 			switch (pauseState) {
 				case PAUSED_MENU:
-					for (auto& b : PauseMainMenuUI) {
-						b->Update(e); 
+					for (auto& obj : PauseMainMenuUI) {
+						obj->Update(e); 
 					}
 					break;
 				case SAVE_MENU:
@@ -116,6 +124,9 @@ void Game::Update(SDL_Event e, double deltaTime) {
 				case LOAD_MENU:
 					break;
 				case OPTIONS_MENU:
+					for (auto& obj : optionsUI->getVector()) {
+						obj->Update(e);
+					}
 					break;
 			}
 	}
@@ -163,20 +174,35 @@ void Game::Render() {
 			break;
 		}
 		case PAUSED:
-			// keep rendering background
-			gBackground->Render(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-			// dim background slightly
-			SDL_SetRenderDrawColor(gameRenderer, 0, 0, 0, 100);
-			SDL_RenderFillRect(gameRenderer, &gBlackBox);
+			switch (pauseState)
+			{
+			case PAUSED_MENU:
+				// keep rendering background
+				gBackground->Render(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-			// for some reason we need to get the x and y values of the object,
-			// even though the base render uses the same values?
-			for (auto b : PauseMainMenuUI) {
-				b->Render();
+				// dim background slightly
+				SDL_SetRenderDrawColor(gameRenderer, 0, 0, 0, 100);
+				SDL_RenderFillRect(gameRenderer, &gBlackBox);
+
+				// for some reason we need to get the x and y values of the object,
+				// even though the base render uses the same values?
+				for (auto b : PauseMainMenuUI) {
+					b->Render();
+				}
+
+				uma->Render();
+				break;
+			case SAVE_MENU:
+				break;
+			case LOAD_MENU:
+				break;
+			case OPTIONS_MENU:
+				for (auto& obj : optionsUI->getVector()) {
+					obj->Render();
+				}
+				break;
 			}
-
-			uma->Render();
 			break;
 	}
 

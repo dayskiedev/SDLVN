@@ -1,18 +1,23 @@
 #include <iostream>
+#include <vector>
 
 #include "Config.h"
+#include "Texture.h"
 
-#ifndef PAUSE_UI
-#define PAUSE_UI
-
-#include "GameState.h"
-#include "GameManager.h"
+#ifndef OPTIONS_UI
+#define OPTIONS_UI
 
 // UI Sub-States
 
-class PauseUI{
+class OptionsUI{
 public:
+	OptionsUI();
+
+	void LoadOptionsUI(SDL_Renderer* renderer);
+	void AddObject(std::shared_ptr<Texture> obj);
+	std::vector< std::shared_ptr<Texture>> getVector() { return optionsUIBaseVec; }
 private:
+	std::vector<std::shared_ptr<Texture>> optionsUIBaseVec;
 };
 
 #endif

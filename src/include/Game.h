@@ -14,6 +14,8 @@
 #include "Button.h"
 #include "Config.h"
 
+#include "OptionsUI.h"
+
 #include <queue>
 
 #ifndef GAME_H
@@ -78,10 +80,10 @@ private:
 
 	Interpreter interpreter;
 
-
 	// PAUSE UI STUFF
 	std::vector<std::shared_ptr<Texture>> PauseMainMenuUI;
 	std::shared_ptr<Sprite> uma = std::make_shared<Sprite>();
+	std::unique_ptr<OptionsUI> optionsUI = std::make_unique<OptionsUI>();
 };
 
 #endif
