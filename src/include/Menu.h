@@ -5,6 +5,8 @@
 
 #include "Config.h"
 
+#include "OptionsUI.h"
+
 #ifndef MENU_H
 #define MENU_H
 
@@ -26,6 +28,15 @@ private:
 
 	std::unique_ptr<Text> title;
 	std::unique_ptr<Text> version;
+
+	enum MENU_STATE {
+		MAIN_MENU,
+		LOAD_SAVE,
+		OPTIONS
+	};
+
+	MENU_STATE menuState = MAIN_MENU;
+	std::unique_ptr<OptionsUI> optionsUI = std::make_unique<OptionsUI>();
 };
 
 #endif

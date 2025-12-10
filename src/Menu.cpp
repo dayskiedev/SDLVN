@@ -56,7 +56,7 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 		_gameManager->RequestState(std::make_unique<Game>()); 
 	};
 	contButton->OnClick = [this]() { _gameManager->RequestState(std::make_unique<Load>()); };
-	optButton->OnClick = [this]() { _gameManager->RequestState(std::make_unique<Options>()); };
+	optButton->OnClick = [this]() { menuState = OPTIONS; };
 	quitButton->OnClick = [this]() { _gameManager->running = false; };
 	
 	menuUi->AddButton(playButton);
@@ -66,26 +66,58 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 
 	title = std::make_unique<Text>("SDLVN", 120, Text::UI, menuRenderer);
 	version = std::make_unique<Text>("v0.1.4", 30, Text::UI, menuRenderer);
+
+
+	// other UI
+	optionsUI->LoadOptionsUI(menuRenderer);
+	std::shared_ptr<Button> optBackButton(new Button("optionsBack", Button::UI, menuRenderer, DEFAULT_BUTTON_TEXTURE, 200, 50, 0, 0, "Back", 30));
+	optBackButton->OnClick = [this]() { menuState = MAIN_MENU; };
+	optionsUI->AddObject(optBackButton);
 }
 
 void Menu::Update(SDL_Event e, double deltaTime) {
-	for (auto b : menuUi->GetUiVector()) { b->Update(e); }
+	switch (menuState)
+	{
+	case MAIN_MENU:
+		for (auto obj : menuUi->GetUiVector()) { obj->Update(e); }
+		break;
+	case LOAD_SAVE:
+		break;
+	case OPTIONS:
+		for (auto obj : optionsUI->getVector()) { obj->Update(e); };
+		break;
+	default:
+		break;
+	}
 }
 
 void Menu::Render() {
 	SDL_SetRenderDrawColor(menuRenderer, 100, 100, 100, 100);
 	SDL_RenderClear(menuRenderer);
 
-	background->Render();
+	switch (menuState)
+	{
+	case MAIN_MENU:
+		background->Render();
 
-	for (auto b : menuUi->GetUiVector()) { 
-		b->Render(); 
-		// why is this seperate lol?
-		b->showText();
+		for (auto b : menuUi->GetUiVector()) {
+			b->Render();
+			// why is this seperate lol?
+			b->showText();
+		}
+
+		title->StaticRender(SCREEN_WIDTH / 2 - (title->getWidth() / 2), 100);
+		version->StaticRender(15, SCREEN_HEIGHT - version->getHeight());
+		break;
+	case LOAD_SAVE:
+		break;
+	case OPTIONS:
+		for (auto obj : optionsUI->getVector()) { obj->Render(); };
+		break;
+	default:
+		break;
 	}
 
-	title->StaticRender(SCREEN_WIDTH / 2 - (title->getWidth() / 2), 100);
-	version->StaticRender(15, SCREEN_HEIGHT - version->getHeight());
 
 	SDL_RenderPresent(menuRenderer);
 }

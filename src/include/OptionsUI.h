@@ -3,6 +3,8 @@
 
 #include "Config.h"
 #include "Texture.h"
+#include "Button.h"
+#include "Sprite.h"
 
 #ifndef OPTIONS_UI
 #define OPTIONS_UI

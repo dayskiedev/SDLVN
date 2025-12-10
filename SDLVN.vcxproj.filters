@@ -64,9 +64,6 @@
     <ClCompile Include="src\UIManager.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="src\Options.cpp">
-      <Filter>Source Files\States</Filter>
-    </ClCompile>
     <ClCompile Include="src\Load.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
@@ -103,9 +100,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\Menu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\Options.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SaveManager.h">

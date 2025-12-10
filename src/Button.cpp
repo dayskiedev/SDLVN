@@ -14,9 +14,6 @@ Button::Button(std::string name, ButtonType setType, SDL_Renderer* renderer, std
 
 	// set button hover sound
 	// should be done in audiomanager?
-	buttonHover = Mix_LoadWAV((GLOBAL_SOUNDS_PATH + "snd_hover.wav").c_str());
-	buttonClick = Mix_LoadWAV((GLOBAL_SOUNDS_PATH + "snd_click.wav").c_str());
-	if (buttonClick == NULL) { std::cout << "erorr]\n"; }
 }
 
 Button::Button(std::string name, ButtonType setType, SDL_Renderer* renderer, std::string texture, int w, int h, int x, int y) {
@@ -30,17 +27,9 @@ Button::Button(std::string name, ButtonType setType, SDL_Renderer* renderer, std
 	setY(y);
 	// set button hover sound
 	// should be done in audiomanager?
-	buttonHover = Mix_LoadWAV((GLOBAL_SOUNDS_PATH + "snd_hover.wav").c_str());
-	buttonClick = Mix_LoadWAV((GLOBAL_SOUNDS_PATH + "snd_click.wav").c_str());
-	if (buttonClick == NULL) { std::cout << "erorr]\n"; }
 }
 
 Button::~Button() {
-	// button specifc destructors (ie sounds)
-	Mix_FreeChunk(buttonHover);
-	buttonHover = NULL;
-	Mix_FreeChunk(buttonClick);
-	buttonClick = NULL;
 	//std::cout << "destroyed button " << this->GetButtonName() << std::endl;
 }
 
@@ -66,7 +55,6 @@ void Button::Update(SDL_Event e) {
 		OnHover();
 
 		if (e.type == SDL_MOUSEBUTTONDOWN) {
-			Mix_PlayChannel(2, buttonClick, 0);
 			if (OnClick) { 
 				OnClick(); 
 			}
@@ -85,10 +73,7 @@ void Button::setText(std::string text, int fontSize, SDL_Renderer* renderer) {
 }
 
 void Button::OnHover() {
-	if (!entered) {
-		entered = true;
-		Mix_PlayChannel(2, buttonHover, 0);
-	}
+	if (!entered) { entered = true; }
 
 	setAlpha(100);
 

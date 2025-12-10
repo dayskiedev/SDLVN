@@ -1,5 +1,4 @@
 #include <SDL.h>
-#include <SDL_mixer.h>
 #include <SDL_ttf.h>
 #include <iostream>
 #include <functional>
@@ -63,8 +62,6 @@ private:
 
 	std::unique_ptr<Text> buttonText = NULL;
 	TTF_Font* _font = NULL;
-	Mix_Chunk* buttonHover;
-	Mix_Chunk* buttonClick;
 };
 
 #endif
