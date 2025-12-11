@@ -71,12 +71,13 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 		// then set the onclicks to this function?, with extra arg of
 		// the button name?
 		std::cout << "Entered in save mode" << std::endl;
+		saveLoadUI->UpdateFileButtons(false);
 		pauseState = SAVE_MENU;
 
 		//_gameManager->SaveGame(interpreter, spriteManager, gBackground); 
 	};
 	loadButton->OnClick = [this]() { 
-		std::cout << "Entered in load mode" << std::endl; 
+		saveLoadUI->UpdateFileButtons(true);
 		pauseState = LOAD_MENU;
 	};
 	menuButton->OnClick = [this]() { _gameManager->RequestState(std::make_unique<Menu>()); };
@@ -199,7 +200,7 @@ void Game::Render() {
 
 				// for some reason we need to get the x and y values of the object,
 				// even though the base render uses the same values?
-				for (auto b : PauseMainMenuUI) {
+				for (auto& b : PauseMainMenuUI) {
 					b->Render();
 				}
 
@@ -229,6 +230,7 @@ void Game::Render() {
 
 void Game::ExitState() {	
 	// exit code here
+	PauseMainMenuUI.clear();
 }
 
 

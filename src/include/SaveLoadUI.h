@@ -25,10 +25,16 @@ public:
 
 	std::shared_ptr<Button> GetBackButton() { return slBackButton; }
 
+	// set to true = we want to load a save, set to false = we want to create a save
+	bool setLoadMode(bool m) { loadMode = m; }
+
+	void UpdateFileButtons(bool loadMode);
+
 	void UpdateSaveFiles();
 private:
 	std::vector<std::shared_ptr<Texture>> saveLoadUIBaseVec;
 
 	std::shared_ptr<Button> slBackButton;
 	GameManager* _gameManager;
+	bool loadMode = false;
 };

@@ -153,10 +153,17 @@ void GameManager::SaveGame(Interpreter& interpreterInfo, std::shared_ptr<SpriteM
 
 void GameManager::LoadSave(std::string savePath) {
 	// this will set the GameManagers saveStruct which will be used by the interpretor
+	if (!SaveExists(savePath)) {
+		std::cout << "Unable to find save: " << savePath << std::endl;
+		return;
+	}
+
 
 	if (!saveManager->Load(saveData, savePath)) {
 		std::cout << "error loading save";
 	}
+
+	RequestState(std::make_unique<Game>());
 }
 
 void GameManager::PrintCurrentSaveData() {

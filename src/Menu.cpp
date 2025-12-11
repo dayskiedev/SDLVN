@@ -60,6 +60,7 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	};
 	contButton->OnClick = [this]() { 
 		std::cout << "Entered in load mode," << std::endl;
+		saveLoadUI->UpdateFileButtons(true);
 		menuState = LOAD_SAVE; 
 	};
 	optButton->OnClick = [this]() { menuState = OPTIONS; };
@@ -110,7 +111,7 @@ void Menu::Render() {
 	case MAIN_MENU:
 		background->Render();
 
-		for (auto b : menuUi->GetUiVector()) {
+		for (auto& b : menuUi->GetUiVector()) {
 			b->Render();
 			// why is this seperate lol?
 			b->showText();

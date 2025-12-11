@@ -34,36 +34,42 @@ void SaveLoadUI::LoadSaveLoadUI(SDL_Renderer* renderer, GameManager* gameManager
 			bool saveExists = _gameManager->SaveExists(saveDirectory);
 
 			if (saveExists) {
-				;
 				savefileButtonTexture = GLOBAL_SPRITES_PATH + "saveExists.png";
-				saveName = "";
 			}
 
 			// if this save exists in save directory, then we want the icon to be the save img
 			// using raw values for ui is bad i know
-			std::shared_ptr<Button> loadSaveButton(new Button("save",Button::UI, renderer, savefileButtonTexture, 250, 250, 100 + (400 * j), 75 + (275 * i) ));
-
-
-			// needs to check button name....
-			// also needs to change depending on save/load mode
-			if (saveExists) {
-				// i know its silly to check again but we need to in order to properly assign the onClick functions
-				loadSaveButton->OnClick = [this, saveIndex, saveDirectory]() {
-					std::cout << "Loading save " << std::to_string(saveIndex) << std::endl,
-						_gameManager->LoadSave(saveDirectory),
-						_gameManager->RequestState(std::make_unique<Game>());
-					};
-			}
-			else {
-				loadSaveButton->OnClick = [this, saveIndex]() { std::cout << "No save found..." << std::endl; };
-			}
-
+			std::shared_ptr<Button> loadSaveButton(new Button(saveName,Button::UI, renderer, savefileButtonTexture, 250, 250, 100 + (400 * j), 75 + (275 * i) ));
 			saveLoadUIBaseVec.push_back(loadSaveButton);
 			saveIndex++;
 		}
 	}
 
 	
+}
+
+
+// need to dynamic cast because c++ doesnt just have a check obj type ig?
+void SaveLoadUI::UpdateFileButtons(bool loadMode) {
+	for (auto& obj : saveLoadUIBaseVec) {
+		// cast obj to button, if obj is null its not a button, then check start of obj name to see if it matches save buttons
+		auto b = std::dynamic_pointer_cast<Button> (obj);
+		if (b != NULL && b->GetButtonName().substr(0,4) == "save") {
+			// if loadmode is true it means we want to load a save when clicked, and the opposite when its false
+			std::string savePath = DEFAULT_SAVE_LOCATION + b->GetButtonName() + ".dat";
+			if (loadMode) {
+				b->OnClick = [this, savePath]() {
+					_gameManager->LoadSave(savePath);
+				};
+			}
+			else {
+				b->OnClick = [this]() {
+					std::cout << "Save the game!!\n"; 
+				};
+			}
+
+		}
+	}
 }
 
 void SaveLoadUI::AddObject(std::shared_ptr<Texture> obj) {
