@@ -1,13 +1,11 @@
+#pragma once
+
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include <iostream>
 #include <functional>
 
 // will mostly stick to interpretor except for main menu and screen ubttons?
-
-#ifndef BUTTON_H
-#define BUTTON_H
-
 #include "Texture.h"
 #include "Text.h"
 #include "Config.h"
@@ -63,5 +61,3 @@ private:
 	std::unique_ptr<Text> buttonText = NULL;
 	TTF_Font* _font = NULL;
 };
-
-#endif

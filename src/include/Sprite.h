@@ -1,12 +1,10 @@
+#pragma once
+
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
 
 #include "Texture.h"
-
-#ifndef SPRITE_H
-#define SPRITE_H
-
 
 class Sprite : public Texture {
 public:
@@ -24,5 +22,3 @@ private:
 	std::string _spriteName;
 	std::string _spriteTexPath;
 };
-
-#endif

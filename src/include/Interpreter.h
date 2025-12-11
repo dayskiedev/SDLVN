@@ -1,3 +1,5 @@
+#pragma once
+
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
@@ -19,9 +21,6 @@
 #include "UIManager.h"
 
 #include "Config.h"
-
-#ifndef INTERPRETER_H
-#define INTERPRETER_H
 
 class Interpreter {
 public:
@@ -72,5 +71,3 @@ private:
 	std::shared_ptr<UIManager> _uiManager; 
 	std::shared_ptr<Sprite> background;
 };
-
-#endif

@@ -63,8 +63,19 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	PauseMainMenuUI.push_back(menuButton);
 	resumeButton->OnClick = [this]() { currentState = RUNNING; };
 	optButton->OnClick = [this]() { pauseState = OPTIONS_MENU; };
-	saveButton->OnClick = [this]() { _gameManager->SaveGame(interpreter, spriteManager, gBackground); };
-	loadButton->OnClick = [this]() { std::cout << "Show saves to load here" << std::endl; };
+	saveButton->OnClick = [this]() { 
+		// get save load vuttons here?
+		// then set the onclicks to this function?, with extra arg of
+		// the button name?
+		std::cout << "Entered in save mode" << std::endl;
+		pauseState = SAVE_MENU;
+
+		//_gameManager->SaveGame(interpreter, spriteManager, gBackground); 
+	};
+	loadButton->OnClick = [this]() { 
+		std::cout << "Entered in load mode" << std::endl; 
+		pauseState = LOAD_MENU;
+	};
 	menuButton->OnClick = [this]() { _gameManager->RequestState(std::make_unique<Menu>()); };
 
 	// should be a constructor
@@ -72,13 +83,13 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	pauseText->setX((SCREEN_WIDTH / 2) - pauseText->getWidth() / 2);
 	PauseMainMenuUI.push_back(pauseText);
 
-	// pause menu UI
 
-	// Options
+	// Options UI
 	optionsUI->LoadOptionsUI(gameRenderer);
-	std::shared_ptr<Button> optBackButton(new Button("optionsBack", Button::UI, gameRenderer, DEFAULT_BUTTON_TEXTURE, 200, 50, 0, 0, "Back", 30));
-	optBackButton->OnClick = [this]() { pauseState = PAUSED_MENU; };
-	optionsUI->AddObject(optBackButton);
+	optionsUI->GetBackButton()->OnClick = [this]() { pauseState = PAUSED_MENU; };
+
+	saveLoadUI->LoadSaveLoadUI(gameRenderer, gameManager);
+	saveLoadUI->GetBackButton()->OnClick = [this]() { pauseState = PAUSED_MENU; };
 
 	// game data
 	auto& saveData = gameManager->GetSaveData();
@@ -115,18 +126,16 @@ void Game::Update(SDL_Event e, double deltaTime) {
 		case PAUSED:
 			switch (pauseState) {
 				case PAUSED_MENU:
-					for (auto& obj : PauseMainMenuUI) {
-						obj->Update(e); 
-					}
+					for (auto& obj : PauseMainMenuUI) { obj->Update(e); }
 					break;
 				case SAVE_MENU:
+					for (auto& obj : saveLoadUI->getVector()) { obj->Update(e); }
 					break;
 				case LOAD_MENU:
+					for (auto& obj : saveLoadUI->getVector()) { obj->Update(e); }
 					break;
 				case OPTIONS_MENU:
-					for (auto& obj : optionsUI->getVector()) {
-						obj->Update(e);
-					}
+					for (auto& obj : optionsUI->getVector()) { obj->Update(e); }
 					break;
 			}
 	}
@@ -194,8 +203,14 @@ void Game::Render() {
 				uma->Render();
 				break;
 			case SAVE_MENU:
+				for (auto& obj : saveLoadUI->getVector()) {
+					obj->Render();
+				}
 				break;
 			case LOAD_MENU:
+				for (auto& obj : saveLoadUI->getVector()) {
+					obj->Render();
+				}
 				break;
 			case OPTIONS_MENU:
 				for (auto& obj : optionsUI->getVector()) {

@@ -1,10 +1,9 @@
+#pragma once
+
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
-
-#ifndef TEXTURE_H
-#define TEXTURE_H
 
 class Texture {
 public:
@@ -55,5 +54,3 @@ private:
 	int mX;
 	int mY;
 };
-
-#endif

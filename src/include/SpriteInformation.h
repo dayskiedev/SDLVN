@@ -1,7 +1,6 @@
-#include <iostream>
+#pragma once
 
-#ifndef SPRITE_INFORMATION_H
-#define SPRITE_INFORMATION_H
+#include <iostream>
 
 struct SpriteInformation {
 	std::string spriteName;
@@ -11,5 +10,3 @@ struct SpriteInformation {
 	int w;
 	int h;
 };
-
-#endif // !SPRITE_INFORMATION_H

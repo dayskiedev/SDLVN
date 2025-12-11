@@ -1,3 +1,5 @@
+#pragma once
+
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
@@ -5,9 +7,6 @@
 
 #include <iostream>
 #include <memory>
-
-#ifndef GAMEMANAGER_H
-#define GAMEMANAGER_H
 
 #include "Config.h"
 
@@ -62,5 +61,3 @@ private:
 	std::unique_ptr<GameState> pendingState;
 
 };
-
-#endif

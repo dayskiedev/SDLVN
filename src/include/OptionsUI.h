@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include <vector>
 
@@ -5,9 +7,6 @@
 #include "Texture.h"
 #include "Button.h"
 #include "Sprite.h"
-
-#ifndef OPTIONS_UI
-#define OPTIONS_UI
 
 // UI Sub-States
 
@@ -18,8 +17,10 @@ public:
 	void LoadOptionsUI(SDL_Renderer* renderer);
 	void AddObject(std::shared_ptr<Texture> obj);
 	std::vector< std::shared_ptr<Texture>> getVector() { return optionsUIBaseVec; }
+
+	std::shared_ptr<Button> GetBackButton() { return optBackButton; }
 private:
 	std::vector<std::shared_ptr<Texture>> optionsUIBaseVec;
-};
 
-#endif
+	std::shared_ptr<Button> optBackButton;
+};

@@ -55,7 +55,10 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 		_gameManager->SetDefaultGameState();
 		_gameManager->RequestState(std::make_unique<Game>()); 
 	};
-	contButton->OnClick = [this]() { _gameManager->RequestState(std::make_unique<Load>()); };
+	contButton->OnClick = [this]() { 
+		std::cout << "Entered in load mode," << std::endl;
+		menuState = LOAD_SAVE; 
+	};
 	optButton->OnClick = [this]() { menuState = OPTIONS; };
 	quitButton->OnClick = [this]() { _gameManager->running = false; };
 	
@@ -70,21 +73,25 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 
 	// other UI
 	optionsUI->LoadOptionsUI(menuRenderer);
-	std::shared_ptr<Button> optBackButton(new Button("optionsBack", Button::UI, menuRenderer, DEFAULT_BUTTON_TEXTURE, 200, 50, 0, 0, "Back", 30));
-	optBackButton->OnClick = [this]() { menuState = MAIN_MENU; };
-	optionsUI->AddObject(optBackButton);
+	optionsUI->GetBackButton()->OnClick = [this]() { menuState = MAIN_MENU; };
+
+
+	saveLoadUI->LoadSaveLoadUI(menuRenderer, gameManager);
+	saveLoadUI->GetBackButton()->OnClick = [this]() { menuState = MAIN_MENU; };
+
 }
 
 void Menu::Update(SDL_Event e, double deltaTime) {
 	switch (menuState)
 	{
 	case MAIN_MENU:
-		for (auto obj : menuUi->GetUiVector()) { obj->Update(e); }
+		for (auto& obj : menuUi->GetUiVector()) { obj->Update(e); }
 		break;
 	case LOAD_SAVE:
+		for (auto& obj : saveLoadUI->getVector()) { obj->Update(e); }
 		break;
 	case OPTIONS:
-		for (auto obj : optionsUI->getVector()) { obj->Update(e); };
+		for (auto& obj : optionsUI->getVector()) { obj->Update(e); };
 		break;
 	default:
 		break;
@@ -110,6 +117,7 @@ void Menu::Render() {
 		version->StaticRender(15, SCREEN_HEIGHT - version->getHeight());
 		break;
 	case LOAD_SAVE:
+		for (auto& obj : saveLoadUI->getVector()) { obj->Render(); }
 		break;
 	case OPTIONS:
 		for (auto obj : optionsUI->getVector()) { obj->Render(); };

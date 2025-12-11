@@ -72,12 +72,6 @@ bool GameManager::Init() {
 	//SDL_SetWindowFullscreen(gWindow, true);
 	//SDL_SetWindowBordered(gWindow, SDL_FALSE);
 	
-	// checking for memory leaks
-	//for (int i = 0; i < 599; ++i) {
-	//	ChangeState(std::make_unique<Load>());
-	//	ChangeState(std::make_unique<Menu>());
-	//}
-
 	return true;
 }
 

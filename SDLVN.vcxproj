@@ -146,6 +146,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Menu.cpp" />
     <ClCompile Include="src\OptionsUI.cpp" />
+    <ClCompile Include="src\SaveLoadUI.cpp" />
     <ClCompile Include="src\SaveManager.cpp" />
     <ClCompile Include="src\Sprite.cpp" />
     <ClCompile Include="src\SpriteManager.cpp" />
@@ -157,7 +158,6 @@
   <ItemGroup>
     <ClInclude Include="src\include\Button.h" />
     <ClInclude Include="src\include\Config.h" />
-    <ClInclude Include="src\include\CustomEvents.h" />
     <ClInclude Include="src\include\Game.h" />
     <ClInclude Include="src\include\GameManager.h" />
     <ClInclude Include="src\include\GameState.h" />
@@ -165,6 +165,7 @@
     <ClInclude Include="src\include\Load.h" />
     <ClInclude Include="src\include\Menu.h" />
     <ClInclude Include="src\include\OptionsUI.h" />
+    <ClInclude Include="src\include\SaveLoadUI.h" />
     <ClInclude Include="src\include\SaveManager.h" />
     <ClInclude Include="src\include\Sprite.h" />
     <ClInclude Include="src\include\SpriteInformation.h" />

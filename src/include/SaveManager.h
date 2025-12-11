@@ -1,4 +1,4 @@
-
+#pragma once
 // this will handle all the saving and loading for the game
 // loading a save will tell the intepretor what line to go to
 // as well as what sprites / background need to be rendered onto the 
@@ -16,9 +16,6 @@
 // add load select
 
 // figure out how to save a screenshot of the game with save
-
-#ifndef SAVEMANAGER_H
-#define SAVEMANAGER_H
 
 #include <iostream>
 #include <fstream>
@@ -59,5 +56,3 @@ private:
 
 	SaveData defaultSaveData;
 };
-
-#endif 

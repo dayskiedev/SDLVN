@@ -73,15 +73,15 @@
     <ClCompile Include="src\OptionsUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\SaveLoadUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\include\Button.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\Config.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\CustomEvents.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\Game.h">
@@ -127,6 +127,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\OptionsUI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\SaveLoadUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

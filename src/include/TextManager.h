@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include <vector>
 #include <memory>
@@ -8,9 +10,6 @@
 
 #include "Texture.h"
 #include "Text.h"
-
-#ifndef TEXTMANAGER_H
-#define TEXTMANAGER_H
 
 class TextManager : public Texture {
 public:
@@ -38,5 +37,3 @@ private:
 	SDL_Color _white = { 255,255,255 };
 	SDL_Color _black = { 0,0,0 };
 };
-
-#endif 

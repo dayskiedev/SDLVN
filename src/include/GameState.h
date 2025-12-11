@@ -1,5 +1,4 @@
-#ifndef GAMESTATE_H
-#define GAMESTATE_H
+#pragma once
 
 #include <SDL.h>
 
@@ -15,5 +14,3 @@ public:
 protected:
 	GameManager* _gameManager;
 };
-
-#endif // !GAMESTATE_H

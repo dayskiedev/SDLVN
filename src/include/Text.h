@@ -1,11 +1,11 @@
+#pragma once
+
 #include <iostream>
 #include <SDL.h>
 
 #include "Texture.h"
 #include "Config.h"
 
-#ifndef TEXT_H
-#define TEXT_H
 class Text : public Texture {
 public:
 	// may need to rework this to include a texture?
@@ -41,5 +41,3 @@ private:
 	std::string text = "";
 	int curTextLen = 0;
 };
-
-#endif

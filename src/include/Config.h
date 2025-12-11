@@ -1,5 +1,4 @@
-#ifndef CONFIG_H
-#define CONFIG_h
+#pragma once
 
 extern const std::string PROGRAM_NAME;
 
@@ -35,5 +34,3 @@ extern std::string DEFAULT_SAVE_LOCATION;
 // sprite positioning
 // default font
 // button background
-
-#endif

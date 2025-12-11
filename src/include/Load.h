@@ -1,3 +1,5 @@
+#pragma once
+
 #include <SDL.h>
 
 #include <iostream>
@@ -6,9 +8,6 @@
 
 #include "Config.h"
 #include "UIManager.h"
-
-#ifndef LOAD_H
-#define LOAD_H
 
 #include "GameState.h"
 #include "GameManager.h"
@@ -25,6 +24,4 @@ private:
 	std::unique_ptr<UIManager> loadUI;
 
 };
-
-#endif // !
 

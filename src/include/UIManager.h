@@ -1,12 +1,11 @@
+#pragma once
+
 #include <iostream>
 #include <vector>
 #include <memory>
 
 #include "Button.h"
 #include "Texture.h"
-
-#ifndef UI_MANAGER
-#define UI_MANAGER
 
 class UIManager : public Button {
 public:
@@ -33,6 +32,3 @@ private:
 	std::vector <std::shared_ptr<Button>> _buttons;
 	int _btnOffset = 250;
 };
-
-
-#endif // !UI_MANAGER

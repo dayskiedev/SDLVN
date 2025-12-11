@@ -15,6 +15,7 @@
 #include "Config.h"
 
 #include "OptionsUI.h"
+#include "SaveLoadUI.h"
 
 #include <queue>
 
@@ -83,7 +84,9 @@ private:
 	// PAUSE UI STUFF
 	std::vector<std::shared_ptr<Texture>> PauseMainMenuUI;
 	std::shared_ptr<Sprite> uma = std::make_shared<Sprite>();
+
 	std::unique_ptr<OptionsUI> optionsUI = std::make_unique<OptionsUI>();
+	std::unique_ptr<SaveLoadUI> saveLoadUI = std::make_unique<SaveLoadUI>();
 };
 
 #endif

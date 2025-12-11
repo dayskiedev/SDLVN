@@ -1,3 +1,5 @@
+#pragma once
+
 #include <SDL.h>
 
 #include <iostream>
@@ -5,13 +7,10 @@
 
 #include "Config.h"
 
-#include "OptionsUI.h"
-
-#ifndef MENU_H
-#define MENU_H
-
-#include "GameState.h"
 #include "GameManager.h"
+#include "OptionsUI.h"
+#include "SaveLoadUI.h"
+#include "GameState.h"
 #include "Text.h"
 
 // why does changing this to public work?
@@ -37,6 +36,5 @@ private:
 
 	MENU_STATE menuState = MAIN_MENU;
 	std::unique_ptr<OptionsUI> optionsUI = std::make_unique<OptionsUI>();
+	std::unique_ptr<SaveLoadUI> saveLoadUI = std::make_unique<SaveLoadUI>();
 };
-
-#endif

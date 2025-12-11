@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include <unordered_map>
 #include <vector>
@@ -8,10 +10,6 @@
 
 #include "Sprite.h"
 #include "Config.h"
-
-
-#ifndef SPRITE_MANAGER_H
-#define SPRITE_MANAGER_H
 
 class SpriteManager {
 public:
@@ -47,5 +45,3 @@ private:
 		{"RIGHT",		{SCREEN_WIDTH - 200,		SCREEN_HEIGHT / 2}}
 	};
 };
-
-#endif
