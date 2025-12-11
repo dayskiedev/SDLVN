@@ -6,12 +6,15 @@
 #include <memory>
 
 #include "Config.h"
-
-#include "GameManager.h"
 #include "OptionsUI.h"
 #include "SaveLoadUI.h"
-#include "GameState.h"
-#include "Text.h"
+// inheretence requires the full definition of a base class, so we leave the include in the header
+#include "GameState.h" 
+
+class GameManager;
+class UIManager;
+
+class Text;
 
 // why does changing this to public work?
 class Menu : public GameState {

@@ -1,4 +1,7 @@
 #include "Menu.h"
+#include "GameManager.h"
+#include "UIManager.h"
+#include "Text.h"
 
 // unique pointer assigns ownership
 std::unique_ptr<Texture> background;	

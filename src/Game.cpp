@@ -1,4 +1,7 @@
 #include "Game.h"
+#include "GameManager.h"
+#include "UIManager.h"
+
 
 // game -> pause goes to pause state -> pause state goes to load / save state
 

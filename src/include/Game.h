@@ -1,29 +1,18 @@
-#include <SDL.h>
-#include <SDL_image.h>
-#include <SDL_ttf.h>
-#include <SDL_mixer.h>
+#pragma once
 
 #include <stdio.h>
 #include <vector>
 #include <sstream>
 #include <iostream>
 
-#include "SpriteManager.h"
-#include "TextManager.h"
-#include "Interpreter.h"
-#include "Button.h"
 #include "Config.h"
-
-#include "OptionsUI.h"
-#include "SaveLoadUI.h"
-
-#include <queue>
-
-#ifndef GAME_H
-#define GAME_H
-
+#include "Interpreter.h"
 #include "GameState.h"
-#include "GameManager.h"
+#include "SaveLoadUI.h"
+#include "OptionsUI.h"
+
+class GameManager;
+class UIManager;
 
 // we dony want scenes to interact with the managaer, but we need them to change scenes
 
@@ -88,5 +77,3 @@ private:
 	std::unique_ptr<OptionsUI> optionsUI = std::make_unique<OptionsUI>();
 	std::unique_ptr<SaveLoadUI> saveLoadUI = std::make_unique<SaveLoadUI>();
 };
-
-#endif
