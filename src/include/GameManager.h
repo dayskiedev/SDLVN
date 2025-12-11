@@ -33,9 +33,11 @@ public:
 
 	void LoadSave(std::string savePath);
 
-	void QuickSave(Interpreter& interpreterInfo, std::shared_ptr<SpriteManager> spriteManagerInfo, std::shared_ptr<Sprite> background);
-	void SaveGame(Interpreter& interpreterInfo, std::shared_ptr<SpriteManager> spriteManagerInfo, std::shared_ptr<Sprite> background);
+	void QuickSave();
+	void SaveGame(std::string savePath);
 	
+	void SetSaveReferences(std::shared_ptr<Interpreter> interpreterInfo, std::shared_ptr<SpriteManager> spriteManagerInfo, std::shared_ptr<Sprite> background);
+
 	void SetDefaultGameState() { saveData = {}; }
 
 	void PrintCurrentSaveData();
@@ -57,7 +59,14 @@ private:
 	SaveManager::SaveData saveData;
 	std::unique_ptr<SaveManager> saveManager;
 
+	// data for saving
+	std::shared_ptr<Interpreter> _interpreterInfo;
+	std::shared_ptr<SpriteManager> _spriteManagerInfo;
+	std::shared_ptr<Sprite> _background;
+
 	std::unique_ptr<GameState> currentState;
 	std::unique_ptr<GameState> pendingState;
+
+
 
 };

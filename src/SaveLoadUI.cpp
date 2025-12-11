@@ -1,17 +1,14 @@
 #include "SaveLoadUI.h"
-#include "GameManager.h" 
+#include "GameManager.h"
 
 SaveLoadUI::SaveLoadUI() {}
 
 void SaveLoadUI::LoadSaveLoadUI(SDL_Renderer* renderer, GameManager* gameManager) {
 	_gameManager = gameManager;
-
 	std::shared_ptr<Texture> background = std::make_shared<Texture>(renderer, GLOBAL_BACKGROUNDS_PATH + "saveload_background.png", SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0);
-	std::shared_ptr<Sprite> uma = std::make_shared<Sprite>("uma", GLOBAL_SPRITES_PATH + "saveicon.png", (SCREEN_WIDTH / 2) - 150, SCREEN_HEIGHT - 300, 300, 300, renderer);
 	slBackButton = std::make_shared<Button>("optionsBack", Button::UI, renderer, DEFAULT_BUTTON_TEXTURE, 200, 50, 0, 0, "Back", 30);
 
 	saveLoadUIBaseVec.push_back(background);
-	saveLoadUIBaseVec.push_back(uma);
 	saveLoadUIBaseVec.push_back(slBackButton);
 
 	int cols = 3;
@@ -19,7 +16,6 @@ void SaveLoadUI::LoadSaveLoadUI(SDL_Renderer* renderer, GameManager* gameManager
 
 	// will change depending on selection
 	int saveIndex = 0;
-
 
 	// he we create a 2*3 grid of save icons that the users can select from to load a save
 	// the save index will match the name of save files created, so we can have as many saves
@@ -63,8 +59,8 @@ void SaveLoadUI::UpdateFileButtons(bool loadMode) {
 				};
 			}
 			else {
-				b->OnClick = [this]() {
-					std::cout << "Save the game!!\n"; 
+				b->OnClick = [this, savePath]() {
+					_gameManager->SaveGame(savePath);
 				};
 			}
 

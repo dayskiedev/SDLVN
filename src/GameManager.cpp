@@ -121,15 +121,21 @@ bool GameManager::SaveExists(std::string savePath) {
 	return saveManager->SaveExists(savePath);
 }
 
-void GameManager::QuickSave(Interpreter& interpreterInfo, std::shared_ptr<SpriteManager> spriteManagerInfo, std::shared_ptr<Sprite> background) {
+void GameManager::SetSaveReferences(std::shared_ptr<Interpreter> interpreterInfo, std::shared_ptr<SpriteManager> spriteManagerInfo, std::shared_ptr<Sprite> background) {
+	_interpreterInfo = interpreterInfo;
+	_spriteManagerInfo = spriteManagerInfo;
+	_background = background;
+}
+
+void GameManager::QuickSave() {
 	// this directly sets the gamemangers savedata and currently just runs whenever we pause,
 	// so the game knows where to go back to afterwards....
 	// ideally id like to instead just renderer directly in the game but idk...
-	saveData.scriptPath = interpreterInfo.GetCurrentScript();
-	saveData.scriptLine = interpreterInfo.GetCurrentScriptLine();
-	saveData.backgroundPath = background->GetSpriteTexPath();
+	saveData.scriptPath = _interpreterInfo->GetCurrentScript();
+	saveData.scriptLine = _interpreterInfo->GetCurrentScriptLine();
+	saveData.backgroundPath = _background->GetSpriteTexPath();
 	std::vector<SpriteInformation> spriteInfoRaw;
-	for (auto s : spriteManagerInfo->GetSprites()) {
+	for (auto s : _spriteManagerInfo->GetSprites()) {
 		SpriteInformation sInfo;
 
 		sInfo.spriteName = s->GetSpriteName();
@@ -144,10 +150,11 @@ void GameManager::QuickSave(Interpreter& interpreterInfo, std::shared_ptr<Sprite
 	saveData.sprites = spriteInfoRaw;
 }
 
-void GameManager::SaveGame(Interpreter& interpreterInfo, std::shared_ptr<SpriteManager> spriteManagerInfo, std::shared_ptr<Sprite> background) {
+void GameManager::SaveGame(std::string savePath) {
 	// here we just perfrom the quick save but we want to pass it through to the save manager
 	// in order to actually write the data into binary
-	QuickSave(interpreterInfo, spriteManagerInfo, background);
+
+	QuickSave();
 	saveManager->Save(saveData);
 }
 

@@ -21,6 +21,7 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	// and set it to that
 	gameRenderer = renderer;
 	_gameManager = gameManager;
+	_gameManager->SetSaveReferences(interpreter, spriteManager, gBackground);
 
 	spriteManager->setRenderer(gameRenderer);
 	spriteManager->setSpriteTexPath(GLOBAL_SPRITES_PATH);
@@ -97,7 +98,7 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 
 	// game data
 	auto& saveData = gameManager->GetSaveData();
-	interpreter.Initialise(spriteManager, textManager, uiManager, gBackground,
+	interpreter->Initialise(spriteManager, textManager, uiManager, gBackground,
 		saveData.scriptLine, saveData.scriptPath, saveData.backgroundPath, saveData.sprites);
 
 }
@@ -120,7 +121,7 @@ void Game::Update(SDL_Event e, double deltaTime) {
 			}
 
 			// ALL MAIN GAME LOGIC RUNS THROUGH HERE BTW
-			interpreter.Run(e, deltaTime);
+			interpreter->Run(e, deltaTime);
 
 			for (auto b : uiManager->GetUiVector()) {
 				b->Update(e);
@@ -226,6 +227,10 @@ void Game::Render() {
 	}
 
 	SDL_RenderPresent(gameRenderer);
+}
+
+void Game::CallSaveFunc() {
+	std::cout << "sdoimveoier\n";
 }
 
 void Game::ExitState() {	

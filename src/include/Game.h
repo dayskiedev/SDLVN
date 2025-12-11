@@ -22,6 +22,8 @@ public:
 	void Update(SDL_Event e, double deltaTime);
 	void Render();
 	void ExitState();
+
+	void CallSaveFunc();
 private:
 	// Script to load
 	std::string script_name = "example_script.vns";
@@ -68,7 +70,7 @@ private:
 	std::shared_ptr<Sprite> gBackground = std::make_shared<Sprite>();
 	SDL_Rect gBlackBox;
 
-	Interpreter interpreter;
+	std::shared_ptr<Interpreter> interpreter = std::make_shared<Interpreter>();
 
 	// PAUSE UI STUFF
 	std::vector<std::shared_ptr<Texture>> PauseMainMenuUI;
