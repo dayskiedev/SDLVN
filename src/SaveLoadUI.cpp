@@ -30,7 +30,7 @@ void SaveLoadUI::LoadSaveLoadUI(SDL_Renderer* renderer, GameManager* gameManager
 			bool saveExists = _gameManager->SaveExists(saveDirectory);
 
 			if (saveExists) {
-				savefileButtonTexture = GLOBAL_SPRITES_PATH + "saveExists.png";
+				savefileButtonTexture = saveExistsTexturePath;
 			}
 
 			// if this save exists in save directory, then we want the icon to be the save img
@@ -51,15 +51,17 @@ void SaveLoadUI::UpdateFileButtons(bool loadMode) {
 		// cast obj to button, if obj is null its not a button, then check start of obj name to see if it matches save buttons
 		auto b = std::dynamic_pointer_cast<Button> (obj);
 		if (b != NULL && b->GetButtonName().substr(0,4) == "save") {
-			// if loadmode is true it means we want to load a save when clicked, and the opposite when its false
 			std::string savePath = DEFAULT_SAVE_LOCATION + b->GetButtonName() + ".dat";
+
+			// if loadmode is true it means we want to load a save when clicked, and the opposite when its false
 			if (loadMode) {
 				b->OnClick = [this, savePath]() {
 					_gameManager->LoadSave(savePath);
 				};
 			}
 			else {
-				b->OnClick = [this, savePath]() {
+				b->OnClick = [this, b, savePath]() {
+					b->ChangeTexture(saveExistsTexturePath);
 					_gameManager->SaveGame(savePath);
 				};
 			}

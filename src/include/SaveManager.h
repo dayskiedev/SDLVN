@@ -40,7 +40,7 @@ public:
 		//std::unordered_map<std::string, int> choices;
 	};
 
-	void Save(SaveData saveRawInfo);
+	void Save(SaveData saveRawInfo, std::string savePath);
 	bool Load(SaveData& saveData, std::string savePath);
 
 	std::vector<std::string> ScanForSaves();

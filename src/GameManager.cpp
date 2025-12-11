@@ -153,9 +153,13 @@ void GameManager::QuickSave() {
 void GameManager::SaveGame(std::string savePath) {
 	// here we just perfrom the quick save but we want to pass it through to the save manager
 	// in order to actually write the data into binary
+	if (SaveExists(savePath)) {
+		std::cout << "Warning overwriting save, should double check user somehow idk" << std::endl;
+	}
+
 
 	QuickSave();
-	saveManager->Save(saveData);
+	saveManager->Save(saveData, savePath);
 }
 
 void GameManager::LoadSave(std::string savePath) {

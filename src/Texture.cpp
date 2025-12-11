@@ -136,6 +136,15 @@
 
 	}
 
+	void Texture::ChangeTexture(std::string pathToTexture) {
+		int tempWidth = getWidth();
+		int tempHeight = getHeight();
+
+		loadFromFile(pathToTexture);
+		setWidth(tempWidth);
+		setHeight(tempHeight);
+	}
+
 	void Texture::free() {
 		if (mTexture != NULL) {
 			//std::cout << "Destroyed texture: " << mTexture << std::endl;

@@ -25,6 +25,9 @@ public:
 	// this should NOT be in texture class, should make some sort of gameobject
 	// base class that includes texture that everyhting should derive from?
 	virtual void Update(SDL_Event e);
+	
+	// load new texture while keeping the same width and height (cant beleive it took this long to put in)
+	void ChangeTexture(std::string pathToTexture);
 
 	// might as well be public right?
 	int getWidth();

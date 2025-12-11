@@ -35,6 +35,5 @@ private:
 	std::shared_ptr<Button> slBackButton;
 	GameManager* _gameManager;
 
-	// passing through save info
-
+	std::string saveExistsTexturePath = GLOBAL_SPRITES_PATH + "saveExists.png";
 };

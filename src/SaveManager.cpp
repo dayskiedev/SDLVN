@@ -20,12 +20,12 @@
 // [CHOICES]
 // SET EVERY SAVED CHOICE
 
-void SaveManager::Save(SaveData saveRawInfo) {
+void SaveManager::Save(SaveData saveRawInfo, std::string savePath) {
 
 	// need to be able to select a save file slot
-	std::cout << "Saving file to " << DEFAULT_SAVE_LOCATION + saveFileName << std::endl;
+	std::cout << "Saving file to " << savePath << std::endl;
 
-	std::ofstream outfile(DEFAULT_SAVE_LOCATION + saveFileName, std::ofstream::binary);
+	std::ofstream outfile(savePath, std::ofstream::binary);
 
 	//std::string text = ("testingsave");
 	//size = text.size();
