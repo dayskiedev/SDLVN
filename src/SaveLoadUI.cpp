@@ -8,8 +8,12 @@ void SaveLoadUI::LoadSaveLoadUI(SDL_Renderer* renderer, GameManager* gameManager
 	std::shared_ptr<Texture> background = std::make_shared<Texture>(renderer, GLOBAL_BACKGROUNDS_PATH + "saveload_background.png", SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0);
 	slBackButton = std::make_shared<Button>("optionsBack", Button::UI, renderer, DEFAULT_BUTTON_TEXTURE, 200, 50, 0, 0, "Back", 30);
 
+	//std::shared_ptr<Txtzzz> deleteMode = std::make_shared<Button>("deleteButton", )
+	infoText = std::make_shared<Text>("TEXTTEXTTEXTTEXTTEXT", 30, 0, 30, Text::UI, renderer);
+
 	saveLoadUIBaseVec.push_back(background);
 	saveLoadUIBaseVec.push_back(slBackButton);
+	saveLoadUIBaseVec.push_back(infoText);
 
 	int cols = 3;
 	int rows = 2;
@@ -46,25 +50,36 @@ void SaveLoadUI::LoadSaveLoadUI(SDL_Renderer* renderer, GameManager* gameManager
 
 
 // need to dynamic cast because c++ doesnt just have a check obj type ig?
-void SaveLoadUI::UpdateFileButtons(bool loadMode) {
+void SaveLoadUI::UpdateFileButtons(FILE_LOAD_MODE flm) {
 	for (auto& obj : saveLoadUIBaseVec) {
 		// cast obj to button, if obj is null its not a button, then check start of obj name to see if it matches save buttons
 		auto b = std::dynamic_pointer_cast<Button> (obj);
-		if (b != NULL && b->GetButtonName().substr(0,4) == "save") {
-			std::string savePath = DEFAULT_SAVE_LOCATION + b->GetButtonName() + ".dat";
+		if (b == NULL || b->GetButtonName().substr(0, 4) != "save") { continue; }
 
-			// if loadmode is true it means we want to load a save when clicked, and the opposite when its false
-			if (loadMode) {
-				b->OnClick = [this, savePath]() {
-					_gameManager->LoadSave(savePath);
-				};
-			}
-			else {
-				b->OnClick = [this, b, savePath]() {
-					b->ChangeTexture(saveExistsTexturePath);
-					_gameManager->SaveGame(savePath);
-				};
-			}
+		std::string savePath = DEFAULT_SAVE_LOCATION + b->GetButtonName() + ".dat";
+
+		switch (flm) {
+		case SaveLoadUI::SAVE:
+			infoText->SetText("Select a slot to save to.");
+			infoText->setX((SCREEN_WIDTH / 2) - infoText->getWidth() / 2);
+
+			b->OnClick = [this, b, savePath]() {
+				infoText->SetText("Save " + savePath + " created.");
+				infoText->setX((SCREEN_WIDTH / 2) - infoText->getWidth() / 2);
+				b->ChangeTexture(saveExistsTexturePath);
+				_gameManager->SaveGame(savePath);
+			};
+			break;
+		case SaveLoadUI::LOAD:
+			infoText->SetText("Select a save to load.");
+			infoText->setX((SCREEN_WIDTH / 2) - infoText->getWidth() / 2);
+
+			b->OnClick = [this, savePath]() {
+				_gameManager->LoadSave(savePath);
+			};
+			break;
+		case SaveLoadUI::DELETE:
+			break;
 
 		}
 	}

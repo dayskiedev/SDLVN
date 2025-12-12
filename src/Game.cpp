@@ -71,14 +71,13 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 		// get save load vuttons here?
 		// then set the onclicks to this function?, with extra arg of
 		// the button name?
-		std::cout << "Entered in save mode" << std::endl;
-		saveLoadUI->UpdateFileButtons(false);
+		saveLoadUI->UpdateFileButtons(SaveLoadUI::SAVE);
 		pauseState = SAVE_MENU;
 
 		//_gameManager->SaveGame(interpreter, spriteManager, gBackground); 
 	};
 	loadButton->OnClick = [this]() { 
-		saveLoadUI->UpdateFileButtons(true);
+		saveLoadUI->UpdateFileButtons(SaveLoadUI::LOAD);
 		pauseState = LOAD_MENU;
 	};
 	menuButton->OnClick = [this]() { _gameManager->RequestState(std::make_unique<Menu>()); };
@@ -114,7 +113,6 @@ void Game::Update(SDL_Event e, double deltaTime) {
 			case SDL_KEYDOWN:
 				switch (e.key.keysym.sym) {
 				case SDLK_ESCAPE:
-					std::cout << "Pausing" << std::endl;
 					currentState = PAUSED;
 				}
 				break;
@@ -227,10 +225,6 @@ void Game::Render() {
 	}
 
 	SDL_RenderPresent(gameRenderer);
-}
-
-void Game::CallSaveFunc() {
-	std::cout << "sdoimveoier\n";
 }
 
 void Game::ExitState() {	

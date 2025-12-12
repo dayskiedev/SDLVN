@@ -12,9 +12,24 @@ Text::Text(std::string inputText, int fontSize, TextType textType, SDL_Renderer*
 	loadFromRenderedText(text, textColor);
 }
 
+Text::Text(std::string inputText, int fontSize, int x, int y, TextType textType, SDL_Renderer* renderer) {
+	text = inputText;
+
+	setRenderer(renderer);
+	setFont(TTF_OpenFont(GLOBAL_FONT_PATH.c_str(), fontSize)); // setting text suze here
+	curTextLen = text.length();
+
+	loadFromRenderedText(text, textColor);
+	setX(x);
+	setY(y);
+}
+
 Text::~Text() {}
 
-
+void Text::SetText(std::string t) {
+	text = t;
+	curTextLen = text.length();
+}
 // these where casuing a stqck overflow because i renamed the render in texture.h to Render
 // these where called render but also inherit from the base class, so they recusively called themselves...
 

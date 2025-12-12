@@ -19,6 +19,12 @@ class SaveLoadUI{
 public:
 	SaveLoadUI();
 
+	enum FILE_LOAD_MODE {
+		SAVE,
+		LOAD,
+		DELETE
+	};
+
 	void LoadSaveLoadUI(SDL_Renderer* renderer, GameManager* gameManager);
 	void AddObject(std::shared_ptr<Texture> obj);
 	std::vector< std::shared_ptr<Texture>> getVector() { return saveLoadUIBaseVec; }
@@ -26,13 +32,14 @@ public:
 	std::shared_ptr<Button> GetBackButton() { return slBackButton; }
 
 	// set to true = we want to load a save, set to false = we want to create a save
-	void UpdateFileButtons(bool loadMode);
+	void UpdateFileButtons(FILE_LOAD_MODE flm);
 
 	void UpdateSaveFiles();
 private:
 	std::vector<std::shared_ptr<Texture>> saveLoadUIBaseVec;
 
 	std::shared_ptr<Button> slBackButton;
+	std::shared_ptr<Text> infoText;
 	GameManager* _gameManager;
 
 	std::string saveExistsTexturePath = GLOBAL_SPRITES_PATH + "saveExists.png";

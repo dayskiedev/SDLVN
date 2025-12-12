@@ -60,7 +60,7 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	};
 	contButton->OnClick = [this]() { 
 		std::cout << "Entered in load mode," << std::endl;
-		saveLoadUI->UpdateFileButtons(true);
+		saveLoadUI->UpdateFileButtons(SaveLoadUI::LOAD);
 		menuState = LOAD_SAVE; 
 	};
 	optButton->OnClick = [this]() { menuState = OPTIONS; };

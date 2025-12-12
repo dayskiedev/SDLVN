@@ -17,15 +17,18 @@ public:
 
 	Text();
 	Text(std::string text, int fontSize, TextType textType, SDL_Renderer* renderer);
+	Text(std::string text, int fontSize, int x, int y, TextType textType, SDL_Renderer* renderer);
 	~Text();
+
+
+	void SetText(std::string t);
+	std::string GetText() { return text; }
 
 	void SetCurTextLength(int length) { curTextLen = length; }
 	int GetCurTextLength() { return curTextLen; }	// what the text length CURRENTLY IS
 	size_t GetTextLength() { return text.length();  }  // MAX text legnth
-	std::string GetText() { return text; }
 
 	// like this stuff can be done in the texture?
-	void SetTextAlpha(int a);
 	void SetTextColour(SDL_Color color) { textColor = color; }
 
 	void Render();

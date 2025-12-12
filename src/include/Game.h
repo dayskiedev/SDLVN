@@ -21,9 +21,7 @@ public:
 	void EnterState(SDL_Renderer* renderer, GameManager* gameManager);
 	void Update(SDL_Event e, double deltaTime);
 	void Render();
-	void ExitState();
-
-	void CallSaveFunc();
+	void ExitState();	
 private:
 	// Script to load
 	std::string script_name = "example_script.vns";
