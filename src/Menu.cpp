@@ -76,7 +76,7 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 
 
 	// other UI
-	optionsUI->LoadOptionsUI(menuRenderer);
+	optionsUI->LoadOptionsUI(menuRenderer, gameManager);
 	optionsUI->GetBackButton()->OnClick = [this]() { menuState = MAIN_MENU; };
 
 

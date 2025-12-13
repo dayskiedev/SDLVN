@@ -29,6 +29,7 @@ Text::~Text() {}
 void Text::SetText(std::string t) {
 	text = t;
 	curTextLen = text.length();
+	loadFromRenderedText(text, textColor);
 }
 // these where casuing a stqck overflow because i renamed the render in texture.h to Render
 // these where called render but also inherit from the base class, so they recusively called themselves...

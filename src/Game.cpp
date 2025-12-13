@@ -89,7 +89,7 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 
 
 	// Options UI
-	optionsUI->LoadOptionsUI(gameRenderer);
+	optionsUI->LoadOptionsUI(gameRenderer, gameManager);
 	optionsUI->GetBackButton()->OnClick = [this]() { pauseState = PAUSED_MENU; };
 
 	saveLoadUI->LoadSaveLoadUI(gameRenderer, gameManager);

@@ -43,4 +43,8 @@ private:
 	GameManager* _gameManager;
 
 	std::string saveExistsTexturePath = GLOBAL_SPRITES_PATH + "saveExists.png";
+
+	bool deleteMode = false;
+	FILE_LOAD_MODE curMode;
+
 };

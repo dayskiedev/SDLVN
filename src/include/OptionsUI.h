@@ -8,13 +8,15 @@
 #include "Button.h"
 #include "Sprite.h"
 
+class GameManager;
+
 // UI Sub-States
 
 class OptionsUI{
 public:
 	OptionsUI();
 
-	void LoadOptionsUI(SDL_Renderer* renderer);
+	void LoadOptionsUI(SDL_Renderer* renderer, GameManager* gameManager);
 	void AddObject(std::shared_ptr<Texture> obj);
 	std::vector< std::shared_ptr<Texture>> getVector() { return optionsUIBaseVec; }
 

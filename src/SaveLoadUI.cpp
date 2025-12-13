@@ -11,9 +11,26 @@ void SaveLoadUI::LoadSaveLoadUI(SDL_Renderer* renderer, GameManager* gameManager
 	//std::shared_ptr<Txtzzz> deleteMode = std::make_shared<Button>("deleteButton", )
 	infoText = std::make_shared<Text>("TEXTTEXTTEXTTEXTTEXT", 30, 0, 30, Text::UI, renderer);
 
+	std::shared_ptr<Button> deleteFileButton = std::make_shared<Button>("delete", Button::UI, renderer, DEFAULT_BUTTON_TEXTURE, 
+		200, 75, 
+		(SCREEN_WIDTH) / 2 - 100, SCREEN_HEIGHT - 75, 
+		"ERASE", 30);
+
+	deleteFileButton->OnClick = [this]() {
+		if (deleteMode) {
+			deleteMode = false;
+			UpdateFileButtons(curMode);
+		}
+		else {
+			deleteMode = true;
+			UpdateFileButtons(DELETE);
+		}
+	};
+
 	saveLoadUIBaseVec.push_back(background);
 	saveLoadUIBaseVec.push_back(slBackButton);
 	saveLoadUIBaseVec.push_back(infoText);
+	saveLoadUIBaseVec.push_back(deleteFileButton);
 
 	int cols = 3;
 	int rows = 2;
@@ -60,25 +77,48 @@ void SaveLoadUI::UpdateFileButtons(FILE_LOAD_MODE flm) {
 
 		switch (flm) {
 		case SaveLoadUI::SAVE:
+			curMode = SAVE;
 			infoText->SetText("Select a slot to save to.");
-			infoText->setX((SCREEN_WIDTH / 2) - infoText->getWidth() / 2);
+			infoText->setX((SCREEN_WIDTH / 2) - (infoText->getWidth() / 2));
 
 			b->OnClick = [this, b, savePath]() {
 				infoText->SetText("Save " + savePath + " created.");
-				infoText->setX((SCREEN_WIDTH / 2) - infoText->getWidth() / 2);
+				infoText->setX((SCREEN_WIDTH / 2) - (infoText->getWidth() / 2));
 				b->ChangeTexture(saveExistsTexturePath);
 				_gameManager->SaveGame(savePath);
 			};
 			break;
 		case SaveLoadUI::LOAD:
+			curMode = LOAD;
 			infoText->SetText("Select a save to load.");
-			infoText->setX((SCREEN_WIDTH / 2) - infoText->getWidth() / 2);
+			infoText->setX((SCREEN_WIDTH / 2) - (infoText->getWidth() / 2));
 
 			b->OnClick = [this, savePath]() {
+				if (!_gameManager->SaveExists(savePath)) {
+					infoText->SetText("No save to load.");
+					infoText->setX((SCREEN_WIDTH / 2) - (infoText->getWidth() / 2));
+					return;
+				}
 				_gameManager->LoadSave(savePath);
 			};
 			break;
 		case SaveLoadUI::DELETE:
+			infoText->SetText("Select a save to erase, select erase again to not.");
+			infoText->setX((SCREEN_WIDTH / 2) - (infoText->getWidth() / 2));
+
+			b->OnClick = [this, savePath, b]() {
+				if (!_gameManager->SaveExists(savePath)) {
+					infoText->SetText("No save to erase.");
+					infoText->setX((SCREEN_WIDTH / 2) - (infoText->getWidth() / 2));
+					return;
+				}
+
+				_gameManager->DeleteSave(savePath);
+				infoText->SetText("Save " + savePath + " erased.");
+				infoText->setX((SCREEN_WIDTH / 2) - (infoText->getWidth() / 2));
+
+				b->ChangeTexture(DEFAULT_BUTTON_TEXTURE);
+			};
 			break;
 
 		}

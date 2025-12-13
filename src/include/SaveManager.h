@@ -42,6 +42,9 @@ public:
 
 	void Save(SaveData saveRawInfo, std::string savePath);
 	bool Load(SaveData& saveData, std::string savePath);
+	void Delete(std::string savePath);
+
+	void DeleteAll(std::string savePath);
 
 	std::vector<std::string> ScanForSaves();
 	bool SaveExists(std::string savePath);

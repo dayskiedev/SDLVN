@@ -177,6 +177,14 @@ void GameManager::LoadSave(std::string savePath) {
 	RequestState(std::make_unique<Game>());
 }
 
+void GameManager::DeleteSave(std::string savePath) {
+	saveManager->Delete(savePath);
+}
+
+void GameManager::DeleteAllSaves(std::string savePath) {
+	saveManager->DeleteAll(savePath);
+}
+
 void GameManager::PrintCurrentSaveData() {
 	std::cout << "Current SaveData data:\n";
 	std::cout << saveData.scriptPath << "\n" << saveData.scriptLine << "\n" << saveData.backgroundPath << std::endl;

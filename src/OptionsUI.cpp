@@ -1,8 +1,9 @@
 #include "OptionsUI.h"
+#include "GameManager.h"
 
 OptionsUI::OptionsUI() {}
 
-void OptionsUI::LoadOptionsUI(SDL_Renderer* renderer) {
+void OptionsUI::LoadOptionsUI(SDL_Renderer* renderer, GameManager* gameManager) {
 	std::shared_ptr<Texture> background = std::make_shared<Texture>(renderer, GLOBAL_BACKGROUNDS_PATH + "pause.png", SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0);
 	optBackButton = std::make_shared<Button>("optionsBack", Button::UI, renderer, DEFAULT_BUTTON_TEXTURE, 200, 50, 0, 0, "Back", 30);
 
@@ -15,6 +16,8 @@ void OptionsUI::LoadOptionsUI(SDL_Renderer* renderer) {
 		"Erase Data",
 		25
 	));
+
+	eraseButton->OnClick = [this, gameManager]() { gameManager->DeleteAllSaves(DEFAULT_SAVE_LOCATION); };
 
 	optionsUIBaseVec.push_back(background);
 	optionsUIBaseVec.push_back(eraseButton);

@@ -35,6 +35,8 @@ public:
 
 	void QuickSave();
 	void SaveGame(std::string savePath);
+	void DeleteSave(std::string savePath);
+	void DeleteAllSaves(std::string savePath);
 	
 	void SetSaveReferences(std::shared_ptr<Interpreter> interpreterInfo, std::shared_ptr<SpriteManager> spriteManagerInfo, std::shared_ptr<Sprite> background);
 

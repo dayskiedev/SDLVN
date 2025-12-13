@@ -181,6 +181,21 @@ bool SaveManager::Load(SaveData& saveData, std::string savePath) {
 	return true;
 }
 
+void SaveManager::Delete(std::string savePath) {
+	// need to safety check this probs lol!!!
+	std::remove(savePath.c_str());
+}
+
+void SaveManager::DeleteAll(std::string savePath) {
+	int numSaves = 6; // dont use temp numbers silly
+	for (int i = 0; i < numSaves; ++i) {
+		std::string curFile = savePath + "save" + std::to_string(i) + ".dat";
+		std::remove(curFile.c_str());
+		std::cout << "Deleted " << curFile << std::endl;
+	}
+
+}
+
 std::vector<std::string> SaveManager::ScanForSaves() {
 	std::string path = DEFAULT_SAVE_LOCATION;
 	std::vector<std::string> saveFiles;
