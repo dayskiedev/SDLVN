@@ -215,7 +215,7 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 			return;
 		}
 
-		int startY = (numButtons > 1 ? SCREEN_HEIGHT / numButtons : SCREEN_HEIGHT / 2);
+		int startY = (numButtons > 1 ? RELATIVE_SCREEN_HEIGHT / numButtons : RELATIVE_SCREEN_HEIGHT / 2);
 
 		for (int i = 2; i <= numButtons * 2; i++) {
 			btnName = _commandArgs[i];
@@ -228,7 +228,7 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 				DEFAULT_BUTTON_TEXTURE,
 				CHOICE_BUTTON_WIDTH,
 				CHOICE_BUTTON_HEIGHT,
-				(SCREEN_WIDTH / 2) - (CHOICE_BUTTON_WIDTH / 2),
+				(RELATIVE_SCREEN_WIDTH / 2) - (CHOICE_BUTTON_WIDTH / 2),
 				startY - CHOICE_BUTTON_HEIGHT,
 				btnContents,
 				30
@@ -261,8 +261,8 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 			DEFAULT_BUTTON_TEXTURE,
 			CHOICE_BUTTON_WIDTH,
 			CHOICE_BUTTON_HEIGHT,
-			(SCREEN_WIDTH / 2) - (CHOICE_BUTTON_WIDTH / 2),
-			(SCREEN_HEIGHT / 2) - (CHOICE_BUTTON_HEIGHT / 2),
+			(RELATIVE_SCREEN_WIDTH / 2) - (CHOICE_BUTTON_WIDTH / 2),
+			(RELATIVE_SCREEN_HEIGHT / 2) - (CHOICE_BUTTON_HEIGHT / 2),
 			replyContents,
 			30
 		));

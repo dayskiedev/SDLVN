@@ -11,7 +11,7 @@ bool GameManager::Init() {
 	std::cout << "SDL initialised" << std::endl;
 
 	// Create window
-	gWindow = SDL_CreateWindow(PROGRAM_NAME.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+	gWindow = SDL_CreateWindow(PROGRAM_NAME.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, RELATIVE_SCREEN_WIDTH, RELATIVE_SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 	if (gWindow == NULL) {
 		std::cout << "Window could not be created!" << std::endl;
 		return false;
@@ -29,6 +29,16 @@ bool GameManager::Init() {
 	SDL_SetRenderDrawColor(gRenderer, 255, 175, 222, 0xFF);
 	SDL_SetRenderDrawBlendMode(gRenderer, SDL_BLENDMODE_BLEND);
 
+	// here is how we will handle scaling for different resolutions with a single number
+	// the game ui is set around the idea we have a 1280 x 720 screen dont ask me why i just started with that ok
+	// from there we can increase or decrease it by fixed amounts using a scaler
+	// the math for this is easy. ex: 1920/1280 = 1.5 so to get 1080p we scale by 1.5
+	// 1440p means 2560 / 1280 = 2
+	SDL_RenderSetScale(gRenderer, RESOLUTION_SCALE, RESOLUTION_SCALE);
+	SDL_SetWindowSize(gWindow, RELATIVE_SCREEN_WIDTH * RESOLUTION_SCALE,  RELATIVE_SCREEN_HEIGHT * RESOLUTION_SCALE);
+
+	//SDL_SetWindowFullscreen(gWindow, SDL_WINDOW_FULLSCREEN_DESKTOP);
+	// 
 	// imgs
 	int imgFlags = IMG_INIT_PNG;
 	if (!(IMG_Init(imgFlags) & imgFlags)) {

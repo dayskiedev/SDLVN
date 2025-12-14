@@ -34,7 +34,7 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	gBackground->setRenderer(gameRenderer);
 
 	/// REMOVE LATER
-	gBlackBox = { 0,0, SCREEN_WIDTH, SCREEN_HEIGHT };
+	gBlackBox = { 0,0, RELATIVE_SCREEN_WIDTH, RELATIVE_SCREEN_HEIGHT };
 
 	// NEED TO ERROR CHECK THIS
 
@@ -53,7 +53,7 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	// THIS WILL BE MOVE TO THE PAUSE UI CPP FILE TO INITIALISE THERE INSTEAD? IDK
 
 	// also by god stop with the magic numbers...
-	uma = std::make_shared<Sprite>("uma", GLOBAL_SPRITES_PATH + "saveicon.png", SCREEN_WIDTH - 800, (SCREEN_HEIGHT / 2) - 300, 800, 800, gameRenderer);
+	uma = std::make_shared<Sprite>("uma", GLOBAL_SPRITES_PATH + "saveicon.png", RELATIVE_SCREEN_WIDTH - 800, (RELATIVE_SCREEN_HEIGHT / 2) - 300, 800, 800, gameRenderer);
 	std::shared_ptr<Button> resumeButton(new Button("resume", Button::UI, gameRenderer, DEFAULT_BUTTON_TEXTURE, 200, 50, 150, 150,"Resume", 30));
 	std::shared_ptr<Button> optButton(new Button("options", Button::UI, gameRenderer, DEFAULT_BUTTON_TEXTURE, 200, 50, 110, 250, "Options", 30));
 	std::shared_ptr<Button> saveButton(new Button("save", Button::UI, gameRenderer, DEFAULT_BUTTON_TEXTURE, 200, 50, 75, 350, "Save", 30));
@@ -84,7 +84,7 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 
 	// should be a constructor
 	std::shared_ptr<Text> pauseText = std::make_unique<Text>("PAUSEDPAUSEDPAUSEDPAUSEDPAUSEDPAUSEDPAUSEDPAUSED", 120, Text::UI, gameRenderer);
-	pauseText->setX((SCREEN_WIDTH / 2) - pauseText->getWidth() / 2);
+	pauseText->setX((RELATIVE_SCREEN_WIDTH / 2) - pauseText->getWidth() / 2);
 	PauseMainMenuUI.push_back(pauseText);
 
 
@@ -156,7 +156,7 @@ void Game::Render() {
 		case RUNNING:
 		{
 			// layer -1 background
-			gBackground->Render(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+			gBackground->Render(0, 0, RELATIVE_SCREEN_WIDTH, RELATIVE_SCREEN_HEIGHT);
 
 			// layer 1 character sprites
 			for (auto s : spriteManager->getSpriteVector()) {
@@ -191,7 +191,7 @@ void Game::Render() {
 			{
 			case PAUSED_MENU:
 				// keep rendering background
-				gBackground->Render(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+				gBackground->Render(0, 0, RELATIVE_SCREEN_WIDTH, RELATIVE_SCREEN_HEIGHT);
 
 				// dim background slightly
 				SDL_SetRenderDrawColor(gameRenderer, 0, 0, 0, 100);

@@ -16,39 +16,39 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 
 	// these load the textures but they do not get shown?
 	background = std::make_unique<Texture>( menuRenderer, GLOBAL_BACKGROUNDS_PATH + "/umabackground2.png",
-		SCREEN_WIDTH,
-		SCREEN_HEIGHT,
+		RELATIVE_SCREEN_WIDTH,
+		RELATIVE_SCREEN_HEIGHT,
 		0, 0
 	);
 
 	std::shared_ptr<Button> playButton(new Button("new", Button::UI, menuRenderer, DEFAULT_BUTTON_TEXTURE, 
 		200, 50,					// width height
-		(SCREEN_WIDTH / 2) - 100,	// x
-		(SCREEN_HEIGHT / 2) - 50,   // y
+		(RELATIVE_SCREEN_WIDTH / 2) - 100,	// x
+		(RELATIVE_SCREEN_HEIGHT / 2) - 50,   // y
 		"New Game",					// Button contents
 		30							// Font size for button contents
 	));
 
 	std::shared_ptr<Button> contButton(new Button("load", Button::UI, menuRenderer, DEFAULT_BUTTON_TEXTURE,
 		200,50,
-		(SCREEN_WIDTH / 2) - 100,
-		(SCREEN_HEIGHT / 2), 
+		(RELATIVE_SCREEN_WIDTH / 2) - 100,
+		(RELATIVE_SCREEN_HEIGHT / 2), 
 		"Load Save",
 		30
 	));
 
 	std::shared_ptr<Button> optButton(new Button("options", Button::UI,menuRenderer,DEFAULT_BUTTON_TEXTURE,
 		200, 50,
-		(SCREEN_WIDTH / 2) - 100,
-		(SCREEN_HEIGHT / 2) + 50,
+		(RELATIVE_SCREEN_WIDTH / 2) - 100,
+		(RELATIVE_SCREEN_HEIGHT / 2) + 50,
 		"Options",
 		30
 	));
 
 	std::shared_ptr<Button> quitButton(new Button("quit", Button::UI, menuRenderer, DEFAULT_BUTTON_TEXTURE, 
 		200, 50, 
-		(SCREEN_WIDTH / 2) - 100, 
-		(SCREEN_HEIGHT / 2) + 100, 
+		(RELATIVE_SCREEN_WIDTH / 2) - 100, 
+		(RELATIVE_SCREEN_HEIGHT / 2) + 100, 
 		"Exit", 
 		30
 	));
@@ -117,8 +117,8 @@ void Menu::Render() {
 			b->showText();
 		}
 
-		title->StaticRender(SCREEN_WIDTH / 2 - (title->getWidth() / 2), 100);
-		version->StaticRender(15, SCREEN_HEIGHT - version->getHeight());
+		title->StaticRender(RELATIVE_SCREEN_WIDTH / 2 - (title->getWidth() / 2), 100);
+		version->StaticRender(15, RELATIVE_SCREEN_HEIGHT - version->getHeight());
 		break;
 	case LOAD_SAVE:
 		for (auto& obj : saveLoadUI->getVector()) { obj->Render(); }

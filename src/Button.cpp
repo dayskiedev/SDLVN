@@ -92,7 +92,10 @@ void Button::ExitHover() {
 
 bool Button::OverlappingCheck() {
 	int mouse_x, mouse_y;
-	SDL_GetMouseState(&mouse_x, &mouse_y);
+	SDL_GetMouseState(&mouse_x, &mouse_y); 
+	mouse_x /= RESOLUTION_SCALE;
+	mouse_y /= RESOLUTION_SCALE;
+
 
 	//std::cout << "mouse x " << mouse_x << " mouse y " << mouse_y << "\n";
 	//std::cout << "button x " << getX() << " button y " << getY() << "\n";

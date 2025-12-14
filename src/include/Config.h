@@ -4,8 +4,8 @@ extern const std::string PROGRAM_NAME;
 
 extern const int SAVE_VERSION;
 
-extern int SCREEN_WIDTH;
-extern int SCREEN_HEIGHT;
+extern int RELATIVE_SCREEN_WIDTH;
+extern int RELATIVE_SCREEN_HEIGHT;
 
 extern double RESOLUTION_SCALE;
 

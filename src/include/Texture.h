@@ -5,8 +5,6 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 
-#include "Config.h"
-
 class Texture {
 public:
 	Texture();
