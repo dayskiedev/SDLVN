@@ -40,13 +40,13 @@ void Text::Render() {
 	Texture::Render();
 }
 
-void Text::Render(int x, int y) {
+void Text::Render(double x, double y) {
 	// this will constantly load the rendered text.... might not be good....
 	loadFromRenderedText(text.substr(0, curTextLen), textColor);
 	Texture::Render(x, y);
 }
 
-void Text::StaticRender(int x, int y) {
+void Text::StaticRender(double x, double y) {
 	// save some resources by not constantly reloading the text (no need to... its static)
 	Texture::Render(x, y);
 }

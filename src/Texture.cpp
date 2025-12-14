@@ -48,33 +48,34 @@
 		SDL_RenderCopy(renderer, mTexture, NULL, &renderQuad);
 	}
 
-	void Texture::Render(int x, int y) {
+	void Texture::Render(double x, double y) {
 		mX = x;
 		mY = y;
-		SDL_Rect renderQuad = { x,y, mWidth, mHeight };
+		SDL_Rect renderQuad = { mX,mY, mWidth, mHeight };
 		SDL_RenderCopy(renderer, mTexture, NULL, &renderQuad);
 	}
 
 
-	void Texture::Render(int x, int y, int w, int h) {
+	void Texture::Render(double x, double y, double w, double h) {
 		mX = x;
 		mY = y;
-		SDL_Rect renderQuad = { x,y, w, h };
+		// setting the width and height here causes them to not render?
+		SDL_Rect renderQuad = { mX,mY, w, h };
 		SDL_RenderCopy(renderer, mTexture, NULL, &renderQuad);
 	}
 
 	void Texture::Update(SDL_Event e) {}
 
 	// might as well be public right?
-	int Texture::getWidth() { return mWidth; }
-	int Texture::getHeight() { return mHeight; }
-	int Texture::getX() { return mX; }
-	int Texture::getY() { return mY; }
+	double Texture::getWidth() { return mWidth; }
+	double Texture::getHeight() { return mHeight; }
+	double Texture::getX() { return mX; }
+	double Texture::getY() { return mY; }
 
-	void Texture::setX(int x) { mX = x; }
-	void Texture::setY(int y) { mY = y; }
-	void Texture::setWidth(int w) { mWidth = w; }
-	void Texture::setHeight(int h) { mHeight = h; }
+	void Texture::setX(double x) { mX = x; }
+	void Texture::setY(double y) { mY = y; }
+	void Texture::setWidth(double w) { mWidth = w; }
+	void Texture::setHeight(double h) { mHeight = h; }
 
 	// refactor these to the sprite class 
 	bool Texture::loadFromFile(std::string path) {

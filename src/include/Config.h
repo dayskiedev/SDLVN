@@ -7,6 +7,8 @@ extern const int SAVE_VERSION;
 extern int SCREEN_WIDTH;
 extern int SCREEN_HEIGHT;
 
+extern double RESOLUTION_SCALE;
+
 extern int CHOICE_BUTTON_WIDTH;
 extern int CHOICE_BUTTON_HEIGHT;
 

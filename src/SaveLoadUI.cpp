@@ -97,7 +97,7 @@ void SaveLoadUI::UpdateFileButtons(FILE_LOAD_MODE flm) {
 				if (!_gameManager->SaveExists(savePath)) {
 					infoText->SetText("No save to load.");
 					infoText->setX((SCREEN_WIDTH / 2) - (infoText->getWidth() / 2));
-					return;
+					return;	
 				}
 				_gameManager->LoadSave(savePath);
 			};

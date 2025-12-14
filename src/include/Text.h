@@ -32,12 +32,12 @@ public:
 	void SetTextColour(SDL_Color color) { textColor = color; }
 
 	void Render();
-	void Render(int x, int y);
+	void Render(double x, double y);
 
 	void Update() {}
 
 	// for text whose length does not change
-	void StaticRender(int x, int y);
+	void StaticRender(double x, double y);
 
 private:
 	SDL_Color textColor = { 255, 255, 255 };

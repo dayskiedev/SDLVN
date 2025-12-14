@@ -65,9 +65,6 @@ bool GameManager::Init() {
 
 
 	//
-	//SCREEN_WIDTH = 1920;
-	//SCREEN_HEIGHT = 1080;
-	//SDL_RenderSetLogicalSize(gRenderer, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	//SDL_SetWindowFullscreen(gWindow, true);
 	//SDL_SetWindowBordered(gWindow, SDL_FALSE);

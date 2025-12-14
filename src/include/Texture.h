@@ -5,6 +5,8 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 
+#include "Config.h"
+
 class Texture {
 public:
 	Texture();
@@ -19,8 +21,8 @@ public:
 	void setAlpha(Uint8 a);
 
 	virtual void Render();
-	virtual void Render(int x, int y);
-	virtual void Render(int x, int y, int w, int h);
+	virtual void Render(double x, double y);
+	virtual void Render(double x, double y, double w, double h);
 
 	// this should NOT be in texture class, should make some sort of gameobject
 	// base class that includes texture that everyhting should derive from?
@@ -30,15 +32,15 @@ public:
 	void ChangeTexture(std::string pathToTexture);
 
 	// might as well be public right?
-	int getWidth();
-	int getHeight();
-	int getX();
-	int getY();
+	double getWidth();
+	double getHeight();
+	double getX();
+	double getY();
 
-	void setX(int x);
-	void setY(int y);
-	void setWidth(int w);
-	void setHeight(int h);
+	void setX(double x);
+	void setY(double y);
+	void setWidth(double w);
+	void setHeight(double h);
 
 	// refactor these to the sprite class 
 	bool loadFromFile(std::string path);
@@ -52,8 +54,8 @@ private:
 	SDL_Renderer* renderer = NULL;
 	TTF_Font* font = NULL;
 
-	int mWidth;
-	int mHeight;
-	int mX;
-	int mY;
+	double mWidth;
+	double mHeight;
+	double mX;
+	double mY;
 };
