@@ -29,5 +29,17 @@ void Sprite::SetSpritePath(std::string spritePath) {
 	_spriteTexPath = spritePath;
 }
 
+void Sprite::Render() {
+	Texture::Render();
+}
+
+void Sprite::Render(double x, double y) {
+	Texture::Render(x, y);
+}
+
+void Sprite::Render(double x, double y, double w, double h) {
+	Texture::Render(x, y, w, h);
+}
+
 std::string Sprite::GetSpriteName() { return _spriteName; }
 std::string Sprite::GetSpriteTexPath() { return _spriteTexPath; }

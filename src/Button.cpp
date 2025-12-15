@@ -11,9 +11,6 @@ Button::Button(std::string name, ButtonType setType, SDL_Renderer* renderer, std
 	setX(x);
 	setY(y);
 	setText(text, fontSize, renderer);
-
-	// set button hover sound
-	// should be done in audiomanager?
 }
 
 Button::Button(std::string name, ButtonType setType, SDL_Renderer* renderer, std::string texture, int w, int h, int x, int y) {
@@ -25,8 +22,6 @@ Button::Button(std::string name, ButtonType setType, SDL_Renderer* renderer, std
 	setHeight(h);
 	setX(x);
 	setY(y);
-	// set button hover sound
-	// should be done in audiomanager?
 }
 
 Button::~Button() {
@@ -93,6 +88,10 @@ void Button::ExitHover() {
 bool Button::OverlappingCheck() {
 	int mouse_x, mouse_y;
 	SDL_GetMouseState(&mouse_x, &mouse_y); 
+
+	// we need to scale the mouse coords based on resolution scale as the mouse coords
+	// use window size not relative window size so windows smaller / larger than base res will have
+	// more / less x y coords which mess with the buttons set x y coords leading to wrong overlaps
 	mouse_x /= RESOLUTION_SCALE;
 	mouse_y /= RESOLUTION_SCALE;
 

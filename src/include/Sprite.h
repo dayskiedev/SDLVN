@@ -12,6 +12,10 @@ public:
 	Sprite(std::string spriteName, std::string spriteTexPath, int x, int y, int w, int h, SDL_Renderer* renderer);
 	//~Sprite();
 
+	void Render();
+	void Render(double x, double y);
+	void Render(double x, double y, double w, double h);
+
 	void SetSpriteName(std::string spriteName);
 	std::string GetSpriteName();
 

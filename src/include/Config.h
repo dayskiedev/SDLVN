@@ -8,6 +8,7 @@ extern int RELATIVE_SCREEN_WIDTH;
 extern int RELATIVE_SCREEN_HEIGHT;
 
 extern double RESOLUTION_SCALE;
+extern bool FULLSCREEN;
 
 extern int CHOICE_BUTTON_WIDTH;
 extern int CHOICE_BUTTON_HEIGHT;

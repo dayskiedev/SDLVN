@@ -23,6 +23,8 @@ public:
 	std::vector<std::shared_ptr<Sprite>> getSpriteVector();
 
 	void addSprite(std::string spriteObjName, std::string spriteTexName, std::string screenPos);
+	void addSprite(std::string spriteObjName, std::string spriteTexName, std::string screenPos, double spriteScale);
+
 	void addSprite(std::string spriteObjName, std::string spriteTextName, int x, int y, int w, int h);
 
 	void setSprite(std::string spriteObjName, std::string spriteName);
@@ -42,6 +44,6 @@ private:
 		{"CENTRE",		{RELATIVE_SCREEN_WIDTH / 2,	RELATIVE_SCREEN_HEIGHT / 2}},
 		{"CENTRE_DOWN", {RELATIVE_SCREEN_WIDTH / 2, (RELATIVE_SCREEN_HEIGHT / 2) + 200}},
 		{"LEFT",		{RELATIVE_SCREEN_WIDTH / 4,	RELATIVE_SCREEN_HEIGHT / 2}},
-		{"RIGHT",		{RELATIVE_SCREEN_WIDTH - 200,		RELATIVE_SCREEN_HEIGHT / 2}}
+		{"RIGHT",		{RELATIVE_SCREEN_WIDTH / 2 + 300,		RELATIVE_SCREEN_HEIGHT}}
 	};
 };

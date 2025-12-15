@@ -1,6 +1,8 @@
 #include "Interpreter.h"
 
-// have compiler to scroll through uncompiled script
+// Main brains behind the actual gameplay
+// scans a file and adds all lines to a vector <bad> then runs
+// through that vector executing commands depending on the string
 
 bool Interpreter::Initialise(std::shared_ptr<SpriteManager> sm, std::shared_ptr<TextManager> tm,
 							std::shared_ptr<UIManager> uim, std::shared_ptr<Sprite> bg,
@@ -99,7 +101,8 @@ void Interpreter::ButtonClicked() {
 
 void Interpreter::TokenizeLine() {
 	_commandArgs.clear();
-	// regex to select
+	// regex to split up line into tokens, except doesnt remove space where there is "
+	// ex-> *command do thing = [*commands] [do] [thing] VS *command "do thing" = [*commands] [do thing]
 	std::regex splitRegex(R"(".*?\"|\S+)");
 	std::string cTokens = _scriptFile[_lineCount];
 	auto tokens_begin = std::sregex_iterator(cTokens.begin(), cTokens.end(), splitRegex);
@@ -137,11 +140,23 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 		spriteObjName	= _commandArgs[1];
 		spriteTexName	= _commandArgs[2];
 		spritePosition = ""; // DEFAULT
+		double spriteScale = 0;
 
-		if (_commandArgs.size() > 3) {
-			spritePosition = _commandArgs[3];
+		if (_commandArgs.size() > 3) { 
+			spritePosition = _commandArgs[3]; 
 		}
+
+		std::cout << spriteTexName << std::endl;
+
+		//if (_commandArgs.size() > 4) { 
+		//	spriteScale = std::stod(_commandArgs[4]);
+		//	
+		//	std::cout << _commandArgs[4] << " Scale sprite by: " << spriteScale << std::endl;
+		//	_spriteManager->addSprite(spriteObjName, spriteTexName, spritePosition, spriteScale);
+
 		_spriteManager->addSprite(spriteObjName, spriteTexName, spritePosition);
+
+		
 	}
 	
 	else if (_commandArgs[0] == "*exit") {

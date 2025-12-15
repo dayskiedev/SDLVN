@@ -37,7 +37,10 @@ bool GameManager::Init() {
 	SDL_RenderSetScale(gRenderer, RESOLUTION_SCALE, RESOLUTION_SCALE);
 	SDL_SetWindowSize(gWindow, RELATIVE_SCREEN_WIDTH * RESOLUTION_SCALE,  RELATIVE_SCREEN_HEIGHT * RESOLUTION_SCALE);
 
-	//SDL_SetWindowFullscreen(gWindow, SDL_WINDOW_FULLSCREEN_DESKTOP);
+	if (FULLSCREEN) {
+		SDL_SetWindowFullscreen(gWindow, SDL_WINDOW_FULLSCREEN_DESKTOP);
+	}
+
 	// 
 	// imgs
 	int imgFlags = IMG_INIT_PNG;
@@ -63,7 +66,7 @@ bool GameManager::Init() {
 	Mix_Volume(2, 30);
 	std::cout << "Mixer initialised" << std::endl;
 
-	// start off by setting the launch state a menu instance
+	// start off by setting the launch state TO a menu instance
 	currentState = std::make_unique<Menu>();
 	currentState->EnterState(gRenderer, this);
 
@@ -73,12 +76,6 @@ bool GameManager::Init() {
 
 	std::cout << "Save Manager initialised" << std::endl;
 
-
-	//
-
-	//SDL_SetWindowFullscreen(gWindow, true);
-	//SDL_SetWindowBordered(gWindow, SDL_FALSE);
-	
 	return true;
 }
 
@@ -179,6 +176,7 @@ void GameManager::LoadSave(std::string savePath) {
 
 	if (!saveManager->Load(saveData, savePath)) {
 		std::cout << "error loading save";
+		return;
 	}
 
 	RequestState(std::make_unique<Game>());

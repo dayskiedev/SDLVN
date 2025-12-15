@@ -21,8 +21,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="scripts\example_script.vns" />
     <None Include="scripts\index_example_script.vns" />
+    <None Include="assets\scripts\example_script.vns">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Button.cpp">

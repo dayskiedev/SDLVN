@@ -1,5 +1,5 @@
-*setbackground entrance.png
-*enter rin rin.png RIGHT
+*setbackground entrance.png 
+*enter rin rin.png RIGHT 
 Yo, whats up loser?
 # *jumpto bad
 *reply "Oh. it's you."
@@ -26,7 +26,7 @@ Hmpg!
 *reply "Geez, she's grumpy today..."
 *cleartext
 *setbackground umabackground.png
-*enter saber saber.png CENTRE
+*enter saber saber.png CENTRE 
 I am also in this episode
 *setsprite saber saber2.png
 Ha Ha Ha

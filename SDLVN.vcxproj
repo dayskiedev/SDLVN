@@ -133,7 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="scripts\example_script.vns" />
+    <None Include="assets\scripts\example_script.vns" />
     <None Include="scripts\index_example_script.vns" />
   </ItemGroup>
   <ItemGroup>

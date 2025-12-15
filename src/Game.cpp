@@ -2,23 +2,10 @@
 #include "GameManager.h"
 #include "UIManager.h"
 
-
-// game -> pause goes to pause state -> pause state goes to load / save state
-
-
-// menu
-
-// backboard -> text + buttons + button to close menu
-// current context must be highest priority 
-
-// must do: saving and loading selection : relies on ui
-// pause: relies on ui
 // settings relies on ui
 // fixing game window size issues
 
 void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
-	// pass through the main render pointer
-	// and set it to that
 	gameRenderer = renderer;
 	_gameManager = gameManager;
 	_gameManager->SetSaveReferences(interpreter, spriteManager, gBackground);
@@ -33,26 +20,9 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 
 	gBackground->setRenderer(gameRenderer);
 
-	/// REMOVE LATER
+	/// setup ui stuff, including initialisng the pause menu options (that should probably be a seperate file?
 	gBlackBox = { 0,0, RELATIVE_SCREEN_WIDTH, RELATIVE_SCREEN_HEIGHT };
 
-	// NEED TO ERROR CHECK THIS
-
-	// here is when we load values for the interpretor
-	//  such as background, character sprite, etc
-
-	// save manager needs to pass through:
-	// - current interpretor line
-	// - whatever the current background is
-	// - whatever sprites are on screen split up into:
-	//		the sprite name
-	//		the sprites texture path
-	//		the sprites x and y coordinate
-
-
-	// THIS WILL BE MOVE TO THE PAUSE UI CPP FILE TO INITIALISE THERE INSTEAD? IDK
-
-	// also by god stop with the magic numbers...
 	uma = std::make_shared<Sprite>("uma", GLOBAL_SPRITES_PATH + "saveicon.png", RELATIVE_SCREEN_WIDTH - 800, (RELATIVE_SCREEN_HEIGHT / 2) - 300, 800, 800, gameRenderer);
 	std::shared_ptr<Button> resumeButton(new Button("resume", Button::UI, gameRenderer, DEFAULT_BUTTON_TEXTURE, 200, 50, 150, 150,"Resume", 30));
 	std::shared_ptr<Button> optButton(new Button("options", Button::UI, gameRenderer, DEFAULT_BUTTON_TEXTURE, 200, 50, 110, 250, "Options", 30));
@@ -100,12 +70,20 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	interpreter->Initialise(spriteManager, textManager, uiManager, gBackground,
 		saveData.scriptLine, saveData.scriptPath, saveData.backgroundPath, saveData.sprites);
 
+
+	// sprite coords testing placement
+	std::shared_ptr<Texture> MIDDLEX(new Texture(renderer, DEFAULT_BUTTON_TEXTURE, 10, RELATIVE_SCREEN_HEIGHT, 0, 0));
+	MIDDLEX->setColour(255,255,255);
+	MIDDLEX->setX((RELATIVE_SCREEN_WIDTH / 2) - MIDDLEX->getWidth() / 2);
+
+	PauseMainMenuUI.push_back(MIDDLEX);
+
 }
 // run is called from main, checks for event quit
 // run handles update and render as seperate methods to call
 
 void Game::Update(SDL_Event e, double deltaTime) {
-	// place logic here
+	// game logic updates here
 
 	switch (currentState) {
 		case RUNNING:
@@ -162,6 +140,7 @@ void Game::Render() {
 			for (auto s : spriteManager->getSpriteVector()) {
 				// change render to be scaled based from settings
 				s->Render(s->getX(), s->getY(), s->getWidth() / 1.5, s->getHeight() / 1.5);
+				//s->Render();
 			}
 
 			SDL_SetRenderDrawColor(gameRenderer, 0, 0, 0, 100);
