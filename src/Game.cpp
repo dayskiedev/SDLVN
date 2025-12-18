@@ -23,7 +23,7 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	/// setup ui stuff, including initialisng the pause menu options (that should probably be a seperate file?
 	gBlackBox = { 0,0, RELATIVE_SCREEN_WIDTH, RELATIVE_SCREEN_HEIGHT };
 
-	uma = std::make_shared<Sprite>("uma", GLOBAL_SPRITES_PATH + "saveicon.png", RELATIVE_SCREEN_WIDTH - 800, (RELATIVE_SCREEN_HEIGHT / 2) - 300, 800, 800, gameRenderer);
+	uma = std::make_shared<Sprite>("uma", GLOBAL_SPRITES_PATH + "saveicon.png", RELATIVE_SCREEN_WIDTH - 800, (RELATIVE_SCREEN_HEIGHT / 2) - 300, 800, 800, 1.0, gameRenderer);
 	std::shared_ptr<Button> resumeButton(new Button("resume", Button::UI, gameRenderer, DEFAULT_BUTTON_TEXTURE, 200, 50, 150, 150,"Resume", 30));
 	std::shared_ptr<Button> optButton(new Button("options", Button::UI, gameRenderer, DEFAULT_BUTTON_TEXTURE, 200, 50, 110, 250, "Options", 30));
 	std::shared_ptr<Button> saveButton(new Button("save", Button::UI, gameRenderer, DEFAULT_BUTTON_TEXTURE, 200, 50, 75, 350, "Save", 30));

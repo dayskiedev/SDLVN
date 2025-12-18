@@ -70,6 +70,11 @@ void SpriteManager::addSprite(std::string spriteObjName, std::string spriteTexNa
 	// set sprite scale here:
 	sprite->SetSpriteScale(spriteScale);
 
+	// scale sprite textures by this scale
+	sprite->setWidth(sprite->getWidth() * sprite->GetScale());
+	sprite->setHeight(sprite->getHeight() * sprite->GetScale());
+	sprite->setY(RELATIVE_SCREEN_HEIGHT - sprite->getHeight());
+
 	// convert pos to be set from the centre of the sprite
 	x_pos = x_pos - (sprite->getWidth() / 2);
 	y_pos = y_pos - sprite->getHeight();
@@ -85,8 +90,8 @@ void SpriteManager::addSprite(std::string spriteObjName, std::string spriteTextN
 		spriteTextName,
 		x, y,
 		w, h,
+		spriteScale,
 		_renderer));
-	sprite->SetSpriteScale(spriteScale);
 	_sprites.push_back(sprite);
 }
 
@@ -101,9 +106,14 @@ void SpriteManager::setSprite(std::string spriteObjName, std::string spriteTexNa
 	}
 
 	// these should just happen together i think......
-	(*spriteToChange)->loadFromFile(_spritesTexPath + spriteTexName);
-	(*spriteToChange)->SetSpritePath(_spritesTexPath + spriteTexName);
-	(*spriteToChange)->SetSpriteScale((*spriteToChange)->GetScale());
+	auto stc = (*spriteToChange);
+	stc->loadFromFile(_spritesTexPath + spriteTexName);
+	stc->SetSpritePath(_spritesTexPath + spriteTexName);
+	stc->SetSpriteScale((*spriteToChange)->GetScale());
+	
+	stc->setWidth(stc->getWidth() * stc->GetScale());
+	stc->setHeight(stc->getHeight() * stc->GetScale());
+	stc->setY(RELATIVE_SCREEN_HEIGHT - stc->getHeight());
 }
 
 void SpriteManager::removeSprite(std::string spriteObjName) {

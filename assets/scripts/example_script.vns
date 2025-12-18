@@ -26,7 +26,7 @@ Hmpg!
 *reply "Geez, she's grumpy today..."
 *cleartext
 *setbackground umabackground.png
-*enter saber saber.png CENTRE_STAGE 
+*enter saber saber.png CENTRE_STAGE 0.6
 I am also in this episode
 *setsprite saber saber2.png
 Ha Ha Ha
@@ -54,7 +54,7 @@ uGHHH you idiot!
 *setsprite saber saber2.png
 so what you wanna do huh?
 *reply "idk tbh"
-*enter rin rin.png RIGHT
+*enter rin rin.png RIGHT 0.6
 *cleartext
 WHAT DO YOU THINK YOU'RE DOING!!!
 6 7 6 7 6 7 6 7 6 6 7
