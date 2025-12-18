@@ -22,7 +22,11 @@ public:
 	void SetSpritePath(std::string spritePath);
 	std::string GetSpriteTexPath();
 
+	double GetScale() { return _spriteScale; }
+	void SetSpriteScale(double scale);
+
 private:
 	std::string _spriteName;
 	std::string _spriteTexPath;
+	double _spriteScale = 1.0;
 };

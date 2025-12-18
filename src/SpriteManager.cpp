@@ -35,12 +35,17 @@ void SpriteManager::addSprite(std::string spriteObjName, std::string spriteTexNa
 		screenPos = "CENTRE";
 	}
 
+	double _spriteScale = 0.6;
+
+	sprite->SetSpriteScale(0.6);
+
 	int x_pos = _spritePositions.find(screenPos)->second.first;
 	int y_pos = _spritePositions.find(screenPos)->second.second;
 
 	// convert pos to be set from the centre of the sprite
-	x_pos = x_pos - (sprite->getWidth() / 3.5);
-	y_pos = y_pos -  (sprite->getHeight() / 3.5);
+	// while setting them  the floor of the screen
+	x_pos = x_pos - (sprite->getWidth() / 2);
+	y_pos = y_pos -  (sprite->getHeight());
 
 	sprite->setX(x_pos);
 	sprite->setY(y_pos);
@@ -102,6 +107,7 @@ void SpriteManager::setSprite(std::string spriteObjName, std::string spriteTexNa
 	// these should just happen together i think......
 	(*spriteToChange)->loadFromFile(_spritesTexPath + spriteTexName);
 	(*spriteToChange)->SetSpritePath(_spritesTexPath + spriteTexName);
+	(*spriteToChange)->SetSpriteScale((*spriteToChange)->GetScale());
 }
 
 void SpriteManager::removeSprite(std::string spriteObjName) {

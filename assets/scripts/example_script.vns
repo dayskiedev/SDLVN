@@ -1,5 +1,5 @@
 *setbackground entrance.png 
-*enter rin rin.png RIGHT 
+*enter rin rin.png CENTRE_STAGE 
 Yo, whats up loser?
 # *jumpto bad
 *reply "Oh. it's you."

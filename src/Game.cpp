@@ -139,7 +139,7 @@ void Game::Render() {
 			// layer 1 character sprites
 			for (auto s : spriteManager->getSpriteVector()) {
 				// change render to be scaled based from settings
-				s->Render(s->getX(), s->getY(), s->getWidth() / 1.5, s->getHeight() / 1.5);
+				s->Render();
 				//s->Render();
 			}
 
