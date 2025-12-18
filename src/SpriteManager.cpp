@@ -32,12 +32,8 @@ void SpriteManager::addSprite(std::string spriteObjName, std::string spriteTexNa
 
 	if (_spritePositions.find(screenPos) == _spritePositions.end()) { 
 		std::cout << "Unable to find position " << screenPos << " in map, using default value!" << std::endl; 
-		screenPos = "CENTRE";
+		screenPos = "CENTRE_DOWN";
 	}
-
-	double _spriteScale = 0.6;
-
-	sprite->SetSpriteScale(0.6);
 
 	int x_pos = _spritePositions.find(screenPos)->second.first;
 	int y_pos = _spritePositions.find(screenPos)->second.second;
@@ -54,43 +50,43 @@ void SpriteManager::addSprite(std::string spriteObjName, std::string spriteTexNa
 }
 
 // CHANGE SPRITES BY SPRITE SCALE, WOULD NEED TO THEN SAVE AND LOAD SCALE FOR SPRITES?
-//void SpriteManager::addSprite(std::string spriteObjName, std::string spriteTexName, std::string screenPos, double spriteScale) {
-//	std::shared_ptr<Sprite> sprite(new Sprite);
-//	sprite->setRenderer(_renderer);
-//
-//	sprite->SetSpriteName(spriteObjName);
-//	std::string spritePath = _spritesTexPath + spriteTexName;
-//	sprite->SetSpritePath(spritePath);
-//	sprite->loadFromFile(spritePath);
-//
-//	if (_spritePositions.find(screenPos) == _spritePositions.end()) {
-//		std::cout << "Unable to find position " << screenPos << " in map, using default value!" << std::endl;
-//		screenPos = "CENTRE";
-//	}
-//
-//	int x_pos = _spritePositions.find(screenPos)->second.first;
-//	int y_pos = _spritePositions.find(screenPos)->second.second;
-//
-//	// set sprite scale here:
-//	sprite->setWidth(sprite->getWidth() * spriteScale);
-//	sprite->setHeight(sprite->getHeight() * spriteScale);
-//
-//	// convert pos to be set from the centre of the sprite
-//	x_pos = x_pos - (sprite->getWidth() / 2);
-//	y_pos = y_pos - (sprite->getHeight() / 2) + 50;
-//
-//	sprite->setX(x_pos);
-//	sprite->setY(y_pos);
-//
-//	_sprites.push_back(sprite);
-//}
+void SpriteManager::addSprite(std::string spriteObjName, std::string spriteTexName, std::string screenPos, double spriteScale) {
+	std::shared_ptr<Sprite> sprite(new Sprite);
+	sprite->setRenderer(_renderer);
 
-void SpriteManager::addSprite(std::string spriteObjName, std::string spriteTextName, int x, int y, int w, int h) {
+	sprite->SetSpriteName(spriteObjName);
+	std::string spritePath = _spritesTexPath + spriteTexName;
+	sprite->SetSpritePath(spritePath);
+	sprite->loadFromFile(spritePath);
+
+	if (_spritePositions.find(screenPos) == _spritePositions.end()) {
+		std::cout << "Unable to find position " << screenPos << " in map, using default value!" << std::endl;
+		screenPos = "CENTRE";
+	}
+
+	int x_pos = _spritePositions.find(screenPos)->second.first;
+	int y_pos = _spritePositions.find(screenPos)->second.second;
+
+	// set sprite scale here:
+	sprite->SetSpriteScale(spriteScale);
+
+	// convert pos to be set from the centre of the sprite
+	x_pos = x_pos - (sprite->getWidth() / 2);
+	y_pos = y_pos - sprite->getHeight();
+
+	sprite->setX(x_pos);
+	sprite->setY(y_pos);
+
+	_sprites.push_back(sprite);
+}
+
+void SpriteManager::addSprite(std::string spriteObjName, std::string spriteTextName, double spriteScale, int x, int y, int w, int h) {
 	std::shared_ptr<Sprite> sprite(new Sprite(spriteObjName,
 		spriteTextName,
 		x, y,
 		w, h,
 		_renderer));
+	sprite->SetSpriteScale(spriteScale);
 	_sprites.push_back(sprite);
 }
 

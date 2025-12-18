@@ -8,6 +8,7 @@
 struct SpriteInformation {
 	std::string spriteName;
 	std::string spriteLocation;
+	double spriteScale;
 	int x;
 	int y;
 	int w;

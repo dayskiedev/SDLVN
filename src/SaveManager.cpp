@@ -72,6 +72,9 @@ void SaveManager::Save(SaveData saveRawInfo, std::string savePath) {
 		outfile.write(reinterpret_cast<char*>(&size), sizeof(size));
 		outfile.write(s.spriteLocation.c_str(), s.spriteLocation.size());
 
+		//// sprite scale
+		outfile.write(reinterpret_cast<char*>(&s.spriteScale), sizeof(s.spriteScale));
+
 		//// sprite width, height, x, y
 		outfile.write(reinterpret_cast<char*>(&s.w), sizeof(s.w));
 		outfile.write(reinterpret_cast<char*>(&s.h), sizeof(s.h));
@@ -104,6 +107,7 @@ bool SaveManager::Load(SaveData& saveData, std::string savePath) {
 	// number of characters
 	std::string rSprName = "";
 	std::string rSpriteLoc = "";
+	double scale;
 	int w, h, x, y;
 	SpriteInformation rTempSpriteInfo;
 	std::vector<SpriteInformation> rTempSpriteInfoVec;
@@ -144,6 +148,9 @@ bool SaveManager::Load(SaveData& saveData, std::string savePath) {
 		rSpriteLoc.resize(size);
 		infile.read(&rSpriteLoc[0], rSpriteLoc.size());
 
+		// sprite scale
+		infile.read(reinterpret_cast<char*>(&scale), sizeof(scale));
+
 		// w h x y
 		infile.read(reinterpret_cast<char*>(&w), sizeof(w));
 		infile.read(reinterpret_cast<char*>(&h), sizeof(h));
@@ -152,6 +159,7 @@ bool SaveManager::Load(SaveData& saveData, std::string savePath) {
 
 		rTempSpriteInfo.spriteName = rSprName;
 		rTempSpriteInfo.spriteLocation = rSpriteLoc;
+		rTempSpriteInfo.spriteScale = scale;
 		rTempSpriteInfo.w = w;
 		rTempSpriteInfo.h = h;
 		rTempSpriteInfo.x = x;
@@ -171,6 +179,7 @@ bool SaveManager::Load(SaveData& saveData, std::string savePath) {
 	for (int i = 0; i < rNumChar; ++i) {
 		std::cout << "Character name: " << rTempSpriteInfoVec.at(i).spriteName << std::endl;
 		std::cout << "Character sprite: " << rTempSpriteInfoVec.at(i).spriteLocation << std::endl;
+		std::cout << "Sprite scale: " << rTempSpriteInfoVec.at(i).spriteScale << std::endl;
 	}
 
 	saveData.scriptPath = rScriptLoc;

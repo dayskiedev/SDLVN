@@ -25,7 +25,7 @@ public:
 	void addSprite(std::string spriteObjName, std::string spriteTexName, std::string screenPos);
 	void addSprite(std::string spriteObjName, std::string spriteTexName, std::string screenPos, double spriteScale);
 
-	void addSprite(std::string spriteObjName, std::string spriteTextName, int x, int y, int w, int h);
+	void addSprite(std::string spriteObjName, std::string spriteTextName, double spriteScale, int x, int y, int w, int h);
 
 	void setSprite(std::string spriteObjName, std::string spriteName);
 	void removeSprite(std::string spriteObjName);
@@ -43,7 +43,7 @@ private:
 	std::unordered_map<std::string, std::pair<int,int>> _spritePositions = {
 		{"CENTRE",		{RELATIVE_SCREEN_WIDTH / 2,	RELATIVE_SCREEN_HEIGHT / 2}},
 		{"CENTRE_STAGE", {RELATIVE_SCREEN_WIDTH / 2, RELATIVE_SCREEN_HEIGHT}},
-		{"LEFT",		{RELATIVE_SCREEN_WIDTH / 4,	RELATIVE_SCREEN_HEIGHT / 2}},
-		{"RIGHT",		{RELATIVE_SCREEN_WIDTH / 2 + 300,		RELATIVE_SCREEN_HEIGHT}}
+		{"LEFT",		{RELATIVE_SCREEN_WIDTH / 4,	RELATIVE_SCREEN_HEIGHT}},
+		{"RIGHT",		{RELATIVE_SCREEN_WIDTH / 4 + (RELATIVE_SCREEN_WIDTH / 2),		RELATIVE_SCREEN_HEIGHT}}
 	};
 };

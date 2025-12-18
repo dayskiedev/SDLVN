@@ -144,6 +144,7 @@ void GameManager::QuickSave() {
 
 		sInfo.spriteName = s->GetSpriteName();
 		sInfo.spriteLocation = s->GetSpriteTexPath();
+		sInfo.spriteScale = s->GetScale();
 		sInfo.w = s->getWidth();
 		sInfo.h = s->getHeight();
 		sInfo.x = s->getX();

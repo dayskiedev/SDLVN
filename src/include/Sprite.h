@@ -5,6 +5,7 @@
 #include <SDL_image.h>
 
 #include "Texture.h"
+#include "Config.h"
 
 class Sprite : public Texture {
 public:

@@ -48,4 +48,7 @@ void Sprite::SetSpriteScale(double scale) {
 	_spriteScale = scale;
 	setWidth(getWidth() * scale);
 	setHeight(getHeight() * scale);
+
+	// we want to leave them anchored to the bottom of the screen so we need to reset the y with this new scale
+	setY(RELATIVE_SCREEN_HEIGHT - getHeight());
 }

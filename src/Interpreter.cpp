@@ -29,8 +29,10 @@ bool Interpreter::Initialise(std::shared_ptr<SpriteManager> sm, std::shared_ptr<
 
 	// load any sprites saved in file
 	for (auto curSprite : sprites) {
-		_spriteManager->addSprite(curSprite.spriteName,
+		_spriteManager->addSprite(
+			curSprite.spriteName,
 			curSprite.spriteLocation,
+			curSprite.spriteScale,
 			curSprite.x, curSprite.y,
 			curSprite.w, curSprite.h);
 	}
@@ -148,15 +150,15 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 
 		std::cout << spriteTexName << std::endl;
 
-		//if (_commandArgs.size() > 4) { 
-		//	spriteScale = std::stod(_commandArgs[4]);
-		//	
-		//	std::cout << _commandArgs[4] << " Scale sprite by: " << spriteScale << std::endl;
-		//	_spriteManager->addSprite(spriteObjName, spriteTexName, spritePosition, spriteScale);
+		if (_commandArgs.size() > 4) {
+			spriteScale = std::stod(_commandArgs[4]);
 
-		_spriteManager->addSprite(spriteObjName, spriteTexName, spritePosition);
-
-		
+			std::cout << _commandArgs[4] << " Scale sprite by: " << spriteScale << std::endl;
+			_spriteManager->addSprite(spriteObjName, spriteTexName, spritePosition, spriteScale);
+		}
+		else {
+			_spriteManager->addSprite(spriteObjName, spriteTexName, spritePosition);
+		}
 	}
 	
 	else if (_commandArgs[0] == "*exit") {
