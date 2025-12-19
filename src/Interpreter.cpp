@@ -142,23 +142,17 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 		spriteObjName	= _commandArgs[1];
 		spriteTexName	= _commandArgs[2];
 		spritePosition = ""; // DEFAULT
-		double spriteScale = 0;
+		double spriteScale = 1.0;
 
 		if (_commandArgs.size() > 3) { 
 			spritePosition = _commandArgs[3]; 
 		}
 
-		std::cout << spriteTexName << std::endl;
-
 		if (_commandArgs.size() > 4) {
 			spriteScale = std::stod(_commandArgs[4]);
+		}
 
-			std::cout << _commandArgs[4] << " Scale sprite by: " << spriteScale << std::endl;
-			_spriteManager->addSprite(spriteObjName, spriteTexName, spritePosition, spriteScale);
-		}
-		else {
-			_spriteManager->addSprite(spriteObjName, spriteTexName, spritePosition);
-		}
+		_spriteManager->addSprite(spriteObjName, spriteTexName, spritePosition, spriteScale);
 	}
 	
 	else if (_commandArgs[0] == "*exit") {

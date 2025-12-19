@@ -22,9 +22,7 @@ public:
 
 	std::vector<std::shared_ptr<Sprite>> getSpriteVector();
 
-	void addSprite(std::string spriteObjName, std::string spriteTexName, std::string screenPos);
 	void addSprite(std::string spriteObjName, std::string spriteTexName, std::string screenPos, double spriteScale);
-
 	void addSprite(std::string spriteObjName, std::string spriteTextName, double spriteScale, int x, int y, int w, int h);
 
 	void setSprite(std::string spriteObjName, std::string spriteName);

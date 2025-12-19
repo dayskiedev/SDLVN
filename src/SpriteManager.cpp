@@ -19,37 +19,6 @@ std::vector<std::shared_ptr<Sprite>> SpriteManager::getSpriteVector() {
 	return _sprites;
 }
 
-void SpriteManager::addSprite(std::string spriteObjName, std::string spriteTexName, std::string screenPos) {
-	std::shared_ptr<Sprite> sprite(new Sprite);
-
-	// this could all be in a constructor?
-	sprite->setRenderer(_renderer);
-
-	sprite->SetSpriteName(spriteObjName);
-	std::string spritePath = _spritesTexPath + spriteTexName;
-	sprite->SetSpritePath(spritePath);
-	sprite->loadFromFile(spritePath);
-
-	if (_spritePositions.find(screenPos) == _spritePositions.end()) { 
-		std::cout << "Unable to find position " << screenPos << " in map, using default value!" << std::endl; 
-		screenPos = "CENTRE_DOWN";
-	}
-
-	int x_pos = _spritePositions.find(screenPos)->second.first;
-	int y_pos = _spritePositions.find(screenPos)->second.second;
-
-	// convert pos to be set from the centre of the sprite
-	// while setting them  the floor of the screen
-	x_pos = x_pos - (sprite->getWidth() / 2);
-	y_pos = y_pos -  (sprite->getHeight());
-
-	sprite->setX(x_pos);
-	sprite->setY(y_pos);
-
-	_sprites.push_back(sprite);
-}
-
-// CHANGE SPRITES BY SPRITE SCALE, WOULD NEED TO THEN SAVE AND LOAD SCALE FOR SPRITES?
 void SpriteManager::addSprite(std::string spriteObjName, std::string spriteTexName, std::string screenPos, double spriteScale) {
 	std::shared_ptr<Sprite> sprite(new Sprite);
 	sprite->setRenderer(_renderer);
