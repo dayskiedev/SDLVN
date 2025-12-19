@@ -30,10 +30,15 @@ void Text::SetText(std::string t) {
 	text = t;
 	curTextLen = text.length();
 	loadFromRenderedText(text, textColor);
+
+	// have some sort of text anchor enum to ensure text stays in correct position
+	// depending on what anchor we have (ex left anchor, centre anchor etc)
+	// right now we default to having text centre at its x/y
+	setX((RELATIVE_SCREEN_WIDTH / 2) - (getWidth() / 2));
 }
+
 // these where casuing a stqck overflow because i renamed the render in texture.h to Render
 // these where called render but also inherit from the base class, so they recusively called themselves...
-
 void Text::Render() {
 	// this will constantly load the rendered text.... might not be good....
 	loadFromRenderedText(text.substr(0, curTextLen), textColor);

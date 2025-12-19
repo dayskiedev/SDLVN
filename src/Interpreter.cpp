@@ -50,7 +50,7 @@ bool Interpreter::OpenScript(std::string filePath) {
 	std::ifstream _scriptFileRaw(filePath);
 
 	if (!_scriptFileRaw.is_open()) {
-		PrintError("Unable to open file: " + filePath);
+		std::cout << ("Unable to open file: " + filePath) << std::endl;
 		return false;
 	}
 
@@ -62,13 +62,6 @@ bool Interpreter::OpenScript(std::string filePath) {
 	}
 	_scriptFileRaw.close();
 	return true;
-}
-
-void Interpreter::PrintError(std::string Error) {
-	std::cout << "Error on line " << _lineCount + 1 << ": ";
-	std::cout << Error << std::endl;
-
-	// do i need this function? Not so sure to be honest....
 }
 
 void Interpreter::JumpToChoice(std::string choice) {
@@ -83,7 +76,6 @@ void Interpreter::JumpToChoice(std::string choice) {
 		else { _lineCount++; }
 	}
 
-	PrintError("ERROR: Choice " + choice + " not found!");
 	_lineCount = _lineCountInitial;
 	return;
 }
@@ -185,7 +177,7 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 			newTextSpeed = std::stod(_commandArgs[1]);
 		}
 		catch (std::invalid_argument ia) {
-			PrintError(ia.what());
+			std::cout << (ia.what()) << std::endl;
 			return;
 		}
 		threshold = 50 / newTextSpeed;
@@ -193,12 +185,14 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 
 	else if (_commandArgs[0] == "*wait") {
 		// *wait [time_to_wait]
+		// this will most likely pause everything (ie animations) as well.
+		// change to increment based wait like with scrolling text
 		double delayTime = 0;
 		try {
 			delayTime = std::stod(_commandArgs[1]);
 		}
 		catch(std::invalid_argument ia) {
-			PrintError(ia.what());
+			std::cout << (ia.what()) << std::endl;
 			return;
 		}
 
@@ -222,7 +216,7 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 			numButtons = std::stod(_commandArgs[1]);
 		}
 		catch (std::invalid_argument ia) {
-			PrintError(ia.what());
+			std::cout << (ia.what()) << std::endl;
 			return;
 		}
 
@@ -233,9 +227,7 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 			btnContents = _commandArgs[i + 1];
 			btnContents = btnContents.substr(1, (btnContents.length() - 2));
 
-			std::shared_ptr<Button> choiceButton(new Button(btnName,
-				Button::CHOICE,
-				_uiManager->getRenderer(),
+			std::shared_ptr<Button> choiceButton(new Button(btnName, Button::CHOICE, _uiManager->getRenderer(),
 				DEFAULT_BUTTON_TEXTURE,
 				CHOICE_BUTTON_WIDTH,
 				CHOICE_BUTTON_HEIGHT,
@@ -266,16 +258,13 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 		std::string replyContents = _commandArgs[1];
 		replyContents = replyContents.substr(1, (replyContents.length() - 2));
 
-		std::shared_ptr<Button> replyButton(new Button("reply",
-			Button::REPLY,
-			_uiManager->getRenderer(),
+		std::shared_ptr<Button> replyButton(new Button("reply", Button::REPLY, _uiManager->getRenderer(),
 			DEFAULT_BUTTON_TEXTURE,
 			CHOICE_BUTTON_WIDTH,
 			CHOICE_BUTTON_HEIGHT,
 			(RELATIVE_SCREEN_WIDTH / 2) - (CHOICE_BUTTON_WIDTH / 2),
 			(RELATIVE_SCREEN_HEIGHT / 2) - (CHOICE_BUTTON_HEIGHT / 2),
-			replyContents,
-			30
+			replyContents, 30
 		));
 		replyButton->OnClick = [this]() { 
 			ButtonClicked(),

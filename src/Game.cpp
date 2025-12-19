@@ -69,15 +69,6 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	auto& saveData = gameManager->GetSaveData();
 	interpreter->Initialise(spriteManager, textManager, uiManager, gBackground,
 		saveData.scriptLine, saveData.scriptPath, saveData.backgroundPath, saveData.sprites);
-
-
-	// sprite coords testing placement
-	std::shared_ptr<Texture> MIDDLEX(new Texture(renderer, DEFAULT_BUTTON_TEXTURE, 10, RELATIVE_SCREEN_HEIGHT, 0, 0));
-	MIDDLEX->setColour(255,255,255);
-	MIDDLEX->setX((RELATIVE_SCREEN_WIDTH / 2) - MIDDLEX->getWidth() / 2);
-
-	PauseMainMenuUI.push_back(MIDDLEX);
-
 }
 // run is called from main, checks for event quit
 // run handles update and render as seperate methods to call

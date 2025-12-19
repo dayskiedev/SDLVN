@@ -79,11 +79,9 @@ void SaveLoadUI::UpdateFileButtons(FILE_LOAD_MODE flm) {
 		case SaveLoadUI::SAVE:
 			curMode = SAVE;
 			infoText->SetText("Select a slot to save to.");
-			infoText->setX((RELATIVE_SCREEN_WIDTH / 2) - (infoText->getWidth() / 2));
 
 			b->OnClick = [this, b, savePath]() {
 				infoText->SetText("Save " + savePath + " created.");
-				infoText->setX((RELATIVE_SCREEN_WIDTH / 2) - (infoText->getWidth() / 2));
 				b->ChangeTexture(saveExistsTexturePath);
 				_gameManager->SaveGame(savePath);
 			};
@@ -91,12 +89,10 @@ void SaveLoadUI::UpdateFileButtons(FILE_LOAD_MODE flm) {
 		case SaveLoadUI::LOAD:
 			curMode = LOAD;
 			infoText->SetText("Select a save to load.");
-			infoText->setX((RELATIVE_SCREEN_WIDTH / 2) - (infoText->getWidth() / 2));
 
 			b->OnClick = [this, savePath]() {
 				if (!_gameManager->SaveExists(savePath)) {
 					infoText->SetText("No save to load.");
-					infoText->setX((RELATIVE_SCREEN_WIDTH / 2) - (infoText->getWidth() / 2));
 					return;	
 				}
 				_gameManager->LoadSave(savePath);
@@ -109,13 +105,11 @@ void SaveLoadUI::UpdateFileButtons(FILE_LOAD_MODE flm) {
 			b->OnClick = [this, savePath, b]() {
 				if (!_gameManager->SaveExists(savePath)) {
 					infoText->SetText("No save to erase.");
-					infoText->setX((RELATIVE_SCREEN_WIDTH / 2) - (infoText->getWidth() / 2));
 					return;
 				}
 
 				_gameManager->DeleteSave(savePath);
 				infoText->SetText("Save " + savePath + " erased.");
-				infoText->setX((RELATIVE_SCREEN_WIDTH / 2) - (infoText->getWidth() / 2));
 
 				b->ChangeTexture(DEFAULT_BUTTON_TEXTURE);
 			};

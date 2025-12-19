@@ -33,8 +33,6 @@ public:
 	std::string GetCurrentScript();
 	int GetCurrentScriptLine();
 
-	void PrintError(std::string Error);
-
 	// pass by referecne because we want to modify the sprites/text in these vectors
 	void Run(SDL_Event e, double deltaTime);
 
