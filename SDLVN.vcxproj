@@ -134,9 +134,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="assets\scripts\example_script.vns" />
+    <None Include="assets\scripts\test_story.vns" />
     <None Include="scripts\index_example_script.vns" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\AudioManager.cpp" />
     <ClCompile Include="src\Button.cpp" />
     <ClCompile Include="src\Config.cpp" />
     <ClCompile Include="src\Game.cpp" />
@@ -156,6 +158,7 @@
     <ClCompile Include="src\UIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\include\AudioManager.h" />
     <ClInclude Include="src\include\Button.h" />
     <ClInclude Include="src\include\Config.h" />
     <ClInclude Include="src\include\Game.h" />

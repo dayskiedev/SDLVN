@@ -40,6 +40,7 @@ bool Interpreter::Initialise(std::shared_ptr<SpriteManager> sm, std::shared_ptr<
 }
 
 bool Interpreter::OpenScript(std::string filePath) {
+	// this needs to become dynamic, should help reduce memory?
 	_scriptFile.clear();
 
 	if (std::filesystem::path(filePath).extension() != ".vns") {

@@ -63,8 +63,9 @@ bool GameManager::Init() {
 		return false;
 	}
 
-	Mix_Volume(2, 30);
 	std::cout << "Mixer initialised" << std::endl;
+
+	audioManager.LoadSystemSounds();
 
 	// start off by setting the launch state TO a menu instance
 	currentState = std::make_unique<Menu>();
@@ -100,6 +101,7 @@ void GameManager::Run() {
 	// if we called a change of state, wait until all updates/renders have occurred, then change
 	// state so that no chance of objects in state trying to get things that have been deleted..
 	if (pendingState) {
+		audioManager.PlaySound("test");
 		currentState->ExitState();
 		currentState = std::move(pendingState);
 		// because we move ownership to currentState, pending state

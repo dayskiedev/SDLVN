@@ -31,6 +31,9 @@ extern std::string DEFAULT_BUTTON_TEXTURE;
 
 extern std::string DEFAULT_SAVE_LOCATION;
 
+extern int MUSIC_VOLUME;
+extern int SFX_VOLUME;
+
 // text position
 // choice button position
 // sprite scale

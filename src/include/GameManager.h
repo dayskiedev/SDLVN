@@ -12,6 +12,7 @@
 
 // managers
 #include "SaveManager.h"
+#include "AudioManager.h"
 #include "UIManager.h"
 
 // states
@@ -69,6 +70,7 @@ private:
 	std::unique_ptr<GameState> currentState;
 	std::unique_ptr<GameState> pendingState;
 
-
+	// value member?
+	AudioManager audioManager;
 
 };

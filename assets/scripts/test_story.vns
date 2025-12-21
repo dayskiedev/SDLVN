@@ -1,0 +1,41 @@
+# test story to try out engine features
+# what to add
+# dynamically load the script so I dont need to reload everytime i add something
+# music / sound effects <- do next
+# basic transition animations (fade in / out should be fine)
+# text wrapping
+# text repositioning
+
+*setbackground black.jpg
+*wait 1
+I honestly didn't think it would work.
+Somehow, they came back.
+*cleartext
+But something doesn't feel right.
+They look the same, talk the same, and act like nothing happend.
+But I can't help to think that something about them is off...
+...
+...
+*cleartext
+*setbackground entrance.png
+*wait 1
+I'm home.
+*enter rin rin2.png CENTRE_STAGE 0.6
+*cleartext
+No ones here huh...
+*setsprite rin rin.png
+Whatever, I didn't expect them to be here anyway
+*cleartext
+*exit rin
+
+*setbackground dojo.png
+Im used to having the house to myself.
+Even with them back, they're never home long enough for it to seem that way.
+But staying alone in this house is suffocating.
+I'll get some fresh air.
+...
+*cleartext
+
+*setbackground bridge.png
+...
+*reply "No one here either huh..."
