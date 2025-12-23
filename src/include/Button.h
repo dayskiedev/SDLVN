@@ -19,7 +19,9 @@ public:
 		UI
 	};
 
+	// why does button need a default initaliser for UIManager?
 	Button();
+	// initialiser list
 	Button(std::string name, ButtonType type, SDL_Renderer* renderer, std::string texture, int w, int h, int x, int y, std::string text, int fontSize);
 
 	// button without text
@@ -53,6 +55,7 @@ public:
 private:
 	std::string _btnName;
 	ButtonType type;
+
 	bool _overlapping;
 	bool _clicked;
 	bool entered;

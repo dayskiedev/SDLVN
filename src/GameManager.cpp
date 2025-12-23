@@ -101,7 +101,6 @@ void GameManager::Run() {
 	// if we called a change of state, wait until all updates/renders have occurred, then change
 	// state so that no chance of objects in state trying to get things that have been deleted..
 	if (pendingState) {
-		audioManager.PlaySound("test");
 		currentState->ExitState();
 		currentState = std::move(pendingState);
 		// because we move ownership to currentState, pending state

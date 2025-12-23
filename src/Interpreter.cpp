@@ -259,6 +259,7 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 		std::string replyContents = _commandArgs[1];
 		replyContents = replyContents.substr(1, (replyContents.length() - 2));
 
+		// use std::make_unique	
 		std::shared_ptr<Button> replyButton(new Button("reply", Button::REPLY, _uiManager->getRenderer(),
 			DEFAULT_BUTTON_TEXTURE,
 			CHOICE_BUTTON_WIDTH,

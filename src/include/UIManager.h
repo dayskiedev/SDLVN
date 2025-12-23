@@ -9,9 +9,7 @@
 
 class UIManager : public Button {
 public:
-	// add ui button
-	// add choice button
-	// move text rendering to here?
+	UIManager();
 	~UIManager();
 
 	void setRenderer(SDL_Renderer* renderer);

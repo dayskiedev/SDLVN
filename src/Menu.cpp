@@ -21,7 +21,8 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 		0, 0
 	);
 
-	std::shared_ptr<Button> playButton(new Button("new", Button::UI, menuRenderer, DEFAULT_BUTTON_TEXTURE, 
+	// look into using weak pointers when referncing buttons?
+	std::shared_ptr<Button> playButton(new Button("new", Button::UI, menuRenderer, DEFAULT_BUTTON_TEXTURE,
 		200, 50,					// width height
 		(RELATIVE_SCREEN_WIDTH / 2) - 100,	// x
 		(RELATIVE_SCREEN_HEIGHT / 2) - 50,   // y

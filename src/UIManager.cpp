@@ -1,6 +1,8 @@
 #include <vector>
 #include "UIManager.h"
 
+UIManager::UIManager() {}
+
 UIManager::~UIManager() {
 	_buttons.clear();
 	_renderer = NULL;

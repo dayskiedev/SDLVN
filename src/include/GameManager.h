@@ -45,6 +45,8 @@ public:
 
 	void PrintCurrentSaveData();
 
+	AudioManager& GetAudioManager() { return audioManager; }
+
 	bool running = true;
 
 	SDL_Event e;

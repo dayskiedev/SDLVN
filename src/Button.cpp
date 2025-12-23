@@ -1,7 +1,9 @@
 #include "Button.h"
 
 Button::Button() {}
-Button::Button(std::string name, ButtonType setType, SDL_Renderer* renderer, std::string texture, int w, int h, int x, int y, std::string text, int fontSize) {
+
+Button::Button(std::string name, ButtonType setType, SDL_Renderer* renderer, std::string texture, 
+	int w, int h, int x, int y, std::string text, int fontSize) {
 	setButtonName(name);
 	type = setType;
 	setRenderer(renderer);
@@ -71,6 +73,7 @@ void Button::OnHover() {
 	if (!entered) { entered = true; }
 
 	setAlpha(100);
+	// play sound here
 
 	if (buttonText == NULL) { return; }
 	buttonText->setAlpha(100);
@@ -80,6 +83,7 @@ void Button::ExitHover() {
 	entered = false; 
 	// we want this to only shoot once?
 	setAlpha(255);
+	//play sound here
 
 	if (buttonText == NULL) { return;  }
 	buttonText->setAlpha(255);
