@@ -25,11 +25,11 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 
 	//should this be its own function / file?
 	uma = std::make_shared<Sprite>("uma", GLOBAL_SPRITES_PATH + "saveicon.png", RELATIVE_SCREEN_WIDTH - 800, (RELATIVE_SCREEN_HEIGHT / 2) - 300, 800, 800, 1.0, gameRenderer);
-	std::shared_ptr<Button> resumeButton(new Button("resume", Button::UI, gameRenderer, DEFAULT_BUTTON_TEXTURE, 200, 50, 150, 150,"Resume", 30));
-	std::shared_ptr<Button> optButton(new Button("options", Button::UI, gameRenderer, DEFAULT_BUTTON_TEXTURE, 200, 50, 110, 250, "Options", 30));
-	std::shared_ptr<Button> saveButton(new Button("save", Button::UI, gameRenderer, DEFAULT_BUTTON_TEXTURE, 200, 50, 75, 350, "Save", 30));
-	std::shared_ptr<Button> loadButton(new Button("load", Button::UI, gameRenderer, DEFAULT_BUTTON_TEXTURE, 200, 50, 110, 450, "Load", 30));
-	std::shared_ptr<Button> menuButton(new Button("quit", Button::UI, gameRenderer, DEFAULT_BUTTON_TEXTURE, 250, 50, 150, 550, "Return to Menu", 30));
+	std::shared_ptr<Button> resumeButton(new Button("resume", Button::UI, gameManager->GetAudioManager(), gameRenderer, DEFAULT_BUTTON_TEXTURE, 200, 50, 150, 150,"Resume", 30));
+	std::shared_ptr<Button> optButton(new Button("options", Button::UI, gameManager->GetAudioManager(), gameRenderer, DEFAULT_BUTTON_TEXTURE, 200, 50, 110, 250, "Options", 30));
+	std::shared_ptr<Button> saveButton(new Button("save", Button::UI, gameManager->GetAudioManager(), gameRenderer, DEFAULT_BUTTON_TEXTURE, 200, 50, 75, 350, "Save", 30));
+	std::shared_ptr<Button> loadButton(new Button("load", Button::UI, gameManager->GetAudioManager(), gameRenderer, DEFAULT_BUTTON_TEXTURE, 200, 50, 110, 450, "Load", 30));
+	std::shared_ptr<Button> menuButton(new Button("quit", Button::UI, gameManager->GetAudioManager(), gameRenderer, DEFAULT_BUTTON_TEXTURE, 250, 50, 150, 550, "Return to Menu", 30));
 
 	PauseMainMenuUI.push_back(resumeButton);
 	PauseMainMenuUI.push_back(optButton);
@@ -68,7 +68,8 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 
 	// game data
 	auto& saveData = gameManager->GetSaveData();
-	interpreter->Initialise(spriteManager, textManager, uiManager, gBackground,
+	// why dont we just push save data through here?
+	interpreter->Initialise(spriteManager, textManager, uiManager, gameManager->GetAudioManager(), gBackground,
 		saveData.scriptLine, saveData.scriptPath, saveData.backgroundPath, saveData.sprites);
 }
 // run is called from main, checks for event quit

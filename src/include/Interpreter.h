@@ -26,7 +26,7 @@ class Interpreter {
 public:
 
 	bool Initialise(std::shared_ptr<SpriteManager> sm, std::shared_ptr<TextManager> tm, 
-					std::shared_ptr<UIManager> uim, std::shared_ptr<Sprite> bg,
+					std::shared_ptr<UIManager> uim, AudioManager* audioManager, std::shared_ptr<Sprite> bg,
 		int lineNum, std::string scriptPath, std::string backgroundPath, std::vector<SpriteInformation> sprites);
 	bool OpenScript(std::string scriptPath);
 
@@ -68,4 +68,6 @@ private:
 	std::shared_ptr<TextManager> _textManager;
 	std::shared_ptr<UIManager> _uiManager; 
 	std::shared_ptr<Sprite> background;
+
+	AudioManager* _audioManager;
 };

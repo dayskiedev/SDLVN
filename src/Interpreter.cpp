@@ -5,12 +5,13 @@
 // through that vector executing commands depending on the string
 
 bool Interpreter::Initialise(std::shared_ptr<SpriteManager> sm, std::shared_ptr<TextManager> tm,
-							std::shared_ptr<UIManager> uim, std::shared_ptr<Sprite> bg,
+							std::shared_ptr<UIManager> uim,AudioManager* audioManager, std::shared_ptr<Sprite> bg,
 	int lineNum, std::string scriptPath, std::string backgroundPath, std::vector<SpriteInformation> sprites) {
 
 	_spriteManager = sm;
 	_textManager = tm;
 	_uiManager = uim;
+	_audioManager = audioManager;
 	background = bg;
 
 	// loading info should be:
@@ -228,7 +229,7 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 			btnContents = _commandArgs[i + 1];
 			btnContents = btnContents.substr(1, (btnContents.length() - 2));
 
-			std::shared_ptr<Button> choiceButton(new Button(btnName, Button::CHOICE, _uiManager->getRenderer(),
+			std::shared_ptr<Button> choiceButton(new Button(btnName, Button::CHOICE, _audioManager, _uiManager->getRenderer(),
 				DEFAULT_BUTTON_TEXTURE,
 				CHOICE_BUTTON_WIDTH,
 				CHOICE_BUTTON_HEIGHT,
@@ -260,7 +261,7 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 		replyContents = replyContents.substr(1, (replyContents.length() - 2));
 
 		// use std::make_unique	
-		std::shared_ptr<Button> replyButton(new Button("reply", Button::REPLY, _uiManager->getRenderer(),
+		std::shared_ptr<Button> replyButton(new Button("reply", Button::REPLY, _audioManager, _uiManager->getRenderer(),
 			DEFAULT_BUTTON_TEXTURE,
 			CHOICE_BUTTON_WIDTH,
 			CHOICE_BUTTON_HEIGHT,

@@ -2,10 +2,11 @@
 
 Button::Button() {}
 
-Button::Button(std::string name, ButtonType setType, SDL_Renderer* renderer, std::string texture, 
+Button::Button(std::string name, ButtonType setType, AudioManager* audioManager, SDL_Renderer* renderer, std::string texture, 
 	int w, int h, int x, int y, std::string text, int fontSize) {
 	setButtonName(name);
 	type = setType;
+	_audioManager = audioManager;
 	setRenderer(renderer);
 	loadFromFile(texture);
 	setWidth(w);
@@ -15,9 +16,10 @@ Button::Button(std::string name, ButtonType setType, SDL_Renderer* renderer, std
 	setText(text, fontSize, renderer);
 }
 
-Button::Button(std::string name, ButtonType setType, SDL_Renderer* renderer, std::string texture, int w, int h, int x, int y) {
+Button::Button(std::string name, ButtonType setType, AudioManager* audioManager, SDL_Renderer* renderer, std::string texture, int w, int h, int x, int y) {
 	setButtonName(name);
 	type = setType;
+	_audioManager = audioManager;
 	setRenderer(renderer);
 	loadFromFile(texture);
 	setWidth(w);
@@ -72,6 +74,7 @@ void Button::setText(std::string text, int fontSize, SDL_Renderer* renderer) {
 void Button::OnHover() {
 	if (!entered) { entered = true; }
 
+	_audioManager->PlaySound("btn_hover");
 	setAlpha(100);
 	// play sound here
 

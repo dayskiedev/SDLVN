@@ -9,6 +9,7 @@ void Load::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 
 	std::shared_ptr<Button> backButton(new Button("back",
 		Button::UI,
+		gameManager->GetAudioManager(),
 		loadRenderer,
 		DEFAULT_BUTTON_TEXTURE,
 		200, 50,
@@ -80,6 +81,7 @@ void Load::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 			// using raw values for ui is bad i know
 			std::shared_ptr<Button> loadSaveButton(new Button("save",
 				Button::UI,
+				gameManager->GetAudioManager(),
 				loadRenderer,
 				savefileButtonTexture,
 				250, 250,

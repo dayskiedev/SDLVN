@@ -22,5 +22,5 @@ void AudioManager::LoadSystemSounds() {
 }
 
 void AudioManager::PlaySound(std::string sound) {
-	Mix_PlayChannel(-1, btnClick, 0);
+	Mix_PlayChannel(-1, btnClick, 1);
 }

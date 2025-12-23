@@ -22,7 +22,7 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	);
 
 	// look into using weak pointers when referncing buttons?
-	std::shared_ptr<Button> playButton(new Button("new", Button::UI, menuRenderer, DEFAULT_BUTTON_TEXTURE,
+	std::shared_ptr<Button> playButton(new Button("new", Button::UI, gameManager->GetAudioManager(), menuRenderer, DEFAULT_BUTTON_TEXTURE,
 		200, 50,					// width height
 		(RELATIVE_SCREEN_WIDTH / 2) - 100,	// x
 		(RELATIVE_SCREEN_HEIGHT / 2) - 50,   // y
@@ -30,7 +30,7 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 		30							// Font size for button contents
 	));
 
-	std::shared_ptr<Button> contButton(new Button("load", Button::UI, menuRenderer, DEFAULT_BUTTON_TEXTURE,
+	std::shared_ptr<Button> contButton(new Button("load", Button::UI, gameManager->GetAudioManager(), menuRenderer, DEFAULT_BUTTON_TEXTURE,
 		200,50,
 		(RELATIVE_SCREEN_WIDTH / 2) - 100,
 		(RELATIVE_SCREEN_HEIGHT / 2), 
@@ -38,7 +38,7 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 		30
 	));
 
-	std::shared_ptr<Button> optButton(new Button("options", Button::UI,menuRenderer,DEFAULT_BUTTON_TEXTURE,
+	std::shared_ptr<Button> optButton(new Button("options", Button::UI, gameManager->GetAudioManager(), menuRenderer,DEFAULT_BUTTON_TEXTURE,
 		200, 50,
 		(RELATIVE_SCREEN_WIDTH / 2) - 100,
 		(RELATIVE_SCREEN_HEIGHT / 2) + 50,
@@ -46,7 +46,7 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 		30
 	));
 
-	std::shared_ptr<Button> quitButton(new Button("quit", Button::UI, menuRenderer, DEFAULT_BUTTON_TEXTURE, 
+	std::shared_ptr<Button> quitButton(new Button("quit", Button::UI, gameManager->GetAudioManager(), menuRenderer, DEFAULT_BUTTON_TEXTURE,
 		200, 50, 
 		(RELATIVE_SCREEN_WIDTH / 2) - 100, 
 		(RELATIVE_SCREEN_HEIGHT / 2) + 100, 

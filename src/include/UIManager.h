@@ -16,8 +16,6 @@ public:
 	SDL_Renderer* getRenderer();
 	
 	std::vector<std::shared_ptr<Button>> GetUiVector();
-
-	void AddButton(std::string btnName, std::string btnContents, ButtonType type, int x, int y, int w, int h);
 	void AddButton(std::shared_ptr<Button> button);
 	void RemoveButton(std::string btnName);
 	void RemoveButtons();

@@ -5,10 +5,11 @@ OptionsUI::OptionsUI() {}
 
 void OptionsUI::LoadOptionsUI(SDL_Renderer* renderer, GameManager* gameManager) {
 	std::shared_ptr<Texture> background = std::make_shared<Texture>(renderer, GLOBAL_BACKGROUNDS_PATH + "pause.png", RELATIVE_SCREEN_WIDTH, RELATIVE_SCREEN_HEIGHT, 0, 0);
-	optBackButton = std::make_shared<Button>("optionsBack", Button::UI, renderer, DEFAULT_BUTTON_TEXTURE, 200, 50, 0, 0, "Back", 30);
+	optBackButton = std::make_shared<Button>("optionsBack", Button::UI, gameManager->GetAudioManager(), renderer, DEFAULT_BUTTON_TEXTURE, 200, 50, 0, 0, "Back", 30);
 
 	std::shared_ptr<Button> eraseButton(new Button("erase",
 		Button::UI,
+		gameManager->GetAudioManager(),
 		renderer,
 		DEFAULT_BUTTON_TEXTURE,
 		200, 50,

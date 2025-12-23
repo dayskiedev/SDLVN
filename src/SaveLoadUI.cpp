@@ -6,12 +6,12 @@ SaveLoadUI::SaveLoadUI() {}
 void SaveLoadUI::LoadSaveLoadUI(SDL_Renderer* renderer, GameManager* gameManager) {
 	_gameManager = gameManager;
 	std::shared_ptr<Texture> background = std::make_shared<Texture>(renderer, GLOBAL_BACKGROUNDS_PATH + "saveload_background.png", RELATIVE_SCREEN_WIDTH, RELATIVE_SCREEN_HEIGHT, 0, 0);
-	slBackButton = std::make_shared<Button>("optionsBack", Button::UI, renderer, DEFAULT_BUTTON_TEXTURE, 200, 50, 0, 0, "Back", 30);
+	slBackButton = std::make_shared<Button>("optionsBack", Button::UI, gameManager->GetAudioManager(), renderer, DEFAULT_BUTTON_TEXTURE, 200, 50, 0, 0, "Back", 30);
 
 	//std::shared_ptr<Txtzzz> deleteMode = std::make_shared<Button>("deleteButton", )
 	infoText = std::make_shared<Text>("TEXTTEXTTEXTTEXTTEXT", 30, 0, 30, Text::UI, renderer);
 
-	std::shared_ptr<Button> deleteFileButton = std::make_shared<Button>("delete", Button::UI, renderer, DEFAULT_BUTTON_TEXTURE, 
+	std::shared_ptr<Button> deleteFileButton = std::make_shared<Button>("delete", Button::UI, gameManager->GetAudioManager(), renderer, DEFAULT_BUTTON_TEXTURE, 
 		200, 75, 
 		(RELATIVE_SCREEN_WIDTH) / 2 - 100, RELATIVE_SCREEN_HEIGHT - 75, 
 		"ERASE", 30);
@@ -56,7 +56,7 @@ void SaveLoadUI::LoadSaveLoadUI(SDL_Renderer* renderer, GameManager* gameManager
 
 			// if this save exists in save directory, then we want the icon to be the save img
 			// using raw values for ui is bad i know
-			std::shared_ptr<Button> loadSaveButton(new Button(saveName,Button::UI, renderer, savefileButtonTexture, 250, 250, 100 + (400 * j), 75 + (275 * i) ));
+			std::shared_ptr<Button> loadSaveButton(new Button(saveName,Button::UI, gameManager->GetAudioManager(), renderer, savefileButtonTexture, 250, 250, 100 + (400 * j), 75 + (275 * i) ));
 			saveLoadUIBaseVec.push_back(loadSaveButton);
 			saveIndex++;
 		}

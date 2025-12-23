@@ -9,6 +9,7 @@
 #include "Texture.h"
 #include "Text.h"
 #include "Config.h"
+#include "AudioManager.h"
 
 class Button : public Texture {
 public:
@@ -22,10 +23,10 @@ public:
 	// why does button need a default initaliser for UIManager?
 	Button();
 	// initialiser list
-	Button(std::string name, ButtonType type, SDL_Renderer* renderer, std::string texture, int w, int h, int x, int y, std::string text, int fontSize);
+	Button(std::string name, ButtonType type, AudioManager* audioManager, SDL_Renderer* renderer, std::string texture, int w, int h, int x, int y, std::string text, int fontSize);
 
 	// button without text
-	Button(std::string name, ButtonType type, SDL_Renderer* renderer, std::string texture, int w, int h, int x, int y);
+	Button(std::string name, ButtonType type, AudioManager* audioManager, SDL_Renderer* renderer, std::string texture, int w, int h, int x, int y);
 
 	~Button();
 	
@@ -63,4 +64,9 @@ private:
 
 	std::unique_ptr<Text> buttonText = NULL;
 	TTF_Font* _font = NULL;
+
+	// note that non-onwing objects should not destroy the object
+	// if i delete this pointer when i remove a button, then the original
+	// Audiomanager button is deleted, and so when other buttons/objetcs try and access it there is an error
+	AudioManager* _audioManager = NULL;
 };

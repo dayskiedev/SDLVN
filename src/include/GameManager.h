@@ -45,7 +45,7 @@ public:
 
 	void PrintCurrentSaveData();
 
-	AudioManager& GetAudioManager() { return audioManager; }
+	AudioManager* GetAudioManager() { return &audioManager; }
 
 	bool running = true;
 
