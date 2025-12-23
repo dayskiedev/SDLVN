@@ -55,6 +55,7 @@ void Button::Update(SDL_Event e) {
 
 		if (e.type == SDL_MOUSEBUTTONDOWN) {
 			if (OnClick) { 
+				_audioManager->PlaySound("btn_click");
 				OnClick(); 
 			}
 			else {
@@ -72,9 +73,11 @@ void Button::setText(std::string text, int fontSize, SDL_Renderer* renderer) {
 }
 
 void Button::OnHover() {
-	if (!entered) { entered = true; }
+	if (!entered) { 
+		entered = true; 
+		_audioManager->PlaySound("btn_hover");
+	}
 
-	_audioManager->PlaySound("btn_hover");
 	setAlpha(100);
 	// play sound here
 
