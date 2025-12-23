@@ -17,7 +17,7 @@ int CHOICE_BUTTON_HEIGHT = 150;
 
 // SAVE DATA DEFAULT INFORMATION FOR NEW GAME
 int _SCRIPT_LINE = 0;
-std::string _SCRIPT_PATH = "assets/scripts/test_story.vns";
+std::string _SCRIPT_PATH = "assets/scripts/example_script.vns";
 std::string _BACKGROUND_PATH = "assets/backgrounds/dojo.png";
 
 double DEFAULT_TEXT_SPEED = 1;

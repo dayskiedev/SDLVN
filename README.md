@@ -7,16 +7,19 @@ My goal with this engine is to make it easy for Non-Programmers to create visual
 *But without ANY coding*
 (ok, maybe a little scripting....)
 
+![EngineExample5](example5.png)
+
 I wish to achieve this through a custom scripting language that resembles, well, a script. I know I just said no programming and this is technically programming, but you get what im trying to say... (right?)
 
 THIS PROJECT IS BAREBONES AT THE MOMENT (0.0.0.0.1v)
+![EngineExample4](example4.png)
 ## TODO:
 - Proper command handling
-- Proper Settings Menu/UI
-- Multiple Resolutions including fullscreen/borderless
-- Choices that affect future outcomes
+- Complete saving (doesn't save all text at the moment)
+- Music/Sound effects (load from commands, play/pause, volume, etc)
+- Multiple Resolutions including fullscreen/borderless (Need UI support)
 - Basic animation (Fade In/Out, Transitions)
-- Fully complete save and load system with save selection and save previews
+- Load/save preview
 - cleaned up codebase
 
 
