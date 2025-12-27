@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <unordered_map>
 
 #include "SDL_mixer.h"
 #include "Config.h"
@@ -28,9 +29,10 @@ public:
 private:
 	Mix_Music* curSong = NULL;
 
+	std::unordered_map<std::string, Mix_Chunk*> soundMap;
 
 	// these will be pre-loaded as they will be used a lot.
 	Mix_Chunk* btnHover = NULL;
 	Mix_Chunk* btnClick = NULL;
-	Mix_Chunk* customSound = NULL;
+	Mix_Chunk* tempSFXChunk = NULL;
 };
