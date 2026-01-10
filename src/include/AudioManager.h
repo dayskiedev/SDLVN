@@ -22,6 +22,11 @@ public:
 
 	void PlaySound(std::string sound);
 
+	void PlaySong(std::string song);
+	void PauseSong();
+	void ResumeSong();
+	void StopSong();
+
 	void SetMasterVolume(int volume);
 	void SerSFXVolume(int volume);
 	void SetMusicVolume(int volume);

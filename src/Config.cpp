@@ -27,6 +27,7 @@ std::string GLOBAL_BACKGROUNDS_PATH = "assets/backgrounds/";
 std::string GLOBAL_SPRITES_PATH = "assets/sprites/";
 std::string GLOBAL_SCRIPTS_PATH = "assets/scripts/";
 std::string GLOBAL_SOUNDS_PATH = "assets/sounds/";
+std::string GLOBAL_MUSIC_PATH = "assets/music/";
 
 std::string DEFAULT_BUTTON_TEXTURE = "assets/sprites/sans.png";
 

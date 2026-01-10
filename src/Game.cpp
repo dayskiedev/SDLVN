@@ -201,6 +201,7 @@ void Game::Render() {
 
 void Game::ExitState() {	
 	// exit code here
+	_gameManager->GetAudioManager()->StopSong();
 	PauseMainMenuUI.clear();
 }
 

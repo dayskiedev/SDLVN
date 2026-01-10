@@ -38,3 +38,31 @@ void AudioManager::PlaySound(std::string sound) {
 
 	Mix_PlayChannel(-1, tempSFXChunk, 0);
 }
+
+void AudioManager::PlaySong(std::string song) {
+	// in this case we dont need to worry about caching the song as there will only ever be 
+	// one song playing at a time
+	// 
+	// do i put extra songpath here or..
+
+	std::cout << "Attempting to play song..." << std::endl;
+	// If a song is paused and you then play a new song, the current song will be replaced with
+	// this new song and will automatically unpause.
+	curSong = Mix_LoadMUS(song.c_str());
+	if (curSong == NULL) {
+		std::cout << "Error loading song " << song << std::endl;
+	}
+	Mix_PlayMusic(curSong, -1);
+}
+
+void AudioManager::PauseSong() {
+	Mix_PauseMusic();
+}
+
+void AudioManager::StopSong() {
+	Mix_HaltMusic();
+}
+
+void AudioManager::ResumeSong() {
+	Mix_PlayMusic(curSong, -1);
+}

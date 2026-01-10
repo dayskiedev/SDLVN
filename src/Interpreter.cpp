@@ -292,6 +292,12 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 		JumpToChoice(choice);
 	}
 
+	else if (_commandArgs[0] == "*playsong") {
+		// some way to overwrite using the default global path
+		std::string song = GLOBAL_MUSIC_PATH + _commandArgs[1];
+		_audioManager->PlaySong(song);
+	}
+
 	// jumptoline command
 	// playmusic command
 	// pause music command
