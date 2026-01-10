@@ -298,6 +298,18 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 		_audioManager->PlaySong(song);
 	}
 
+	else if (_commandArgs[0] == "*pausesong") {
+		_audioManager->PauseSong();
+	}
+	
+	else if (_commandArgs[0] == "*resumesong") {
+		_audioManager->ResumeSong();
+	}
+
+	else if (_commandArgs[0] == "*stopsong") {
+		_audioManager->StopSong();
+	}
+
 	// jumptoline command
 	// playmusic command
 	// pause music command
