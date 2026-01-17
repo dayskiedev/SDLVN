@@ -154,6 +154,8 @@ void GameManager::QuickSave() {
 		spriteInfoRaw.push_back(sInfo);
 	}
 	saveData.sprites = spriteInfoRaw;
+	saveData.musicPath = _interpreterInfo->GetCurrentMusicPath();
+	saveData.musPlaying = _interpreterInfo->GetMusicPlaying();
 }
 
 void GameManager::SaveGame(std::string savePath) {

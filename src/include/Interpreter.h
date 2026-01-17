@@ -27,11 +27,14 @@ public:
 
 	bool Initialise(std::shared_ptr<SpriteManager> sm, std::shared_ptr<TextManager> tm, 
 					std::shared_ptr<UIManager> uim, AudioManager* audioManager, std::shared_ptr<Sprite> bg,
-		int lineNum, std::string scriptPath, std::string backgroundPath, std::vector<SpriteInformation> sprites);
+		int lineNum, std::string scriptPath, std::string backgroundPath, std::vector<SpriteInformation> sprites, std::string musPath, bool musPlaying);
 	bool OpenScript(std::string scriptPath);
 
 	std::string GetCurrentScript();
 	int GetCurrentScriptLine();
+
+	std::string GetCurrentMusicPath() { return _curMusicPath; }
+	bool GetMusicPlaying() { return _musPlaying; }
 
 	// pass by referecne because we want to modify the sprites/text in these vectors
 	void Run(SDL_Event e, double deltaTime);
@@ -62,6 +65,9 @@ private:
 	double textSpeed	= DEFAULT_TEXT_SPEED;
 	double textCounter	= 0;
 	double threshold	= 50 / textSpeed;
+
+	std::string _curMusicPath;
+	bool _musPlaying;
 
 //	UIManager* _uiManager;
 	std::shared_ptr<SpriteManager> _spriteManager;

@@ -17,6 +17,8 @@
 // y
 // w
 // h
+// CURRENT MUSIC LOADED
+// BOOL CHECK FOR MUSIC PLAYING
 // [CHOICES]
 // SET EVERY SAVED CHOICE
 
@@ -38,12 +40,15 @@ void SaveManager::Save(SaveData saveRawInfo, std::string savePath) {
 	int scriptLine				= saveRawInfo.scriptLine;
 	std::string backgroundLoc	= saveRawInfo.backgroundPath;
 	int numCharacters			= saveRawInfo.sprites.size();
+	std::string curMusic		= saveRawInfo.musicPath;
+	bool musPlaying				= saveRawInfo.musPlaying;
 
 	std::cout << "Saving raw data:" << std::endl;
 	std::cout << "Script location: " << scriptLoc << std::endl;
 	std::cout << "Script line: " << scriptLine << std::endl;
 	std::cout << "Background location: " << backgroundLoc << std::endl;
 	std::cout << "Number of characters: " << numCharacters << std::endl;
+	std::cout << "Current song location: " << curMusic << " | currently playing? " << (musPlaying ? "yes" : "no" ) << std::endl;
 
 	unsigned int size;
 
@@ -83,6 +88,12 @@ void SaveManager::Save(SaveData saveRawInfo, std::string savePath) {
 
 	}
 
+	size = curMusic.size(); 
+	outfile.write(reinterpret_cast<char*>(&size), sizeof(size));						// path to whatever music is playing (otherwise empty string)					
+	outfile.write(curMusic.c_str(), curMusic.size());		
+
+	outfile.write(reinterpret_cast<char*>(&musPlaying), sizeof(musPlaying));			// bool check for if music is playing or not		
+
 	outfile.close();
 }
 
@@ -115,6 +126,9 @@ bool SaveManager::Load(SaveData& saveData, std::string savePath) {
 	// number of choices
 	std::string rChoiceName = "";
 	int rChoiceValue = 99;
+
+	std::string rCurMusic = "";
+	bool rMusPlaying = false;
 
 	infile.read(reinterpret_cast<char*>(&rSaveVer), sizeof(rSaveVer));
 
@@ -167,6 +181,13 @@ bool SaveManager::Load(SaveData& saveData, std::string savePath) {
 
 		rTempSpriteInfoVec.push_back(rTempSpriteInfo);
 	}
+
+	infile.read(reinterpret_cast<char*>(&size), sizeof(size));
+	rCurMusic.resize(size);
+	infile.read(&rCurMusic[0], rCurMusic.size());
+
+	infile.read(reinterpret_cast<char*>(&rMusPlaying), sizeof(rMusPlaying));
+
 	infile.close();
 
 	std::cout << std::endl;
@@ -186,6 +207,8 @@ bool SaveManager::Load(SaveData& saveData, std::string savePath) {
 	saveData.scriptLine = rScriptLine;
 	saveData.backgroundPath = rBacLoc;
 	saveData.sprites = rTempSpriteInfoVec;
+	saveData.musicPath = rCurMusic;
+	saveData.musPlaying = rMusPlaying;
 
 	return true;
 }

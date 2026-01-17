@@ -6,7 +6,7 @@
 
 bool Interpreter::Initialise(std::shared_ptr<SpriteManager> sm, std::shared_ptr<TextManager> tm,
 							std::shared_ptr<UIManager> uim,AudioManager* audioManager, std::shared_ptr<Sprite> bg,
-	int lineNum, std::string scriptPath, std::string backgroundPath, std::vector<SpriteInformation> sprites) {
+	int lineNum, std::string scriptPath, std::string backgroundPath, std::vector<SpriteInformation> sprites, std::string musPath, bool musPlaying) {
 
 	_spriteManager = sm;
 	_textManager = tm;
@@ -37,6 +37,16 @@ bool Interpreter::Initialise(std::shared_ptr<SpriteManager> sm, std::shared_ptr<
 			curSprite.x, curSprite.y,
 			curSprite.w, curSprite.h);
 	}
+
+	_curMusicPath = musPath;
+	_musPlaying = musPlaying;
+
+	if (musPath != "") {
+		audioManager->PlaySong(_curMusicPath);
+		if (!_musPlaying) { audioManager->PauseSong(); }
+	}
+
+
 	return true;
 }
 
@@ -296,18 +306,23 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 		// some way to overwrite using the default global path
 		std::string song = GLOBAL_MUSIC_PATH + _commandArgs[1];
 		_audioManager->PlaySong(song);
+		_musPlaying = true;
+		_curMusicPath = song;
 	}
 
 	else if (_commandArgs[0] == "*pausesong") {
 		_audioManager->PauseSong();
+		_musPlaying = false;
 	}
 	
 	else if (_commandArgs[0] == "*resumesong") {
 		_audioManager->ResumeSong();
+		_musPlaying = true;
 	}
 
 	else if (_commandArgs[0] == "*stopsong") {
 		_audioManager->StopSong();
+		_musPlaying = false;
 	}
 
 	// jumptoline command

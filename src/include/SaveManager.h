@@ -38,6 +38,9 @@ public:
 		std::vector<SpriteInformation> sprites; // empty by default
 		// hashmap containing past choices player has made
 		//std::unordered_map<std::string, int> choices;
+
+		std::string musicPath = "";
+		bool musPlaying = false;
 	};
 
 	void Save(SaveData saveRawInfo, std::string savePath);
