@@ -104,7 +104,7 @@ void Interpreter::ButtonClicked() {
 	_lineCount++; // rollover so we dont print the choice
 	increment = true;
 }
-
+	
 void Interpreter::TokenizeLine() {
 	_commandArgs.clear();
 	// regex to split up line into tokens, except doesnt remove space where there is "

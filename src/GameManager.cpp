@@ -64,18 +64,17 @@ bool GameManager::Init() {
 	}
 
 	std::cout << "Mixer initialised" << std::endl;
-
 	audioManager.LoadSystemSounds();
+
+	saveManager = std::make_unique<SaveManager>();
+
+	std::cout << "Save Manager initialised" << std::endl;
 
 	// start off by setting the launch state TO a menu instance
 	currentState = std::make_unique<Menu>();
 	currentState->EnterState(gRenderer, this);
 
 	std::cout << "Default state initialised" << std::endl;
-
-	saveManager = std::make_unique<SaveManager>();
-
-	std::cout << "Save Manager initialised" << std::endl;
 
 	return true;
 }
