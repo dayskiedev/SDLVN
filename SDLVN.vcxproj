@@ -138,6 +138,7 @@
     <None Include="scripts\index_example_script.vns" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\AnimationManager.cpp" />
     <ClCompile Include="src\AudioManager.cpp" />
     <ClCompile Include="src\Button.cpp" />
     <ClCompile Include="src\Config.cpp" />
@@ -158,6 +159,7 @@
     <ClCompile Include="src\UIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\include\AnimationManager.h" />
     <ClInclude Include="src\include\AudioManager.h" />
     <ClInclude Include="src\include\Button.h" />
     <ClInclude Include="src\include\Config.h" />

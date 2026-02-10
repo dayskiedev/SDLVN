@@ -13,3 +13,9 @@
 // - play animation function
 // - will be managed as usual by gamemanager
 // - could be extendeed to animate ui features as well? (menu fade ins, etc?)
+
+#include "Sprite.h"
+
+class AnimationManager {
+	void PlayAnimation(Sprite& sprite, std::string animationToPlay, double speed);
+};

@@ -25,6 +25,10 @@ void AudioManager::LoadSystemSounds() {
 	soundMap["btn_hover"] = btnHover;
 
 	std::cout << "System Sounds Loaded" << std::endl;
+
+	// set initial volumes, load from config file.
+	Mix_Volume(-1, 10);
+	Mix_VolumeMusic(20);
 }
 
 void AudioManager::PlaySound(std::string sound) {

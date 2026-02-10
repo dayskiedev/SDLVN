@@ -22,6 +22,8 @@
 // [CHOICES]
 // SET EVERY SAVED CHOICE
 
+// this could probably be automated by just taking in the info and checking what type it is...
+
 void SaveManager::Save(SaveData saveRawInfo, std::string savePath) {
 
 	// need to be able to select a save file slot
