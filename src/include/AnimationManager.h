@@ -15,7 +15,21 @@
 // - could be extendeed to animate ui features as well? (menu fade ins, etc?)
 
 #include "Sprite.h"
+#include <vector>
 
 class AnimationManager {
-	void PlayAnimation(Sprite& sprite, std::string animationToPlay, double speed);
+public:
+	void QueueAnimation(std::shared_ptr<Sprite> sprite, std::string animationToPlay, double time, bool waitForAnimation);
+	void Update(double deltaTime);
+private:
+	struct AnimationData {
+		std::string animationToPlay;
+		double curValue;
+		double multiplier; 
+		std::shared_ptr<Sprite> _sprite;		
+		bool waitForAnimation;
+	};
+
+	std::vector<AnimationData> animationQueue;
 };
+

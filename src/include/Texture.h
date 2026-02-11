@@ -18,6 +18,8 @@ public:
 
 	void setAlpha(Uint8 a);
 
+	Uint8 getAlpha();
+
 	virtual void Render();
 	virtual void Render(double x, double y);
 	virtual void Render(double x, double y, double w, double h);
@@ -56,4 +58,5 @@ private:
 	double mHeight;
 	double mX;
 	double mY;
+	Uint8 alpha;
 };

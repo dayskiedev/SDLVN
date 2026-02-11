@@ -7,6 +7,7 @@
 		mHeight = 0;
 		mX = 0;
 		mY = 0;
+		alpha = 255;
 	}
 
 	Texture::Texture(SDL_Renderer* renderer, std::string texturePath, int w, int h, int x, int y) {
@@ -16,6 +17,7 @@
 		setHeight(h);
 		setX(x);
 		setY(y);
+		alpha = 255;
 	}
 
 	Texture::~Texture() {
@@ -38,8 +40,11 @@
 
 	void Texture::setAlpha(Uint8 a) {
 		if (!mTexture) { return; }
-		SDL_SetTextureAlphaMod(mTexture, a);
+		alpha = a;
+		SDL_SetTextureAlphaMod(mTexture, alpha);
 	}
+
+	Uint8 Texture::getAlpha() { return alpha; }
 
 	// dont need this many variations of the render?
 
