@@ -21,13 +21,13 @@
 #include "UIManager.h"
 
 #include "Config.h"
+#include "SaveDataS.h"
 
 class Interpreter {
 public:
 
 	bool Initialise(std::shared_ptr<SpriteManager> sm, std::shared_ptr<TextManager> tm, 
-					std::shared_ptr<UIManager> uim, AudioManager* audioManager, std::shared_ptr<Sprite> bg,
-		int lineNum, std::string scriptPath, std::string backgroundPath, std::vector<SpriteInformation> sprites, std::string musPath, bool musPlaying);
+					std::shared_ptr<UIManager> uim, AudioManager* audioManager, std::shared_ptr<Sprite> bg, SaveData saveData);
 	bool OpenScript(std::string scriptPath);
 
 	std::string GetCurrentScript();

@@ -38,3 +38,5 @@ std::string Sprite::GetSpriteTexPath() { return _spriteTexPath; }
 void Sprite::SetSpriteScale(double scale) {
 	_spriteScale = scale;
 }
+
+

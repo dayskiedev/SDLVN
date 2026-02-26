@@ -170,6 +170,7 @@
     <ClInclude Include="src\include\Load.h" />
     <ClInclude Include="src\include\Menu.h" />
     <ClInclude Include="src\include\OptionsUI.h" />
+    <ClInclude Include="src\include\SaveDataS.h" />
     <ClInclude Include="src\include\SaveLoadUI.h" />
     <ClInclude Include="src\include\SaveManager.h" />
     <ClInclude Include="src\include\Sprite.h" />

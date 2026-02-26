@@ -5,8 +5,7 @@
 // through that vector executing commands depending on the string
 
 bool Interpreter::Initialise(std::shared_ptr<SpriteManager> sm, std::shared_ptr<TextManager> tm,
-							std::shared_ptr<UIManager> uim,AudioManager* audioManager, std::shared_ptr<Sprite> bg,
-	int lineNum, std::string scriptPath, std::string backgroundPath, std::vector<SpriteInformation> sprites, std::string musPath, bool musPlaying) {
+							std::shared_ptr<UIManager> uim,AudioManager* audioManager, std::shared_ptr<Sprite> bg, SaveData saveData) {
 
 	_spriteManager = sm;
 	_textManager = tm;
@@ -20,16 +19,16 @@ bool Interpreter::Initialise(std::shared_ptr<SpriteManager> sm, std::shared_ptr<
 	// whatever background is needed
 	// whatever sprite is needed
 
-	_curScript = scriptPath;
+	_curScript = saveData.scriptPath;
 	if (!OpenScript(_curScript)) { return false; } // load script 
 
-	_lineCount = lineNum; // line to start script at.
+	_lineCount = saveData.scriptLine; // line to start script at.
 
-	background->loadFromFile(backgroundPath); // set background to whatever was saved;
-	background->SetSpritePath(backgroundPath);
+	background->loadFromFile(saveData.backgroundPath); // set background to whatever was saved;
+	background->SetSpritePath(saveData.backgroundPath);
 
 	// load any sprites saved in file
-	for (auto curSprite : sprites) {
+	for (auto curSprite : saveData.sprites) {
 		_spriteManager->addSprite(
 			curSprite.spriteName,
 			curSprite.spriteLocation,
@@ -38,10 +37,10 @@ bool Interpreter::Initialise(std::shared_ptr<SpriteManager> sm, std::shared_ptr<
 			curSprite.w, curSprite.h);
 	}
 
-	_curMusicPath = musPath;
-	_musPlaying = musPlaying;
+	_curMusicPath = saveData.musicPath;
+	_musPlaying = saveData.musPlaying;
 
-	if (musPath != "") {
+	if (_curMusicPath != "") {
 		audioManager->PlaySong(_curMusicPath);
 		if (!_musPlaying) { audioManager->PauseSong(); }
 	}
@@ -323,6 +322,13 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 	else if (_commandArgs[0] == "*stopsong") {
 		_audioManager->StopSong();
 		_musPlaying = false;
+	}
+
+	else if (_commandArgs[0] == "*play") {
+		std::string aSprite = _commandArgs[1];
+		std::string animToPlay = _commandArgs[2];
+
+		std::cout << "Playing animation " << animToPlay << " for sprite " << aSprite << std::endl;
 	}
 
 	// jumptoline command

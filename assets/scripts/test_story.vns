@@ -10,18 +10,8 @@
 *playsong daytheme.wav
 What a great day today!
 *enter anon anon.png CENTRE_STAGE
-Hello!
-What should I do today...
-*cleartext
-*choice 2 work "Um you have work today don't you?" play "LETS PLAY FORNITE!"
-
-:work
-*pausesong
-Geh, why'd you have to remind me!
-Now my day is ruined...
-*reply "Sorry..."
-*cleartext
-*resumesong
-Meh its ok! Lets head there now!
-*reply "Huh? Me too?"
+I will now dissapear!
+*play anon fadeOut
 *stopsong
+err
+why didn't that work...

@@ -9,6 +9,7 @@
 #include <memory>
 
 #include "Config.h"
+#include "SaveDataS.h"
 
 // managers
 #include "SaveManager.h"
@@ -30,7 +31,7 @@ public:
 
 	bool SaveExists(std::string savePath);
 
-	SaveManager::SaveData& GetSaveData() { return saveData; }
+	SaveData& GetSaveData() { return saveData; }
 
 	void LoadSave(std::string savePath);
 
@@ -61,7 +62,7 @@ private:
 	Uint64 LAST = 0;
 
 	double deltaTime = 0;
-	SaveManager::SaveData saveData;
+	SaveData saveData;
 	std::unique_ptr<SaveManager> saveManager;
 
 	// data for saving

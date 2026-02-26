@@ -24,24 +24,13 @@
 #include <unordered_map>
 #include <filesystem>
 
+#include "SaveDataS.h"
 #include "Config.h"
 #include "SpriteInformation.h"
 
 
 class SaveManager {
 public:
-	struct SaveData {
-		int scriptLine = _SCRIPT_LINE;
-		std::string scriptPath = _SCRIPT_PATH;
-		std::string backgroundPath = _BACKGROUND_PATH;
-		// sprite name, sprite path, sprite x, sprite y, sprite width, sprite height
-		std::vector<SpriteInformation> sprites; // empty by default
-		// hashmap containing past choices player has made
-		//std::unordered_map<std::string, int> choices;
-
-		std::string musicPath = "";
-		bool musPlaying = false;
-	};
 
 	void Save(SaveData saveRawInfo, std::string savePath);
 	bool Load(SaveData& saveData, std::string savePath);

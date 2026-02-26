@@ -12,10 +12,19 @@ void AnimationManager::QueueAnimation(std::shared_ptr<Sprite> sprite, std::strin
 	// lets ignore that for now....
 
 	tempData.curValue = sprite->getAlpha();
+	tempData.multiplier = tempData.curValue / time;
+
+	animationQueue.push_back(tempData);
 }
 
 void AnimationManager::Update(double deltaTime) {
+	for (auto anim : animationQueue) {
+		if (anim.animationToPlay == "fadeOut") {
+			if (anim.curValue <= 0) { continue; } // need to instead remove value..
+			anim._sprite->setAlpha(anim.curValue -= (anim.multiplier * deltaTime));
 
+		}
+	}
 }
 
 // animation queue?
