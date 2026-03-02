@@ -18,6 +18,7 @@
 #include "SpriteManager.h"
 #include "SpriteInformation.h"
 #include "TextManager.h"
+#include "AnimationManager.h"	
 #include "UIManager.h"
 
 #include "Config.h"
@@ -27,7 +28,7 @@ class Interpreter {
 public:
 
 	bool Initialise(std::shared_ptr<SpriteManager> sm, std::shared_ptr<TextManager> tm, 
-					std::shared_ptr<UIManager> uim, AudioManager* audioManager, std::shared_ptr<Sprite> bg, SaveData saveData);
+					std::shared_ptr<UIManager> uim, AudioManager* audioManager, std::shared_ptr<Sprite> bg, std::shared_ptr<AnimationManager> am, SaveData saveData);
 	bool OpenScript(std::string scriptPath);
 
 	std::string GetCurrentScript();
@@ -74,6 +75,8 @@ private:
 	std::shared_ptr<TextManager> _textManager;
 	std::shared_ptr<UIManager> _uiManager; 
 	std::shared_ptr<Sprite> background;
+	std::shared_ptr<AnimationManager> _animationManager;
 
+	// why did we make this a pointer again?????
 	AudioManager* _audioManager;
 };

@@ -5,7 +5,7 @@
 // through that vector executing commands depending on the string
 
 bool Interpreter::Initialise(std::shared_ptr<SpriteManager> sm, std::shared_ptr<TextManager> tm,
-							std::shared_ptr<UIManager> uim,AudioManager* audioManager, std::shared_ptr<Sprite> bg, SaveData saveData) {
+							std::shared_ptr<UIManager> uim,AudioManager* audioManager, std::shared_ptr<Sprite> bg, std::shared_ptr<AnimationManager> am, SaveData saveData) {
 
 	_spriteManager = sm;
 	_textManager = tm;
@@ -327,6 +327,10 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 	else if (_commandArgs[0] == "*play") {
 		std::string aSprite = _commandArgs[1];
 		std::string animToPlay = _commandArgs[2];
+
+		auto spriteToAnimate = _spriteManager->findSpriteByName(aSprite);
+
+		_animationManager->QueueAnimation((*spriteToAnimate), animToPlay, 1, false);
 
 		std::cout << "Playing animation " << animToPlay << " for sprite " << aSprite << std::endl;
 	}

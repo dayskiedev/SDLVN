@@ -69,7 +69,8 @@ void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	// game data
 	auto& saveData = gameManager->GetSaveData();
 	// why dont we just push save data through here?
-	interpreter->Initialise(spriteManager, textManager, uiManager, gameManager->GetAudioManager(), gBackground, saveData);
+	interpreter->Initialise(spriteManager, textManager, uiManager, gameManager->GetAudioManager(), 
+		gBackground, gameManager->GetAnimationManager(), saveData);
 }
 // run is called from main, checks for event quit
 // run handles update and render as seperate methods to call

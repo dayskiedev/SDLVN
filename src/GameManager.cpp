@@ -71,7 +71,7 @@ bool GameManager::Init() {
 	std::cout << "Save Manager initialised" << std::endl;
 
 	// start off by setting the launch state TO a menu instance
-	currentState = std::make_unique<Menu>();
+	currentState = std::make_unique<Game>();
 	currentState->EnterState(gRenderer, this);
 
 	std::cout << "Default state initialised" << std::endl;
@@ -96,6 +96,9 @@ void GameManager::Run() {
 
 	currentState->Update(e, deltaTime);
 	currentState->Render();
+
+	// should animation manager be in this global position? We do want animations in every state right...?
+	_animationManager->Update(deltaTime);
 
 	// if we called a change of state, wait until all updates/renders have occurred, then change
 	// state so that no chance of objects in state trying to get things that have been deleted..
