@@ -76,6 +76,10 @@ bool GameManager::Init() {
 
 	std::cout << "Default state initialised" << std::endl;
 
+	_animationManager = std::make_unique<AnimationManager>();
+
+	std::cout << "Animation Manager initalised" << std::endl;
+
 	return true;
 }
 

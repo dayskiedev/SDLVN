@@ -18,6 +18,11 @@ void AnimationManager::QueueAnimation(std::shared_ptr<Sprite> sprite, std::strin
 }
 
 void AnimationManager::Update(double deltaTime) {
+
+	//std::cout << animationQueue.size() <<  " Updating animation manager: " << deltaTime << std::endl;
+
+	// we have some issue with accessing animation queue, it returns a null error..
+
 	for (auto anim : animationQueue) {
 		if (anim.animationToPlay == "fadeOut") {
 			if (anim.curValue <= 0) { continue; } // need to instead remove value..

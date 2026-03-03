@@ -25,11 +25,10 @@ private:
 	struct AnimationData {
 		std::string animationToPlay;
 		double curValue;
-		double multiplier; 
-		std::shared_ptr<Sprite> _sprite;		
+		double multiplier;
+		std::shared_ptr<Sprite> _sprite;
 		bool waitForAnimation;
 	};
-
 	std::vector<AnimationData> animationQueue;
 };
 
