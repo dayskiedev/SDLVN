@@ -7,10 +7,9 @@
 # text repositioning
 
 *setbackground umabackground.png
-*playsong daytheme.wav
-What a great day today!
 *enter anon anon.png CENTRE_STAGE
-I will now dissapear!
+Hello there
+I am now going to dissapear!
 *play anon fadeOut 
 *stopsong
 err

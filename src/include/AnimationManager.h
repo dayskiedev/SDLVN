@@ -29,6 +29,6 @@ private:
 		std::shared_ptr<Sprite> _sprite;
 		bool waitForAnimation;
 	};
-	std::vector<AnimationData> animationQueue;
+	std::vector<std::shared_ptr<AnimationData>> animationQueue;
 };
 

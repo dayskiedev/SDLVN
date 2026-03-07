@@ -1,33 +1,41 @@
 #include "AnimationManager.h"
 
 void AnimationManager::QueueAnimation(std::shared_ptr<Sprite> sprite, std::string animationToPlay, double time, bool waitForAnimation) {
-	AnimationData tempData;
 
-	tempData.animationToPlay = animationToPlay;
-	tempData._sprite = sprite;
-	tempData.waitForAnimation = waitForAnimation;
+	// it was becauase this was a single object, not shared?? figure out why
+	std::shared_ptr<AnimationData> tempData = std::make_shared<AnimationData>();
+	std::cout << "We have reference to the sprite: " << sprite->GetSpriteName() << " : " << &sprite << std::endl;
+
+	tempData->animationToPlay = animationToPlay;
+	tempData->_sprite = sprite;
+	tempData->waitForAnimation = waitForAnimation;
+
+
+	//std::cout << "We have copied reference to the sprite: " << tempData._sprite->GetSpriteName() << " : " << &tempData._sprite << std::endl;
 
 	// value we use will now depend on the animation we select
 	// ie if we select a move one, we need move values
+	// 
+	//animationQueue.push_back(0);
 	// lets ignore that for now....
 
-	tempData.curValue = sprite->getAlpha();
-	tempData.multiplier = tempData.curValue / time;
+	tempData->curValue = sprite->getAlpha();
+	tempData->multiplier = tempData->curValue / time;
+
 
 	animationQueue.push_back(tempData);
 }
 
 void AnimationManager::Update(double deltaTime) {
-
-	//std::cout << animationQueue.size() <<  " Updating animation manager: " << deltaTime << std::endl;
-
-	// we have some issue with accessing animation queue, it returns a null error..
-
 	for (auto anim : animationQueue) {
-		if (anim.animationToPlay == "fadeOut") {
-			if (anim.curValue <= 0) { continue; } // need to instead remove value..
-			anim._sprite->setAlpha(anim.curValue -= (anim.multiplier * deltaTime));
+		if (anim->animationToPlay == "fadeOut") {
+			if (anim->curValue <= 0) {
+				continue;
+			}
 
+			std::cout << "Animaitng....\n" << anim->curValue;
+			anim->curValue -= 1;
+			anim->_sprite->setAlpha(anim->curValue);
 		}
 	}
 }
