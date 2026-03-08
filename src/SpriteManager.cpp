@@ -39,6 +39,9 @@ void SpriteManager::addSprite(std::string spriteObjName, std::string spriteTexNa
 	// set sprite scale here:
 	sprite->SetSpriteScale(spriteScale);
 
+	// sets the sprite opacity, unless specified, we want it to be invisible and fade in.
+	sprite->setAlpha(0);
+
 	// scale sprite textures by this scale
 	sprite->setWidth(sprite->getWidth() * sprite->GetScale());
 	sprite->setHeight(sprite->getHeight() * sprite->GetScale());

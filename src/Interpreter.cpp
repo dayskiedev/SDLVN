@@ -157,7 +157,13 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 		}
 
 		_spriteManager->addSprite(spriteObjName, spriteTexName, spritePosition, spriteScale);
+
+		auto spriteToAnimate = _spriteManager->findSpriteByName(spriteObjName);
+
+		_animationManager->QueueAnimation((*spriteToAnimate), "fadeIn", 0.1, false);
 	}
+
+
 	
 	else if (_commandArgs[0] == "*exit") {
 		spriteObjName = _commandArgs[1];
@@ -336,7 +342,7 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 
 		auto spriteToAnimate = _spriteManager->findSpriteByName(aSprite);
 
-		_animationManager->QueueAnimation((*spriteToAnimate), animToPlay, 1, false);
+		_animationManager->QueueAnimation((*spriteToAnimate), animToPlay, 0.1, false);
 
 		std::cout << "Playing animation " << animToPlay << " for sprite " << aSprite << std::endl;
 	}

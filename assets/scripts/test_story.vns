@@ -7,6 +7,7 @@
 # text repositioning
 
 *setbackground umabackground.png
+aaaaaaaaa
 *enter anon anon.png CENTRE_STAGE
 Hello there
 I am now going to dissapear!
@@ -14,3 +15,9 @@ I am now going to dissapear!
 *stopsong
 err
 why didn't that work...
+*cleartext
+wait it did!
+Now I need to come back
+*play anon fadeIn
+Hiiiiiiii 
+Im backkkk!

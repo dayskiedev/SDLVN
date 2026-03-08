@@ -19,8 +19,9 @@ void AnimationManager::QueueAnimation(std::shared_ptr<Sprite> sprite, std::strin
 	//animationQueue.push_back(0);
 	// lets ignore that for now....
 
+	// bug if we start at 0
 	tempData->curValue = sprite->getAlpha();
-	tempData->multiplier = tempData->curValue / time;
+	tempData->multiplier =  255 / (time * 1000) ;
 
 
 	animationQueue.push_back(tempData);
@@ -30,11 +31,22 @@ void AnimationManager::Update(double deltaTime) {
 	for (auto anim : animationQueue) {
 		if (anim->animationToPlay == "fadeOut") {
 			if (anim->curValue <= 0) {
+				anim->_sprite->setAlpha(0);
+				continue;
+			}
+
+			std::cout << "Animaitng fadeout....\n" << anim->curValue;
+			anim->curValue -= (anim->multiplier * deltaTime);
+			anim->_sprite->setAlpha(anim->curValue);
+		}
+		if (anim->animationToPlay == "fadeIn") {
+			if (anim->curValue >= 255) {
+				anim->_sprite->setAlpha(255);
 				continue;
 			}
 
 			std::cout << "Animaitng....\n" << anim->curValue;
-			anim->curValue -= 1;
+			anim->curValue += (anim->multiplier * deltaTime);
 			anim->_sprite->setAlpha(anim->curValue);
 		}
 	}

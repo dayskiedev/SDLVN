@@ -75,7 +75,7 @@ bool GameManager::Init() {
 	std::cout << "Animation Manager initalised" << std::endl;
 
 	// start off by setting the launch state TO a menu instance
-	currentState = std::make_unique<Game>();
+	currentState = std::make_unique<Menu>();
 	currentState->EnterState(gRenderer, this);
 
 	std::cout << "Default state initialised" << std::endl;
