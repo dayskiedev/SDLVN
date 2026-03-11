@@ -1,28 +1,22 @@
 #include "AnimationManager.h"
 
+// TODO: WAIT FOR ANIMATION THING
+// SOMETIMES WE WANT AN ANIMATION TO HAPPEN BEFORE SOMETHING ELSE DOES
+// EXAMPLE EXITING THE SCENE / CHANGING SPRITE
+// WE ALSO WANT TO BE ABLE TO END AN ANIMATION EARLY BY CLICKING
+
 void AnimationManager::QueueAnimation(std::shared_ptr<Sprite> sprite, std::string animationToPlay, double time, bool waitForAnimation) {
 
 	// it was becauase this was a single object, not shared?? figure out why
 	std::shared_ptr<AnimationData> tempData = std::make_shared<AnimationData>();
-	std::cout << "We have reference to the sprite: " << sprite->GetSpriteName() << " : " << &sprite << std::endl;
 
 	tempData->animationToPlay = animationToPlay;
 	tempData->_sprite = sprite;
 	tempData->waitForAnimation = waitForAnimation;
 
-
-	//std::cout << "We have copied reference to the sprite: " << tempData._sprite->GetSpriteName() << " : " << &tempData._sprite << std::endl;
-
-	// value we use will now depend on the animation we select
-	// ie if we select a move one, we need move values
-	// 
-	//animationQueue.push_back(0);
-	// lets ignore that for now....
-
 	// bug if we start at 0
 	tempData->curValue = sprite->getAlpha();
-	tempData->multiplier =  255 / (time * 1000) ;
-
+	tempData->multiplier =  255 / (time * 1000);
 
 	animationQueue.push_back(tempData);
 }
@@ -35,7 +29,6 @@ void AnimationManager::Update(double deltaTime) {
 				continue;
 			}
 
-			std::cout << "Animaitng fadeout....\n" << anim->curValue;
 			anim->curValue -= (anim->multiplier * deltaTime);
 			anim->_sprite->setAlpha(anim->curValue);
 		}
@@ -45,35 +38,8 @@ void AnimationManager::Update(double deltaTime) {
 				continue;
 			}
 
-			std::cout << "Animaitng....\n" << anim->curValue;
 			anim->curValue += (anim->multiplier * deltaTime);
 			anim->_sprite->setAlpha(anim->curValue);
 		}
 	}
 }
-
-// animation queue?
-
-// add to a queue
-// have an animation update thats running all the time (?)
-// inside this check the vector
-// for each element in the vector, update each one by one	
-// when an animation is complete, remove it from the queue 
-
-// vector of structs?
-
-// AnimationStruct
-// ObjToModify/Animate
-// multiplier
-// cur value
-// animation
-
-// how do we track the current animations progress?
-// say i want to fade in, i start with opacity at 0 then it needs to go to 100 over n time
-
-// linear
-// m = n/t for out multiplier
-// then as we update by deltatime we do m + deltatime to update linearly each frame,
-// once this equals n, we have finished the value
-
-// then we could have other animations using other modifiers?

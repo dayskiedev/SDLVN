@@ -2,6 +2,8 @@
 
 extern const std::string PROGRAM_NAME;
 
+extern const std::string PROGRAM_VERSION;
+
 extern const int SAVE_VERSION;
 
 extern int RELATIVE_SCREEN_WIDTH;

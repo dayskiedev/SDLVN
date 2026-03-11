@@ -198,12 +198,15 @@ bool SaveManager::Load(SaveData& saveData, std::string savePath) {
 	std::cout << "Script path: " << rScriptLoc << std::endl;
 	std::cout << "Script line number: " << rScriptLine << std::endl;
 	std::cout << "Background path: " << rBacLoc << std::endl;
+	std::cout << "Music Playing: " << (rMusPlaying ? rCurMusic : "No.") << std::endl;
 	std::cout << "######### CHARACTERS #########" << std::endl;
 	for (int i = 0; i < rNumChar; ++i) {
 		std::cout << "Character name: " << rTempSpriteInfoVec.at(i).spriteName << std::endl;
 		std::cout << "Character sprite: " << rTempSpriteInfoVec.at(i).spriteLocation << std::endl;
 		std::cout << "Sprite scale: " << rTempSpriteInfoVec.at(i).spriteScale << std::endl;
 	}
+
+	std::cout << "####################################" << std::endl;
 
 	saveData.scriptPath = rScriptLoc;
 	saveData.scriptLine = rScriptLine;

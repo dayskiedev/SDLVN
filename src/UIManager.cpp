@@ -22,6 +22,7 @@ void UIManager::AddButton(std::shared_ptr<Button> button) {
 
 
 void UIManager::RemoveButton(std::string btnName) {
+	// need to implement
 	_buttons.clear();
 }
 

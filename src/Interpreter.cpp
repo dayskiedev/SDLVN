@@ -159,11 +159,8 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 		_spriteManager->addSprite(spriteObjName, spriteTexName, spritePosition, spriteScale);
 
 		auto spriteToAnimate = _spriteManager->findSpriteByName(spriteObjName);
-
-		_animationManager->QueueAnimation((*spriteToAnimate), "fadeIn", 0.1, false);
+		_animationManager->QueueAnimation((*spriteToAnimate), "fadeIn", fadeInSpeed, false);
 	}
-
-
 	
 	else if (_commandArgs[0] == "*exit") {
 		spriteObjName = _commandArgs[1];
@@ -175,8 +172,7 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 		spriteObjName = _commandArgs[1];
 		spriteTexName = _commandArgs[2];
 
-		_spriteManager->setSprite(spriteObjName, spriteTexName);
-		
+		_spriteManager->setSprite(spriteObjName, spriteTexName);		
 	}
 
 	else if (_commandArgs[0] == "*cleartext") {
@@ -205,6 +201,8 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 		// *wait [time_to_wait]
 		// this will most likely pause everything (ie animations) as well.
 		// change to increment based wait like with scrolling text
+
+		increment = false;
 		double delayTime = 0;
 		try {
 			delayTime = std::stod(_commandArgs[1]);
@@ -213,11 +211,6 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 			std::cout << (ia.what()) << std::endl;
 			return;
 		}
-
-		delayTime *= 1000; //ms to second
-		std::cout << "waiting " << delayTime << std::endl;
-		SDL_Delay(delayTime);
-		std::cout << "wating finished!" << std::endl;
 	}
 
 	else if (_commandArgs[0] == "*choice") {
@@ -345,6 +338,7 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 		_animationManager->QueueAnimation((*spriteToAnimate), animToPlay, 0.1, false);
 
 		std::cout << "Playing animation " << animToPlay << " for sprite " << aSprite << std::endl;
+
 	}
 
 	// jumptoline command

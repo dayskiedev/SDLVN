@@ -78,7 +78,5 @@ private:
 	// value member?
 	AudioManager audioManager;
 
-	// animation manager is its own thing? That way we can have animations on the menu/ui
-	// while also working in the game
 	std::shared_ptr<AnimationManager> _animationManager;
 };

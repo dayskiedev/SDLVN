@@ -1,7 +1,7 @@
 *setbackground entrance.png 
-*enter rin rin.png CENTRE_STAGE 0.6
 Yo, whats up loser?
-“ú–{Œê‚Í‚·‚°‚¦
+*enter rin rin.png CENTRE_STAGE 0.6
+...
 # *jumpto bad
 *reply "Oh. it's you."
 *cleartext
@@ -29,6 +29,7 @@ Hmpg!
 *setbackground umabackground.png
 *enter saber saber.png CENTRE_STAGE 0.6
 I am also in this episode
+*playsong daytheme.wav
 *setsprite saber saber2.png
 Ha Ha Ha
 *reply "..."

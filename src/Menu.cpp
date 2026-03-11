@@ -72,8 +72,8 @@ void Menu::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
 	menuUi->AddButton(optButton);
 	menuUi->AddButton(quitButton);
 
-	title = std::make_unique<Text>("SDLVN", 120, Text::UI, menuRenderer);
-	version = std::make_unique<Text>("v0.1.4", 30, Text::UI, menuRenderer);
+	title = std::make_unique<Text>(PROGRAM_NAME, 120, Text::UI, menuRenderer);
+	version = std::make_unique<Text>(PROGRAM_VERSION, 30, Text::UI, menuRenderer);
 
 
 	// other UI

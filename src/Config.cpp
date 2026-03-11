@@ -4,7 +4,7 @@
 
 // SAVE DATA DEFAULT INFORMATION FOR NEW GAME
 int _SCRIPT_LINE = 0;
-std::string _SCRIPT_PATH = "assets/scripts/test_story.vns";
+std::string _SCRIPT_PATH = "assets/scripts/example_script.vns";
 std::string _BACKGROUND_PATH = "assets/backgrounds/dojo.png";
 const int SAVE_VERSION = 1;
 
@@ -20,6 +20,8 @@ int CHOICE_BUTTON_HEIGHT = 150;
 
 // config data
 const std::string PROGRAM_NAME = "SDLVN";
+
+const std::string PROGRAM_VERSION = "V.0.6.3";
 
 double DEFAULT_TEXT_SPEED = 1.5;
 

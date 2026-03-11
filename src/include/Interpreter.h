@@ -66,6 +66,7 @@ private:
 	double textSpeed	= DEFAULT_TEXT_SPEED;
 	double textCounter	= 0;
 	double threshold	= 50 / textSpeed;
+	double fadeInSpeed	= 0.15;
 
 	std::string _curMusicPath;
 	bool _musPlaying;
