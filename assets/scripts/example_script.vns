@@ -1,3 +1,28 @@
+# Currrent commands and their functions:
+# #############################################################################
+# '#' lets you comment inside a vns file, line gets ignored
+# 'enter [character name] [sprite name] [position] [sprite scale]'
+#	creates a character with a sprite, who then appears on screen in [position]
+#	sprite scale is used to change the size of sprites so they fit the screen better
+# 'exit [character name]' removes [characetr name] from the scene
+# 'setsprite [character name] [sprite name]' sets the current sprite of [character name] to [sprite name]
+# 'clear text' removes all dialouge on screen
+# 'textspeed [speed]' sets the scroll speed of dialouge to [speed]
+# 'wait [seconds]' causes the program to wait [seconds] before any further action
+# 'choice [num] [opt n] [text n]...' 
+#	creates [num] number of on screen buttons that represent user choices
+#	each choice corresponds to [opt n] and contains [text n]
+# 'reply' [text] a custom choice with a single option only
+# 'setbackground [background]' changes the background to [background]
+# 'jumpto [choice]' sets the current script line to [choice], which is defined as ':[choice name]'
+# 'playsong [song name]' starts playing [song]
+# 'pausesong' pauses the current song playing
+# 'resumesong' resumes the current song playing
+# 'stopsong' stops the current song playing
+# 'play [character name] [animation name] [time]
+#	plays [animation name] for [character name] over a defined [time]
+# #############################################################################
+
 *setbackground entrance.png 
 Yo, whats up loser?
 *enter rin rin.png CENTRE_STAGE 0.6

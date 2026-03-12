@@ -139,9 +139,6 @@ void GameManager::SetSaveReferences(std::shared_ptr<Interpreter> interpreterInfo
 }
 
 void GameManager::QuickSave() {
-	// this directly sets the gamemangers savedata and currently just runs whenever we pause,
-	// so the game knows where to go back to afterwards....
-	// ideally id like to instead just renderer directly in the game but idk...
 	saveData.scriptPath = _interpreterInfo->GetCurrentScript();
 	saveData.scriptLine = _interpreterInfo->GetCurrentScriptLine();
 	saveData.backgroundPath = _background->GetSpriteTexPath();
@@ -171,7 +168,6 @@ void GameManager::SaveGame(std::string savePath) {
 		std::cout << "Warning overwriting save, should double check user somehow idk" << std::endl;
 	}
 
-
 	QuickSave();
 	saveManager->Save(saveData, savePath);
 }
@@ -182,7 +178,6 @@ void GameManager::LoadSave(std::string savePath) {
 		std::cout << "Unable to find save: " << savePath << std::endl;
 		return;
 	}
-
 
 	if (!saveManager->Load(saveData, savePath)) {
 		std::cout << "error loading save";
@@ -198,12 +193,4 @@ void GameManager::DeleteSave(std::string savePath) {
 
 void GameManager::DeleteAllSaves(std::string savePath) {
 	saveManager->DeleteAll(savePath);
-}
-
-void GameManager::PrintCurrentSaveData() {
-	std::cout << "Current SaveData data:\n";
-	std::cout << saveData.scriptPath << "\n" << saveData.scriptLine << "\n" << saveData.backgroundPath << std::endl;
-	for (auto s : saveData.sprites) {
-		std::cout << s.spriteName << " " << s.spriteLocation << " \n";
-	}
 }

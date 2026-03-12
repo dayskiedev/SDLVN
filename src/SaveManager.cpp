@@ -1,13 +1,11 @@
 #include "SaveManager.h"
 
-// dump game memory into binary and load that?
-
 // SAVE STRUCTURE:
 // SAVE VERSION
 // SCRIPT LOCATION
-// TIME
-// DATE (DAY/MNTH)
-// SCRIPT LINE (THEN WE WILL AUTO READ THE LINE)
+// TIME												- TODO
+// DATE (DAY/MNTH)									- TODO
+// SCRIPT LINE (THEN WE WILL AUTO READ THE LINE)	- TODO
 // BACKGROUND TO LOAD
 // [CHARACTERS]
 // number of characters
@@ -20,10 +18,9 @@
 // CURRENT MUSIC LOADED
 // BOOL CHECK FOR MUSIC PLAYING
 // [CHOICES]
-// SET EVERY SAVED CHOICE
+// SET EVERY SAVED CHOICE							- TODO
 
 // this could probably be automated by just taking in the info and checking what type it is...
-
 void SaveManager::Save(SaveData saveRawInfo, std::string savePath) {
 
 	// need to be able to select a save file slot

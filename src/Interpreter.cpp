@@ -5,7 +5,8 @@
 // through that vector executing commands depending on the string
 
 bool Interpreter::Initialise(std::shared_ptr<SpriteManager> sm, std::shared_ptr<TextManager> tm,
-							std::shared_ptr<UIManager> uim,AudioManager* audioManager, std::shared_ptr<Sprite> bg, std::shared_ptr<AnimationManager> am, SaveData saveData) {
+							std::shared_ptr<UIManager> uim,AudioManager* audioManager, std::shared_ptr<Sprite> bg, 
+							std::shared_ptr<AnimationManager> am, SaveData saveData) {
 
 	_spriteManager = sm;
 	_textManager = tm;
@@ -137,6 +138,10 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 	if (increment) { TokenizeLine(); }
 
 	// this whole command file needs to be updated
+	// would prefer a dictonary or something 
+	// will probably split each statement into seperate functions
+
+	// check example_script.vns for a description of all functions
 
 	if (_commandArgs[0] == "#") { increment = true; }
 
@@ -341,14 +346,6 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 
 	}
 
-	// jumptoline command
-	// playmusic command
-	// pause music command
-	// stop music command
-
-	// textspeed command
-	// *textspeed [double]
-
 	else {
 		if (increment) {
 			curDialogueLine = _textManager->addText(_scriptFile[_lineCount]);
@@ -403,6 +400,3 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 	}
 	
 }
-
-std::string Interpreter::GetCurrentScript() { return _curScript; }
-int Interpreter::GetCurrentScriptLine() { return _lineCount; }

@@ -45,8 +45,6 @@ public:
 
 	void SetDefaultGameState() { saveData = {}; }
 
-	void PrintCurrentSaveData();
-
 	AudioManager* GetAudioManager() { return &audioManager; }
 	std::shared_ptr<AnimationManager> GetAnimationManager() { return _animationManager; }
 

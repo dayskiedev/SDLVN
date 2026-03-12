@@ -31,13 +31,12 @@ public:
 					std::shared_ptr<UIManager> uim, AudioManager* audioManager, std::shared_ptr<Sprite> bg, std::shared_ptr<AnimationManager> am, SaveData saveData);
 	bool OpenScript(std::string scriptPath);
 
-	std::string GetCurrentScript();
-	int GetCurrentScriptLine();
+	std::string GetCurrentScript() { return _curScript; }
+	int GetCurrentScriptLine() { return _lineCount; }
 
 	std::string GetCurrentMusicPath() { return _curMusicPath; }
 	bool GetMusicPlaying() { return _musPlaying; }
 
-	// pass by referecne because we want to modify the sprites/text in these vectors
 	void Run(SDL_Event e, double deltaTime);
 
 	void JumpToChoice(std::string choice);
@@ -51,7 +50,7 @@ private:
 	std::string spriteTexName;
 	std::string spritePosition;
 
-	int _lineCount = 0; //temp value, will be replaced with script loading
+	int _lineCount = 0; 
 	bool increment = true;
 	bool incrementText = false;
 
@@ -71,7 +70,6 @@ private:
 	std::string _curMusicPath;
 	bool _musPlaying;
 
-//	UIManager* _uiManager;
 	std::shared_ptr<SpriteManager> _spriteManager;
 	std::shared_ptr<TextManager> _textManager;
 	std::shared_ptr<UIManager> _uiManager; 
