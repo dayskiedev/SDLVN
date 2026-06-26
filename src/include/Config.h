@@ -30,6 +30,8 @@ extern std::string GLOBAL_MUSIC_PATH;
 
 extern double DEFAULT_TEXT_SPEED;
 
+extern std::string DEFAULT_TEXT_BOX;
+
 extern std::string DEFAULT_BUTTON_TEXTURE;
 
 extern std::string DEFAULT_SAVE_LOCATION;

@@ -45,7 +45,6 @@ private:
 	// these need to change
 	const int tOffsetX = 20;
 	const int tOffsetY = 34;
-
 	
 	enum GAME_STATE {
 		RUNNING,    // main game loop running

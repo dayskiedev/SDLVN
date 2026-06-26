@@ -32,6 +32,8 @@ std::string GLOBAL_SCRIPTS_PATH = "assets/scripts/";
 std::string GLOBAL_SOUNDS_PATH = "assets/sounds/";
 std::string GLOBAL_MUSIC_PATH = "assets/music/";
 
+std::string DEFAULT_TEXT_BOX = "assets/sprites/textbox.png";
+
 std::string DEFAULT_BUTTON_TEXTURE = "assets/sprites/sans.png";
 
 std::string DEFAULT_SAVE_LOCATION = "assets/saves/";

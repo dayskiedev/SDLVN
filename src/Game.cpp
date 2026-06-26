@@ -5,7 +5,17 @@
 // settings relies on ui
 // fixing game window size issues
 
+Texture testBox;
+
 void Game::EnterState(SDL_Renderer* renderer, GameManager* gameManager) {
+	testBox.setRenderer(renderer);
+	testBox.loadFromFile(DEFAULT_TEXT_BOX);
+	testBox.setWidth(500);
+	testBox.setHeight(200);
+
+	testBox.setX(RELATIVE_SCREEN_WIDTH / 2);
+	testBox.setY(RELATIVE_SCREEN_HEIGHT - testBox.getHeight());
+
 	gameRenderer = renderer;
 	_gameManager = gameManager;
 	_gameManager->SetSaveReferences(interpreter, spriteManager, gBackground);
@@ -122,6 +132,8 @@ void Game::Render() {
 	// which we want to do in certain events (ie show CG background)
 	SDL_SetRenderDrawColor(gameRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	SDL_RenderClear(gameRenderer);
+
+	testBox.Render();
 
 	switch (currentState) {
 		case RUNNING:

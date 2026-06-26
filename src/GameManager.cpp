@@ -2,86 +2,86 @@
 
 // game manager will initialise the master window that gets sent to both the game and the menu
 
-bool GameManager::Init() {
-	//initialze sdl
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
-		std::cout << "SDL could not be initialised!" << std::endl;
-		return false;
+	bool GameManager::Init() {
+		//initialze sdl
+		if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
+			std::cout << "SDL could not be initialised!" << std::endl;
+			return false;
+		}
+		std::cout << "SDL initialised" << std::endl;
+
+		// Create window
+		gWindow = SDL_CreateWindow(PROGRAM_NAME.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, RELATIVE_SCREEN_WIDTH, RELATIVE_SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+		if (gWindow == NULL) {
+			std::cout << "Window could not be created!" << std::endl;
+			return false;
+		}
+		std::cout << "Window created" << std::endl;
+
+		// Create Renderer for window
+		gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED);
+		if (gRenderer == NULL) {
+			std::cout << "Renderer could not be created: " << SDL_GetError() << std::endl;
+			return false;
+		}
+		std::cout << "Renderer created" << std::endl;
+
+		SDL_SetRenderDrawColor(gRenderer, 255, 175, 222, 0xFF);
+		SDL_SetRenderDrawBlendMode(gRenderer, SDL_BLENDMODE_BLEND);
+
+		// here is how we will handle scaling for different resolutions with a single number
+		// the game ui is set around the idea we have a 1280 x 720 screen dont ask me why i just started with that ok
+		// from there we can increase or decrease it by fixed amounts using a scaler
+		// the math for this is easy. ex: 1920/1280 = 1.5 so to get 1080p we scale by 1.5
+		// 1440p means 2560 / 1280 = 2
+		SDL_RenderSetScale(gRenderer, RESOLUTION_SCALE, RESOLUTION_SCALE);
+		SDL_SetWindowSize(gWindow, RELATIVE_SCREEN_WIDTH * RESOLUTION_SCALE,  RELATIVE_SCREEN_HEIGHT * RESOLUTION_SCALE);
+
+		if (FULLSCREEN) {
+			SDL_SetWindowFullscreen(gWindow, SDL_WINDOW_FULLSCREEN_DESKTOP);
+		}
+
+		// 
+		// imgs
+		int imgFlags = IMG_INIT_PNG;
+		if (!(IMG_Init(imgFlags) & imgFlags)) {
+			std::cout << "SDL_Image could not be initialised! " << IMG_GetError() << std::endl;
+			return false;
+		}
+		std::cout << "IMG initialised" << std::endl;
+
+		// fonts
+		if (TTF_Init() == -1) {
+			std::cout << "SDL_TTF could not be initialised! " << TTF_GetError() << std::endl;
+			return false;
+		}
+		std::cout << "TTF initialised" << std::endl;
+
+		// audio
+		if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+			std::cout << "SDL_mixer could not be initalised! " << Mix_GetError() << std::endl;
+			return false;
+		}
+
+		std::cout << "Mixer initialised" << std::endl;
+		audioManager.LoadSystemSounds();
+
+		saveManager = std::make_unique<SaveManager>();
+
+		std::cout << "Save Manager initialised" << std::endl;
+
+		_animationManager = std::make_shared<AnimationManager>();
+
+		std::cout << "Animation Manager initalised" << std::endl;
+
+		// start off by setting the launch state TO a menu instance
+		currentState = std::make_unique<Menu>();
+		currentState->EnterState(gRenderer, this);
+
+		std::cout << "Default state initialised" << std::endl;
+
+		return true;
 	}
-	std::cout << "SDL initialised" << std::endl;
-
-	// Create window
-	gWindow = SDL_CreateWindow(PROGRAM_NAME.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, RELATIVE_SCREEN_WIDTH, RELATIVE_SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-	if (gWindow == NULL) {
-		std::cout << "Window could not be created!" << std::endl;
-		return false;
-	}
-	std::cout << "Window created" << std::endl;
-
-	// Create Renderer for window
-	gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED);
-	if (gRenderer == NULL) {
-		std::cout << "Renderer could not be created: " << SDL_GetError() << std::endl;
-		return false;
-	}
-	std::cout << "Renderer created" << std::endl;
-
-	SDL_SetRenderDrawColor(gRenderer, 255, 175, 222, 0xFF);
-	SDL_SetRenderDrawBlendMode(gRenderer, SDL_BLENDMODE_BLEND);
-
-	// here is how we will handle scaling for different resolutions with a single number
-	// the game ui is set around the idea we have a 1280 x 720 screen dont ask me why i just started with that ok
-	// from there we can increase or decrease it by fixed amounts using a scaler
-	// the math for this is easy. ex: 1920/1280 = 1.5 so to get 1080p we scale by 1.5
-	// 1440p means 2560 / 1280 = 2
-	SDL_RenderSetScale(gRenderer, RESOLUTION_SCALE, RESOLUTION_SCALE);
-	SDL_SetWindowSize(gWindow, RELATIVE_SCREEN_WIDTH * RESOLUTION_SCALE,  RELATIVE_SCREEN_HEIGHT * RESOLUTION_SCALE);
-
-	if (FULLSCREEN) {
-		SDL_SetWindowFullscreen(gWindow, SDL_WINDOW_FULLSCREEN_DESKTOP);
-	}
-
-	// 
-	// imgs
-	int imgFlags = IMG_INIT_PNG;
-	if (!(IMG_Init(imgFlags) & imgFlags)) {
-		std::cout << "SDL_Image could not be initialised! " << IMG_GetError() << std::endl;
-		return false;
-	}
-	std::cout << "IMG initialised" << std::endl;
-
-	// fonts
-	if (TTF_Init() == -1) {
-		std::cout << "SDL_TTF could not be initialised! " << TTF_GetError() << std::endl;
-		return false;
-	}
-	std::cout << "TTF initialised" << std::endl;
-
-	// audio
-	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
-		std::cout << "SDL_mixer could not be initalised! " << Mix_GetError() << std::endl;
-		return false;
-	}
-
-	std::cout << "Mixer initialised" << std::endl;
-	audioManager.LoadSystemSounds();
-
-	saveManager = std::make_unique<SaveManager>();
-
-	std::cout << "Save Manager initialised" << std::endl;
-
-	_animationManager = std::make_shared<AnimationManager>();
-
-	std::cout << "Animation Manager initalised" << std::endl;
-
-	// start off by setting the launch state TO a menu instance
-	currentState = std::make_unique<Menu>();
-	currentState->EnterState(gRenderer, this);
-
-	std::cout << "Default state initialised" << std::endl;
-
-	return true;
-}
 
 void GameManager::Run() {
 
