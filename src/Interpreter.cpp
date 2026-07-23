@@ -329,22 +329,22 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 		_musPlaying = false;
 	}
 
-	else if (_commandArgs[0] == "*play") {
-		std::string aSprite = _commandArgs[1];
-		std::string animToPlay = _commandArgs[2];
+	//else if (_commandArgs[0] == "*play") {
+	//	std::string aSprite = _commandArgs[1];
+	//	std::string animToPlay = _commandArgs[2];
 
-		if (_animationManager == nullptr) {
-			std::cout << "Animation Manager is null, did you pass it through properly?" << std::endl;
-			return;
-		}
+	//	if (_animationManager == nullptr) {
+	//		std::cout << "Animation Manager is null, did you pass it through properly?" << std::endl;
+	//		return;
+	//	}
 
-		auto spriteToAnimate = _spriteManager->findSpriteByName(aSprite);
+	//	auto spriteToAnimate = _spriteManager->findSpriteByName(aSprite);
 
-		_animationManager->QueueAnimation((*spriteToAnimate), animToPlay, 0.1, false);
+	//	_animationManager->QueueAnimation((*spriteToAnimate), animToPlay, 0.1, false);
 
-		std::cout << "Playing animation " << animToPlay << " for sprite " << aSprite << std::endl;
+	//	std::cout << "Playing animation " << animToPlay << " for sprite " << aSprite << std::endl;
 
-	}
+	//}
 
 	else {
 		if (increment) {

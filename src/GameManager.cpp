@@ -3,6 +3,9 @@
 // game manager will initialise the master window that gets sent to both the game and the menu
 
 	bool GameManager::Init() {
+		// load config which is just setting values for config.h to be used in program
+
+
 		//initialze sdl
 		if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
 			std::cout << "SDL could not be initialised!" << std::endl;

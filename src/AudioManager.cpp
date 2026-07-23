@@ -55,6 +55,7 @@ void AudioManager::PlaySong(std::string song) {
 		return;
 	}
 	Mix_PlayMusic(curSong, -1);
+	
 }
 
 void AudioManager::PauseSong() {

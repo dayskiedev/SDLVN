@@ -133,7 +133,6 @@ void Game::Render() {
 	SDL_SetRenderDrawColor(gameRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	SDL_RenderClear(gameRenderer);
 
-	testBox.Render();
 
 	switch (currentState) {
 		case RUNNING:
