@@ -150,7 +150,8 @@ void Interpreter::Run(SDL_Event e, double deltaTime) {
 		// some sort of arg checker 
 		spriteObjName	= _commandArgs[1];
 		spriteTexName	= _commandArgs[2];
-		spritePosition = ""; // DEFAULT
+		spritePosition = _commandArgs[3];
+		std::cout << spritePosition << "\n";
 		double spriteScale = 1.0;
 
 		if (_commandArgs.size() > 3) { 

@@ -4,8 +4,8 @@
 
 // SAVE DATA DEFAULT INFORMATION FOR NEW GAME
 int _SCRIPT_LINE = 0;
-std::string _SCRIPT_PATH = "assets/scripts/example_script.vns";
-std::string _BACKGROUND_PATH = "assets/backgrounds/dojo.png";
+std::string _SCRIPT_PATH = "assets/scripts/welcome_to_eden.vns";
+std::string _BACKGROUND_PATH = "assets/backgrounds/black.png";
 const int SAVE_VERSION = 1;
 
 int RELATIVE_SCREEN_WIDTH = 1280;

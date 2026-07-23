@@ -29,8 +29,8 @@ void SpriteManager::addSprite(std::string spriteObjName, std::string spriteTexNa
 	sprite->loadFromFile(spritePath);
 
 	if (_spritePositions.find(screenPos) == _spritePositions.end()) {
-		std::cout << "Unable to find position " << screenPos << " in map, using default value!" << std::endl;
-		screenPos = "CENTRE";
+		std::cout << "Unable to find position '" << screenPos << "' in map, using default value!" << std::endl;
+		screenPos = "centre";
 	}
 
 	int x_pos = _spritePositions.find(screenPos)->second.first;

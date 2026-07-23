@@ -13,8 +13,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # Include the FetchContent module
 include(FetchContent)
 
-# check if we're in release then remove 
-
 # -----------------------------------------------------------------------------
 # 1. SDL2 Core
 # -----------------------------------------------------------------------------

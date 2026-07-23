@@ -39,9 +39,10 @@ private:
 	std::string _spritesTexPath = "";
 
 	std::unordered_map<std::string, std::pair<int,int>> _spritePositions = {
-		{"CENTRE",		{RELATIVE_SCREEN_WIDTH / 2,	RELATIVE_SCREEN_HEIGHT / 2}},
-		{"CENTRE_STAGE", {RELATIVE_SCREEN_WIDTH / 2, RELATIVE_SCREEN_HEIGHT}},
-		{"LEFT",		{RELATIVE_SCREEN_WIDTH / 4,	RELATIVE_SCREEN_HEIGHT}},
-		{"RIGHT",		{RELATIVE_SCREEN_WIDTH / 4 + (RELATIVE_SCREEN_WIDTH / 2), RELATIVE_SCREEN_HEIGHT}}
+		{"centre",		{RELATIVE_SCREEN_WIDTH / 2,	RELATIVE_SCREEN_HEIGHT / 2}},
+		// silly pixel offset i know but idc
+		{"centre_stage", {RELATIVE_SCREEN_WIDTH / 2, RELATIVE_SCREEN_HEIGHT + 10}},
+		{"left",		{RELATIVE_SCREEN_WIDTH / 4,	RELATIVE_SCREEN_HEIGHT}},
+		{"right",		{RELATIVE_SCREEN_WIDTH / 4 + (RELATIVE_SCREEN_WIDTH / 2), RELATIVE_SCREEN_HEIGHT}}
 	};
 };
